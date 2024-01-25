@@ -1,0 +1,6 @@
+pandas
+requests
+tools
+bs4
+datetime
+PyMuPDF
