@@ -1,4 +1,5 @@
 .
+├── 2023-11-Ordin-920-din-25.04.2024-art-11.pdf
 ├── create_tables.sql
 ├── data.db
 ├── get_ordins.py
@@ -1663,6 +1664,15 @@
 │   ├── 2023-11-Ordin-637-22.03.2024-art-11.pdf
 │   ├── 2023-11-Ordin-638-P-25.03.2024-art-11.pdf
 │   ├── 2023-11-Ordin-66-din-10.01.2024-art-11.pdf
+│   ├── 2023-11-Ordin-815-din-05.04.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-828-05.04.2024-art-11.pdf
+│   ├── 2023-11-ordin-891-din-12.04.2024-art-11.pdf
+│   ├── 2023-11-Ordin-892-12.04.2024.pdf
+│   ├── 2023-11-Ordin-913-din-12.04.2024-NPE.pdf
+│   ├── 2023-11-Ordin-914-P-22.04.2024-art-11.pdf
+│   ├── 2023-11-Ordin-916-P-22.04.2024-art-11.pdf
+│   ├── 2023-11-Ordin-917-P-22.04.2024-art-11.pdf
+│   ├── 2023-11-Ordin-920-din-25.04.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-223-din-29.01.2024.pdf
 │   └── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 ├── parse_ordins.py
@@ -1698,29 +1708,7 @@
 │   │   │   ├── Art.-11-2021-Redobandire.pdf
 │   │   │   ├── Art.-11-2022-Redobandire.pdf
 │   │   │   └── Art.-11-2023-Redobandire.pdf
-│   │   ├── 2023-10-06
-│   │   │   ├── Art.-11-2015-Redobandire.pdf
-│   │   │   ├── Art.-11-2016-Redobandire.pdf
-│   │   │   ├── Art.-11-2017-Redobandire.pdf
-│   │   │   ├── Art.-11-2018-Redobandire.pdf
-│   │   │   ├── Art.-11-2019-Redobandire.pdf
-│   │   │   ├── Art.-11-2020-Redobandire.pdf
-│   │   │   ├── Art.-11-2021-Redobandire.pdf
-│   │   │   └── Art.-11-2022-Redobandire.pdf
-│   │   ├── 2023-12-29
-│   │   │   ├── Art.-11-2016-Redobandire.pdf
-│   │   │   ├── Art.-11-2017-Redobandire.pdf
-│   │   │   ├── Art.-11-2018-Redobandire.pdf
-│   │   │   ├── Art.-11-2019-Redobandire.pdf
-│   │   │   ├── Art.-11-2020-Redobandire.pdf
-│   │   │   ├── Art.-11-2021-Redobandire.pdf
-│   │   │   ├── Art.-11-2022-Redobandire.pdf
-│   │   │   └── Art.-11-2023-Redobandire.pdf
-│   │   └── 2024-04-02
-│   │       ├── Art._11_2010_Redobandire.pdf
-│   │       ├── Art._11_2012_Redobandire.pdf
-│   │       ├── Art._11_2013_Redobandire.pdf
-│   │       ├── Art._11_2014_Redobandire.pdf
+│   │   └── 2023-10-06
 │   │       ├── Art.-11-2015-Redobandire.pdf
 │   │       ├── Art.-11-2016-Redobandire.pdf
 │   │       ├── Art.-11-2017-Redobandire.pdf
@@ -1728,12 +1716,11 @@
 │   │       ├── Art.-11-2019-Redobandire.pdf
 │   │       ├── Art.-11-2020-Redobandire.pdf
 │   │       ├── Art.-11-2021-Redobandire.pdf
-│   │       ├── Art.-11-2022-Redobandire.pdf
-│   │       └── Art.-11-2023-Redobandire.pdf
+│   │       └── Art.-11-2022-Redobandire.pdf
 │   └── update-pub.sh
 ├── static
 ├── stat.sql
 ├── tree.txt
 └── update.sh
 
-11 directories, 1725 files
+9 directories, 1714 files
