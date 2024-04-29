@@ -1,5 +1,4 @@
 .
-├── 2023-11-Ordin-920-din-25.04.2024-art-11.pdf
 ├── create_tables.sql
 ├── data.db
 ├── get_ordins.py
@@ -1628,6 +1627,7 @@
 │   ├── 2023-02-Ordin-286-art-11-293-pers-.pdf
 │   ├── 2023-06-Ordin-nr.-1060-din-23.06.2023.pdf
 │   ├── 2023-06-Ordin-nr.-1130-din-23.06.2023.pdf
+│   ├── 2023-11-O-924-P-din-25.04.2024-art-11.pdf
 │   ├── 2023-11-OP-2062-din-28.11.2023-art-11.pdf
 │   ├── 2023-11-OP-252-din-02.02.2024-art-11.pdf
 │   ├── 2023-11-OP-298-din-09.02.2024-art-11.pdf
@@ -1673,6 +1673,8 @@
 │   ├── 2023-11-Ordin-916-P-22.04.2024-art-11.pdf
 │   ├── 2023-11-Ordin-917-P-22.04.2024-art-11.pdf
 │   ├── 2023-11-Ordin-920-din-25.04.2024-art-11.pdf
+│   ├── 2023-11-Ordin-922-P-24.04.2024-art-11.pdf
+│   ├── 2023-11-Ordin-923-P-24.04.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-223-din-29.01.2024.pdf
 │   └── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 ├── parse_ordins.py
@@ -1708,19 +1710,30 @@
 │   │   │   ├── Art.-11-2021-Redobandire.pdf
 │   │   │   ├── Art.-11-2022-Redobandire.pdf
 │   │   │   └── Art.-11-2023-Redobandire.pdf
-│   │   └── 2023-10-06
-│   │       ├── Art.-11-2015-Redobandire.pdf
+│   │   ├── 2023-10-06
+│   │   │   ├── Art.-11-2015-Redobandire.pdf
+│   │   │   ├── Art.-11-2016-Redobandire.pdf
+│   │   │   ├── Art.-11-2017-Redobandire.pdf
+│   │   │   ├── Art.-11-2018-Redobandire.pdf
+│   │   │   ├── Art.-11-2019-Redobandire.pdf
+│   │   │   ├── Art.-11-2020-Redobandire.pdf
+│   │   │   ├── Art.-11-2021-Redobandire.pdf
+│   │   │   └── Art.-11-2022-Redobandire.pdf
+│   │   └── 2024-04-29
 │   │       ├── Art.-11-2016-Redobandire.pdf
 │   │       ├── Art.-11-2017-Redobandire.pdf
 │   │       ├── Art.-11-2018-Redobandire.pdf
 │   │       ├── Art.-11-2019-Redobandire.pdf
 │   │       ├── Art.-11-2020-Redobandire.pdf
 │   │       ├── Art.-11-2021-Redobandire.pdf
-│   │       └── Art.-11-2022-Redobandire.pdf
+│   │       ├── Art.-11-2022-Redobandire.pdf
+│   │       ├── Art.-11-2023-Redobandire.pdf
+│   │       └── Art.-11-2024-Redobandire.pdf
 │   └── update-pub.sh
 ├── static
 ├── stat.sql
 ├── tree.txt
-└── update.sh
+├── update-ording.sh
+└── update-statiu.sh
 
-9 directories, 1714 files
+10 directories, 1726 files
