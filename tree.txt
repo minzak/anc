@@ -1675,6 +1675,9 @@
 │   ├── 2023-11-Ordin-920-din-25.04.2024-art-11.pdf
 │   ├── 2023-11-Ordin-922-P-24.04.2024-art-11.pdf
 │   ├── 2023-11-Ordin-923-P-24.04.2024-art-11.pdf
+│   ├── 2023-11-Ordin-927-din-08.05.2024.pdf
+│   ├── 2023-11-Ordin-929-P-13.05.2024.pdf
+│   ├── 2023-11-Ordin-930-din-13.05.2024.pdf
 │   ├── 2023-11-Ordin-nr.-223-din-29.01.2024.pdf
 │   └── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 ├── parse_ordins.py
@@ -1736,4 +1739,4 @@
 ├── update-ording.sh
 └── update-statiu.sh
 
-10 directories, 1726 files
+10 directories, 1729 files
