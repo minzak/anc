@@ -17,3 +17,5 @@ rm -f *.log
 ###
 #wget https://cetatenie.just.ro/storage/2023/11/Ordin-1095-din-19-06-2024-art11.pdf -O 2023-11-Ordin-1095-din-19-06-2024-art11.pdf
 #wget https://cetatenie.just.ro/storage/2023/11/Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf -O 2023-11-Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
+#wget https://cetatenie.just.ro/storage/2021/06/O-1165P-din-24-07-2024-art-8.pdf -O 2021-06-O-1165P-din-24-07-2024-art-8.pdf
+#wget https://cetatenie.just.ro/storage/2021/06/O-1166P-din-24-07-2024-art-8.pdf -O 2021-06-O-1166P-din-24-07-2024-art-8.pdf
