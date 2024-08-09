@@ -7,6 +7,8 @@ sqlite3 -echo -box data.db 'SELECT * from Dosar where id="48275/RD/2023";'
 sqlite3 -echo -box data.db 'SELECT * from Dosar where id="49000/RD/2023";'
 #https://t.me/msgme1
 sqlite3 -echo -box data.db 'SELECT * from Dosar where id="14833/RD/2024";'
+#https://t.me/Olyasoroka23
+sqlite3 -echo -box data.db 'SELECT * from Dosar where id="27030/RD/2021";'
 #https://t.me/vorkos
 sqlite3 -echo -box data.db 'SELECT * from Dosar where id="38286/RD/2021";'
 
