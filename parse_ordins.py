@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-
 import os
 import re
 import sqlite3
@@ -10,8 +9,6 @@ import fitz # install using pip install PyMuPDF
 
 Ordins = './ordins/'
 Database = './data.db'
-
-
 
 # Параметры логирования:
 # parse.log - основные логи
@@ -37,7 +34,10 @@ db = connection.cursor()
 
 logger.info( 'Start parsing ordins at ' + datetime.now().strftime("%Y-%m-%d %M:%S") )
 filecounter = 1
+
 for filename in os.listdir(Ordins):
+    if not filename.endswith(('.pdf','.PDF')):
+        continue
     date=""
     # Проходимся по списку файлов приказов и выдёргиваем данные:
     # Дата приказа (date) - первое попавшаяся дата в формате "XX.YY.ZZZZ" с вероятными пробелами рядом с точками
