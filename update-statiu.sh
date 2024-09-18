@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #stadiu/update-pub.sh
 
 #rm -f stadiu/pub/.gitkeep

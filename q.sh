@@ -1,3 +1,5 @@
+#!/bin/bash
+
 sqlite3 -echo -box data.db 'SELECT * FROM Dosar WHERE result=True AND year=2024;'
 sqlite3 -echo -box data.db 'SELECT * FROM Dosar WHERE result=True AND year=2023;'
 

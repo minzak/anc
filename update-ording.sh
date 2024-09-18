@@ -1,11 +1,10 @@
-#cd stadiu && ./update-pub.sh
-#cd ..
-#python3 ./parse_stadiu.py
+#!/bin/bash
 
 python3 ./get_ordins.py
 
 rm -f ordins/2023-11-Ordin-920-din-25.04.2024-art-11.pdf
 rm -f ordins/2023-11-Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
+rm -f ordins/2023-11-Ordin-1481P-din-12-09-2024-NPE-art-11.pdf
 python3 ./parse_ordins.py
 python3 ./get_ordins.py
 tree -L 5 -I 'venv|*.log' > tree.txt

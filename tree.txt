@@ -1666,6 +1666,8 @@
 │   ├── 2023-11-Ordin-1385-P-28-08-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1386-P-28-08-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1478-P-din-11-09-2024-art-11.pdf
+│   ├── 2023-11-Ordin-1480-P-din-12-09-2024-Art-11-NPE.pdf
+│   ├── 2023-11-Ordin-1481P-din-12-09-2024-NPE-art-11.pdf
 │   ├── 2023-11-Ordin-180-din-22.01.2024-art-11.pdf
 │   ├── 2023-11-Ordin-1976-P-16.11.2023.pdf
 │   ├── 2023-11-Ordin-1977-din-16.11.2023.pdf
@@ -1788,4 +1790,4 @@
 ├── update-ording.sh
 └── update-statiu.sh
 
-11 directories, 1777 files
+11 directories, 1779 files

@@ -45,6 +45,7 @@ for filename in os.listdir(Ordins):
     with fitz.open(Ordins + filename) as doc:
         text = ""
         dosarcounter=0
+        print(f"{'Parsing: ' + filename:<90}", end =" ")
         for page in doc:
             text += page.get_text()
             if date == "":
@@ -71,7 +72,7 @@ for filename in os.listdir(Ordins):
             SQLlogger.info('Modified: ' + str(db.rowcount))
             dosarcounter += 1
         logger.info( 'In ' + filename + ' found ' + str(dosarcounter) + ' dosars' )
-        print( 'In ' + filename + ' found ' + str(dosarcounter) + ' dosars' )
+        print( 'found' + f"{str(dosarcounter):>5}" + ' dosars' )
     connection.commit()
     filecounter += 1
 # Помечаем result=Ture для дел, у которых номер приказа встречается больше одного раза
