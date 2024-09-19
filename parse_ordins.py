@@ -7,6 +7,10 @@ import logging
 from datetime import datetime
 import fitz # install using pip install PyMuPDF
 
+COK     = '\033[92m'
+CWARN   = '\033[93m'
+CEND    = '\033[0m'
+
 Ordins = './ordins/'
 Database = './data.db'
 
@@ -45,7 +49,7 @@ for filename in os.listdir(Ordins):
     with fitz.open(Ordins + filename) as doc:
         text = ""
         dosarcounter=0
-        print(f"{'Parsing: ' + filename:<90}", end =" ")
+        print(f"{'Parsing: ' + CWARN + filename + CEND:.<110}", end ="")
         for page in doc:
             text += page.get_text()
             if date == "":
@@ -72,7 +76,8 @@ for filename in os.listdir(Ordins):
             SQLlogger.info('Modified: ' + str(db.rowcount))
             dosarcounter += 1
         logger.info( 'In ' + filename + ' found ' + str(dosarcounter) + ' dosars' )
-        print( 'found' + f"{str(dosarcounter):>5}" + ' dosars' )
+        howdosar=str(dosarcounter).zfill(4)
+        print(f"{'found ' + COK + howdosar + CEND + ' dosars'}")
     connection.commit()
     filecounter += 1
 # Помечаем result=Ture для дел, у которых номер приказа встречается больше одного раза

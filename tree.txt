@@ -1,7 +1,9 @@
 .
 ├── create_tables.sql
 ├── data.db
+├── data.db.bz2
 ├── get_ordins.py
+├── init_db.sh
 ├── install.sh
 ├── ordins
 │   ├── 2019-12-Ordin-nr.-1477P-din-27.09.2021.pdf
@@ -1668,6 +1670,7 @@
 │   ├── 2023-11-Ordin-1478-P-din-11-09-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1480-P-din-12-09-2024-Art-11-NPE.pdf
 │   ├── 2023-11-Ordin-1481P-din-12-09-2024-NPE-art-11.pdf
+│   ├── 2023-11-ordin-1596-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1597-P-din-19-09-2024-art-11.pdf
 │   ├── 2023-11-Ordin-180-din-22.01.2024-art-11.pdf
 │   ├── 2023-11-Ordin-1976-P-16.11.2023.pdf
@@ -1725,6 +1728,7 @@
 │   └── 2023-11-Ordinul-1136-din-05-07-2024-art-11.pdf
 ├── parse_ordins.py
 ├── parse_stadiu.py
+├── parse_stadiu_silent.py
 ├── q.sh
 ├── q.txt
 ├── readme.md
@@ -1787,8 +1791,9 @@
 │   └── update-pub.sh
 ├── static
 ├── stat.sql
+├── todo.txt
 ├── tree.txt
 ├── update-ording.sh
-└── update-statiu.sh
+└── update-stadiu.sh
 
-11 directories, 1780 files
+11 directories, 1785 files

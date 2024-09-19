@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-
 import os
 import requests
 import re
@@ -11,7 +10,6 @@ import fitz # install using pip install PyMuPDF
 
 Stadiu = './stadiu/pub/'
 Database = './data.db'
-
 
 # Функция проверки текстовой строки на валидность.
 # Должна быть либо в формате ДД.ММ.ГГГ, либо None
@@ -70,7 +68,7 @@ for directory in sorted(os.listdir(Stadiu)):
                         size_filtered_line = len(filtered_line)
                         if size_line == 5:
                             # Строка распозналась корректно, все 5 полей
-                            print('Алгоритм - 5 полей', line)
+                            print(f"{'Алгоритм - 5 полей':<40}", str(line).rjust(80))
                             logger.info('Алгоритм - 5 полей ' + '[ ' + '; '.join(line) + ' ]')
                             DEPUN   = line[1]
                             TERMEN  = line[2]
@@ -78,7 +76,7 @@ for directory in sorted(os.listdir(Stadiu)):
                             SOLUTIE = line[4]
                         elif size_filtered_line == 4:
                             # 4 поля, считаем, что это id, дата досара, номер приказа и дата решения
-                            print('Алгоритм - 4 поля', line)
+                            print(f"{'Алгоритм - 4 поля':<40}", str(line).rjust(80))
                             logger.info('Алгоритм - 4 поля ' + '[ ' + '; '.join(line) + ' ]')
                             DEPUN   = filtered_line[1]
                             TERMEN  = None
@@ -91,7 +89,7 @@ for directory in sorted(os.listdir(Stadiu)):
                                 # В старых досар могут быть такие комбинации:
                                 #   id, дата досара, номер приказа (с датой)
                                 #   id, дата досара, термен - этот вариант в другой ветке if
-                                print('Алгоритм - 3 поля, старый стадиу', line)
+                                print(f"{'Алгоритм - 3 поля, старый стадиу':<40}", str(line).rjust(80))
                                 logger.info('Алгоритм - 3 поля, старый стадиу ' + '[ ' + '; '.join(line) + ' ]')
                                 DEPUN   = line[1]
                                 TERMEN  = None
@@ -100,7 +98,7 @@ for directory in sorted(os.listdir(Stadiu)):
                             elif '/' in string and not vali_date(string.split('/')[-1]):
                                 # Хак для старых стадиу, где для досара указан только номер приказа без даты
                                 # Для таких дел не будет даты решения, только номер приказа
-                                print('Алгоритм - 3 поля, нет даты приказа', line)
+                                print(f"{'Алгоритм - 3 поля, нет даты приказа':<40}", str(line).rjust(80))
                                 logger.info('Алгоритм - 3 поля, нет даты приказа ' + '[ ' + '; '.join(line) + ' ]')
                                 DEPUN   = line[1]
                                 TERMEN  = None
@@ -110,7 +108,7 @@ for directory in sorted(os.listdir(Stadiu)):
                                 SOLUTIE = None if not regex_result else regex_result.group(1)
                             else:
                                 # 3 поля, считаем, что это id, дата досара, термен
-                                print('Алгоритм - 3 поля', line)
+                                print(f"{'Алгоритм - 3 поля':<40}",str(line).rjust(80))
                                 logger.info('Алгоритм - 3 поля ' + '[ ' + '; '.join(line) + ' ]')
                                 DEPUN   = filtered_line[1]
                                 TERMEN  = filtered_line[2]
@@ -119,7 +117,8 @@ for directory in sorted(os.listdir(Stadiu)):
                         elif size_filtered_line == 2:
                             # 2 поля, считаем, что это id и дата досара
                             logger.info('Алгоритм - 2 поля ' + '[ ' + '; '.join(line) + ' ]')
-                            print('Алгоритм - 2 поля', line)
+                            #print('Алгоритм - 2 поля', line)
+                            print(f"{'Алгоритм - 2 поля':<40}", str(line).rjust(80))
                             DEPUN   = filtered_line[1]
                             TERMEN  = None
                             ORDIN   = None
@@ -134,7 +133,7 @@ for directory in sorted(os.listdir(Stadiu)):
                         else:
                             output_str = '\t\t\t\t\t\t\t\t\t\t\t\t\t' + str(ID) + '\t' + str(DEPUN) + '\t' + str(TERMEN) +'\t\t' + str(ORDIN) +'\t' + str(SOLUTIE)
                             logger.info(output_str)
-                            print(output_str.expandtabs())
+                            #print(output_str.expandtabs())
                         # Форматирование данных и исправление других ошибок
                         YEAR    = int(ID.split("/")[-1])
                         NUMBER  = int(ID.split("/")[0])

@@ -1,0 +1,12 @@
+#TODO
+
+parsing file: ./stadiu/pub/2023-05-02/Art.-11-2021-Redobandire.pdf
+FAIL: Ошибка распознавания строки [ 29.03.2022 ]
+parsing file: ./stadiu/pub/2023-05-02/Art.-11-2018-Redobandire.pdf
+FAIL: Ошибка распознавания строки [ 44914/RD/2018; 22.06.2018; ; 2189 ]
+parsing file: ./stadiu/pub/2023-05-02/Art.-11-2017-Redobandire.pdf
+FAIL: Ошибка распознавания строки [ 55460/RD/2017; 25.07.2017; ; 1397 ]
+parsing file: ./stadiu/pub/2023-07-14/Art.-11-2023-Redobandire.pdf
+FAIL: На одной из страниц файла Art.-11-2023-Redobandire.pdf, после досара 24194/RD/2023не найдено таблиц
+parsing file: ./stadiu/pub/2023-10-06/Art.-11-2015-Redobandire.pdf
+FAIL: На одной из страниц файла Art.-11-2015-Redobandire.pdf, после досара 81154/RD/2015не найдено таблиц
