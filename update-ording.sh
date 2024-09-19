@@ -10,6 +10,7 @@ python3 ./get_ordins.py
 tree -L 5 -I 'venv|*.log' > tree.txt
 ./q.sh > q.txt
 rm -f *.log
+tar -cvjSf data.db.bz2 data.db
 
 ###
 #wget https://cetatenie.just.ro/storage/2023/11/Ordin-1095-din-19-06-2024-art11.pdf -O 2023-11-Ordin-1095-din-19-06-2024-art11.pdf
