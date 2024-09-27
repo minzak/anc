@@ -1,5 +1,14 @@
 .
 ├── create_tables.sql
+├── crt
+│   ├── cacert.sh
+│   ├── cetatenie-just-ro_chain.pem
+│   ├── cetatenie-just-ro_g2.pem
+│   ├── cetatenie-just-ro.pem
+│   ├── cetatenie-just-ro_web_ca.pem
+│   ├── c.txt
+│   ├── get_cert.sh
+│   └── get_data.sh
 ├── data.db
 ├── data.db.bz2
 ├── get_ordins.py
@@ -1722,6 +1731,10 @@
 │   ├── 2023-11-Ordin-971-29.05.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr-1314-din-14-08-2024-Art-11-NPE.pdf
 │   ├── 2023-11-Ordin-nr-1400P-din-04-09-2024-Art-11-NPE.pdf
+│   ├── 2023-11-Ordin-nr.-1659P-din-23.09.2024.pdf
+│   ├── 2023-11-Ordin-nr.-1759P-din-24.09.2024.pdf
+│   ├── 2023-11-Ordin-nr.-1774P-din-25.09.2024.pdf
+│   ├── 2023-11-Ordin-nr.-1776P-din-26.09.2024.pdf
 │   ├── 2023-11-Ordin-nr.-223-din-29.01.2024.pdf
 │   ├── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 │   ├── 2023-11-Ordin-nr.-935-din-20.05.2024.pdf
@@ -1796,4 +1809,4 @@
 ├── update-ording.sh
 └── update-stadiu.sh
 
-11 directories, 1785 files
+12 directories, 1797 files

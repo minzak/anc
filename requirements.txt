@@ -4,3 +4,4 @@ tools
 bs4
 datetime
 PyMuPDF
+pycurl

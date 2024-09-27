@@ -10,6 +10,7 @@ python3 ./get_ordins.py
 tree -L 5 -I 'venv|*.log' > tree.txt
 ./q.sh > q.txt
 rm -f *.log
+echo "Packing DB."
 tar -cvjSf data.db.bz2 data.db
 
 ###
