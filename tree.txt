@@ -1,19 +1,20 @@
 .
+├── 2023-11-Ordin-1481P-din-12-09-2024-NPE-art-11.pdf
+├── 2023-11-Ordin-920-din-25.04.2024-art-11.pdf
 ├── create_tables.sql
 ├── crt
-│   ├── cacert.sh
 │   ├── cetatenie-just-ro_chain.pem
 │   ├── cetatenie-just-ro_g2.pem
 │   ├── cetatenie-just-ro.pem
 │   ├── cetatenie-just-ro_web_ca.pem
-│   ├── c.txt
 │   ├── get_cert.sh
-│   └── get_data.sh
+│   └── system_cacert.sh
 ├── data.db
 ├── data.db.bz2
 ├── get_ordins.py
 ├── init_db.sh
 ├── install.sh
+├── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── ordins
 │   ├── 2019-12-Ordin-nr.-1477P-din-27.09.2021.pdf
 │   ├── 2019-12-Ordin-nr.-1478P-din-27.07.2021.pdf
@@ -736,6 +737,7 @@
 │   ├── 2021-06-Ordin_nr._1892P_din_12.11.2018.pdf
 │   ├── 2021-06-Ordin_nr._1893P_din_12.11.2018.pdf
 │   ├── 2021-06-Ordin_nr._18P_din_03.02.2020.pdf
+│   ├── 2021-06-Ordin-nr.-1907-din-04.10.2024.pdf
 │   ├── 2021-06-Ordin_nr._1931P_din_13.11.2018.pdf
 │   ├── 2021-06-Ordin_nr._195-P-11.02.2020.pdf
 │   ├── 2021-06-Ordin_nr._196P_din_11.02.2020.pdf
@@ -1652,6 +1654,7 @@
 │   ├── 2023-11-OP-1189-din-25-07-2024-art-11.pdf
 │   ├── 2023-11-OP-1192-26-07-2024-art-11.pdf
 │   ├── 2023-11-OP-1230-din-1-08-2024-art-11.pdf
+│   ├── 2023-11-OP-1949-din-07-10-2024-Art-11.pdf
 │   ├── 2023-11-OP-2062-din-28.11.2023-art-11.pdf
 │   ├── 2023-11-OP-252-din-02.02.2024-art-11.pdf
 │   ├── 2023-11-OP-298-din-09.02.2024-art-11.pdf
@@ -1735,10 +1738,13 @@
 │   ├── 2023-11-Ordin-nr.-1759P-din-24.09.2024.pdf
 │   ├── 2023-11-Ordin-nr.-1774P-din-25.09.2024.pdf
 │   ├── 2023-11-Ordin-nr.-1776P-din-26.09.2024.pdf
+│   ├── 2023-11-Ordin-nr.-1818P-din-01.10.2024.pdf
+│   ├── 2023-11-Ordin-nr.-1828-din-02.10.2024.pdf
 │   ├── 2023-11-Ordin-nr.-223-din-29.01.2024.pdf
 │   ├── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 │   ├── 2023-11-Ordin-nr.-935-din-20.05.2024.pdf
-│   └── 2023-11-Ordinul-1136-din-05-07-2024-art-11.pdf
+│   ├── 2023-11-Ordinul-1136-din-05-07-2024-art-11.pdf
+│   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_ordins.py
 ├── parse_stadiu.py
 ├── parse_stadiu_silent.py
@@ -1809,4 +1815,4 @@
 ├── update-ording.sh
 └── update-stadiu.sh
 
-12 directories, 1797 files
+12 directories, 1803 files
