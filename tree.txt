@@ -1,6 +1,4 @@
 .
-├── 2023-11-Ordin-1481P-din-12-09-2024-NPE-art-11.pdf
-├── 2023-11-Ordin-920-din-25.04.2024-art-11.pdf
 ├── create_tables.sql
 ├── crt
 │   ├── cetatenie-just-ro_chain.pem
@@ -14,7 +12,6 @@
 ├── get_ordins.py
 ├── init_db.sh
 ├── install.sh
-├── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── ordins
 │   ├── 2019-12-Ordin-nr.-1477P-din-27.09.2021.pdf
 │   ├── 2019-12-Ordin-nr.-1478P-din-27.07.2021.pdf
@@ -1643,18 +1640,22 @@
 │   ├── 2023-06-Ordin-nr.-1060-din-23.06.2023.pdf
 │   ├── 2023-06-Ordin-nr.-1130-din-23.06.2023.pdf
 │   ├── 2023-11-1138-din-05-07-2024-art-11.pdf
+│   ├── 2023-11-1959-P-09-10-2024-NPE-art-11.pdf
 │   ├── 2023-11-O-1096-P-26-06-2024-art-11.pdf
 │   ├── 2023-11-O-1191-P-25-07-2024-art-11.pdf
 │   ├── 2023-11-O-1193P-din-26-07-2024-art-11.pdf
 │   ├── 2023-11-O-1233-P-din-02-08-2024-art-11.pdf
 │   ├── 2023-11-O-1341-P-20-08-2024-art-11.pdf
 │   ├── 2023-11-O-1381-P-din-23-08-2024-art-11.pdf
+│   ├── 2023-11-O-2008-P-din-14-10-2024-art-11.pdf
 │   ├── 2023-11-O-924-P-din-25.04.2024-art-11.pdf
 │   ├── 2023-11-OP-1033-din-11.06.2024-art-11.pdf
 │   ├── 2023-11-OP-1189-din-25-07-2024-art-11.pdf
 │   ├── 2023-11-OP-1192-26-07-2024-art-11.pdf
 │   ├── 2023-11-OP-1230-din-1-08-2024-art-11.pdf
+│   ├── 2023-11-OP-1788-din-30-09-2024-Moldova.pdf
 │   ├── 2023-11-OP-1949-din-07-10-2024-Art-11.pdf
+│   ├── 2023-11-op-1983-11-10-2024-art-11.pdf
 │   ├── 2023-11-OP-2062-din-28.11.2023-art-11.pdf
 │   ├── 2023-11-OP-252-din-02.02.2024-art-11.pdf
 │   ├── 2023-11-OP-298-din-09.02.2024-art-11.pdf
@@ -1684,9 +1685,21 @@
 │   ├── 2023-11-Ordin-1481P-din-12-09-2024-NPE-art-11.pdf
 │   ├── 2023-11-ordin-1596-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1597-P-din-19-09-2024-art-11.pdf
+│   ├── 2023-11-Ordin-1775-P-26-09-2024-art-11.pdf
 │   ├── 2023-11-Ordin-180-din-22.01.2024-art-11.pdf
+│   ├── 2023-11-ordin-1950-P-08.10.2024-art-11.pdf
+│   ├── 2023-11-Ordin-1951-P-08-10-2024-art-11.pdf
+│   ├── 2023-11-Ordin-1952-P-08-10-2024-art-11.pdf
+│   ├── 2023-11-ordin-1957-din-09-10-2024-art-11.pdf
+│   ├── 2023-11-Ordin-1958-P-2024-din-09-10-2024-Art-11.pdf
+│   ├── 2023-11-ORDIN-1960-09-10-2024-art-11.pdf
+│   ├── 2023-11-ordin-1961-P-din-10-10-2024-art-11.pdf
+│   ├── 2023-11-ordin-1962P-din-10-10-2024-art-11.pdf
+│   ├── 2023-11-ORDIN-1963-P-10-10-2024-ART-11.pdf
 │   ├── 2023-11-Ordin-1976-P-16.11.2023.pdf
 │   ├── 2023-11-Ordin-1977-din-16.11.2023.pdf
+│   ├── 2023-11-ORDIN-2009-P-2024-14.10.2024-ART.-11.pdf
+│   ├── 2023-11-Ordin-2011-P-14-10-2024-art-11.pdf
 │   ├── 2023-11-Ordin-2023-P-22.11.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2066-P-din-29.11.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2083-P-04.12.2023-art-11.pdf
@@ -1740,6 +1753,8 @@
 │   ├── 2023-11-Ordin-nr.-1776P-din-26.09.2024.pdf
 │   ├── 2023-11-Ordin-nr.-1818P-din-01.10.2024.pdf
 │   ├── 2023-11-Ordin-nr.-1828-din-02.10.2024.pdf
+│   ├── 2023-11-Ordin-nr.1953P-din-08.10.2024-art.11.pdf
+│   ├── 2023-11-Ordin-nr-2010P-din-14-10-2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-223-din-29.01.2024.pdf
 │   ├── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 │   ├── 2023-11-Ordin-nr.-935-din-20.05.2024.pdf
@@ -1798,15 +1813,18 @@
 │   │   │   ├── Art.-11-2022-Redobandire.pdf
 │   │   │   ├── Art.-11-2023-Redobandire.pdf
 │   │   │   └── Art.-11-2024-Redobandire.pdf
-│   │   └── 2024-08-19
-│   │       ├── Art.-11-2017-Redobandire.xlsx.pdf
-│   │       ├── Art.-11-2018-Redobandire.xlsx.pdf
-│   │       ├── Art.-11-2019-Redobandire.xlsx.pdf
-│   │       ├── Art.-11-2020-Redobandire.xlsx.pdf
-│   │       ├── Art.-11-2021-Redobandire.xlsx.pdf
-│   │       ├── Art.-11-2022-Redobandire.xlsx.pdf
-│   │       ├── Art.-11-2023-Redobandire.xlsx.pdf
-│   │       └── Art.-11-2024-Redobandire.xlsx.pdf
+│   │   ├── 2024-08-19
+│   │   │   ├── Art.-11-2017-Redobandire.xlsx.pdf
+│   │   │   ├── Art.-11-2018-Redobandire.xlsx.pdf
+│   │   │   ├── Art.-11-2019-Redobandire.xlsx.pdf
+│   │   │   ├── Art.-11-2020-Redobandire.xlsx.pdf
+│   │   │   ├── Art.-11-2021-Redobandire.xlsx.pdf
+│   │   │   ├── Art.-11-2022-Redobandire.xlsx.pdf
+│   │   │   ├── Art.-11-2023-Redobandire.xlsx.pdf
+│   │   │   └── Art.-11-2024-Redobandire.xlsx.pdf
+│   │   └── 2024-10-16
+│   │       ├── Art.-11-2021-Redobandire.pdf
+│   │       └── Art.-11-2022-Redobandire.pdf
 │   └── update-pub.sh
 ├── static
 ├── stat.sql
@@ -1815,4 +1833,4 @@
 ├── update-ording.sh
 └── update-stadiu.sh
 
-12 directories, 1803 files
+13 directories, 1820 files
