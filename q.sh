@@ -1,7 +1,8 @@
 #!/bin/bash
 
-sqlite3 -echo -box data.db 'SELECT * FROM Dosar WHERE result=True AND year=2024;'
-sqlite3 -echo -box data.db 'SELECT * FROM Dosar WHERE result=True AND year=2023;'
+#sqlite3 -echo -box data.db 'SELECT * FROM Dosar WHERE result=True AND year=2024;'
+sqlite3 -echo -box data.db 'SELECT COUNT(2023) FROM Dosar WHERE result=True AND year=2023;'
+sqlite3 -echo -box data.db 'SELECT * FROM Dosar WHERE result=True AND year=2023 AND number > 13000;'
 
 #https://t.me/Yuliya_pm
 sqlite3 -echo -box data.db 'SELECT * from Dosar where id="48275/RD/2023";'

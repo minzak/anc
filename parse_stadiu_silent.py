@@ -5,7 +5,6 @@ import requests
 import re
 import sqlite3
 from datetime import datetime
-import logging
 import fitz # install using pip install PyMuPDF
 
 Stadiu = './stadiu/pub/'
@@ -24,7 +23,19 @@ def vali_date(date_text):
 connection = sqlite3.connect(Database)
 db = connection.cursor()
 
-for directory in sorted(os.listdir(Stadiu)):
+# List all items in the directory
+all_files = os.listdir(Stadiu)
+# Define files to exclude (for example, hidden files starting with a dot) 
+# exclude_files = {'.gitkeep', 'another_file_to_exclude.txt'}
+exclude_files = {'.gitkeep'}
+
+# Use list comprehension to filter out excluded files
+dirs = [item for item in all_files if item not in exclude_files and os.path.isdir(os.path.join(Stadiu, item))]
+print('Silent parsing directory:')
+print(sorted(dirs))
+
+#for directory in sorted(os.listdir(Stadiu)):
+for directory in sorted(dirs):
     # Сохраняем дату публикации стадиу для таблицы с терменами
     STADIUPUBDATE = datetime.strptime(directory, '%Y-%m-%d').date()
     # Цикл по всем pdf в директории
