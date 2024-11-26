@@ -6,6 +6,10 @@ import sqlite3
 import logging
 from datetime import datetime
 import fitz # install using pip install PyMuPDF
+import time
+
+# Фиксируем время начала выполнения
+start_time = time.time()
 
 COK     = '\033[92m'
 CWARN   = '\033[93m'
@@ -85,3 +89,11 @@ db.execute( 'UPDATE Dosar SET result = True WHERE result IS False AND ordin IN (
 SQLlogger.info('Modified: ' + str(db.rowcount))
 connection.commit()
 connection.close()
+
+# Фиксируем время окончания выполнения
+end_time = time.time()
+# Вычисляем время выполнения
+execution_time = end_time - start_time
+print(f"{'Parsing PDF time: '}{COK}{execution_time:.2f}{CEND} seconds")
+
+quit()

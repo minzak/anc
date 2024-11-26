@@ -1749,6 +1749,13 @@
 │   ├── 2023-11-Ordin-2342-P-din-22.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2343P-din-22.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2345-din-22.11.2024-art-11-NPE.pdf
+│   ├── 2023-11-Ordin-2347-P-2024-din-22.11.2024-Art.-11.pdf
+│   ├── 2023-11-ORDIN-2368P-din-26.11.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2369P-din-26.11.2024-art-11-.pdf
+│   ├── 2023-11-ORDIN-2370P-din-26.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2373.P-din-26.11.2024.art_.11.pdf
+│   ├── 2023-11-Ordin-2374.P-din-26.11.2024.art_.11.pdf
+│   ├── 2023-11-ORDIN-2375P-din-26.11.2024-art-11-.pdf
 │   ├── 2023-11-Ordin-243-P-31.01.2024-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
@@ -1890,4 +1897,4 @@
 ├── update-ording.sh
 └── update-stadiu.sh
 
-14 directories, 1876 files
+14 directories, 1883 files
