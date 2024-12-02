@@ -8,7 +8,6 @@
 │   ├── get_cert.sh
 │   └── system_cacert.sh
 ├── data.db
-├── data.db.bz2
 ├── get_ordins.py
 ├── init_db.sh
 ├── install.sh
@@ -1753,9 +1752,15 @@
 │   ├── 2023-11-ORDIN-2368P-din-26.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2369P-din-26.11.2024-art-11-.pdf
 │   ├── 2023-11-ORDIN-2370P-din-26.11.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2372P-26.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2373.P-din-26.11.2024.art_.11.pdf
 │   ├── 2023-11-Ordin-2374.P-din-26.11.2024.art_.11.pdf
 │   ├── 2023-11-ORDIN-2375P-din-26.11.2024-art-11-.pdf
+│   ├── 2023-11-ORDIN-2406-din-28.11.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2407-din-28.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2409-P-2024-din-28.11.2024-Art.-11.pdf
+│   ├── 2023-11-ordin-2427-din-02.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2428-din-02.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-243-P-31.01.2024-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
@@ -1790,6 +1795,7 @@
 │   ├── 2023-11-Ordin-930-din-13.05.2024.pdf
 │   ├── 2023-11-Ordin-934-P-2024-din-17-05-2024-Art-11.pdf
 │   ├── 2023-11-Ordin-971-29.05.2024-art-11.pdf
+│   ├── 2023-11-Ordinn-2405P-28.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr-1314-din-14-08-2024-Art-11-NPE.pdf
 │   ├── 2023-11-Ordin-nr-1400P-din-04-09-2024-Art-11-NPE.pdf
 │   ├── 2023-11-Ordin-nr.-1659P-din-23.09.2024.pdf
@@ -1815,7 +1821,8 @@
 │   ├── 2023-11-Ordin-nr.-935-din-20.05.2024.pdf
 │   ├── 2023-11-Ordinul-1136-din-05-07-2024-art-11.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
-├── parse_ordins.py
+├── parse_ordins_all.py
+├── parse_ordins_new.py
 ├── parse_stadiu.py
 ├── parse_stadiu_silent.py
 ├── q.sh
@@ -1897,4 +1904,4 @@
 ├── update-ording.sh
 └── update-stadiu.sh
 
-14 directories, 1883 files
+14 directories, 1890 files

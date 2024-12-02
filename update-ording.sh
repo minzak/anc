@@ -1,13 +1,10 @@
 #!/bin/bash
 
 python3 ./get_ordins.py
-
-#rm -f ordins/2023-11-Ordin-920-din-25.04.2024-art-11.pdf
-python3 ./parse_ordins.py
-#python3 ./get_ordins.py
+python3 ./parse_ordins_all.py
+rm -f *.log
 tree -L 5 -I 'venv|*.log' > tree.txt
 ./q.sh > q.txt
-rm -f *.log
 echo "Packing DB."
 tar -cvjSf data.db.bz2 data.db
 
