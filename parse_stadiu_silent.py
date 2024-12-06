@@ -7,7 +7,7 @@ import sqlite3
 from datetime import datetime
 import fitz # install using pip install PyMuPDF
 
-Stadiu = './stadiu/pub/'
+Stadiu = './stadiu/'
 Database = './data.db'
 
 # Функция проверки текстовой строки на валидность.

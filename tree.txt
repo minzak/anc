@@ -8,7 +8,9 @@
 │   ├── get_cert.sh
 │   └── system_cacert.sh
 ├── data.db
+├── data.db.bz2
 ├── get_ordins.py
+├── get_stadiu.py
 ├── init_db.sh
 ├── install.sh
 ├── ordins
@@ -1735,9 +1737,12 @@
 │   ├── 2023-11-Ordin-2223-P-12.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2224-din-12.11.2024-art-11.pdf
 │   ├── 2023-11-ordin-2226-din-12.11.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2227-P-din-13.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2228-din-13.11.2024-art-11-.pdf
+│   ├── 2023-11-ORDIN-2230-din-13.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2234.P-din-14.11.2024.art_.11-.pdf
 │   ├── 2023-11-Ordin-2235.P-din-14.11.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2237-P-din-15.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2238-din-15.11.2024.pdf
 │   ├── 2023-11-ORDIN-2261-15.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2265-P-din-18.11.2024-art-11.pdf
@@ -1749,6 +1754,7 @@
 │   ├── 2023-11-Ordin-2343P-din-22.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2345-din-22.11.2024-art-11-NPE.pdf
 │   ├── 2023-11-Ordin-2347-P-2024-din-22.11.2024-Art.-11.pdf
+│   ├── 2023-11-Ordin-2367P-2024-din-26.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2368P-din-26.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2369P-din-26.11.2024-art-11-.pdf
 │   ├── 2023-11-ORDIN-2370P-din-26.11.2024-art-11.pdf
@@ -1756,12 +1762,19 @@
 │   ├── 2023-11-Ordin-2373.P-din-26.11.2024.art_.11.pdf
 │   ├── 2023-11-Ordin-2374.P-din-26.11.2024.art_.11.pdf
 │   ├── 2023-11-ORDIN-2375P-din-26.11.2024-art-11-.pdf
+│   ├── 2023-11-Ordin-2405P-28.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2406-din-28.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2407-din-28.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2409-P-2024-din-28.11.2024-Art.-11.pdf
+│   ├── 2023-11-Ordin-2410-P-din-28.11.2024-art-11.pdf
 │   ├── 2023-11-ordin-2427-din-02.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2428-din-02.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-243-P-31.01.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2455-din-04.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2456-P-04.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2470.P-din-05.12.2024-art.11-docx.pdf
+│   ├── 2023-11-Ordin-2476-din-06.12.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2482-din-06.12.2024.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
 │   ├── 2023-11-Ordin-384-P-22.02.2024.pdf
@@ -1817,91 +1830,107 @@
 │   ├── 2023-11-Ordin-nr.-2269-din-18.11.2024.pdf
 │   ├── 2023-11-Ordin-nr.2315P-din-20.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2344Pdin-22.11.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-nr.-2473-din-06.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 │   ├── 2023-11-Ordin-nr.-935-din-20.05.2024.pdf
 │   ├── 2023-11-Ordinul-1136-din-05-07-2024-art-11.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_ordins_all.py
 ├── parse_ordins_new.py
-├── parse_stadiu.py
+├── parse_stadiu_all.py
+├── parse_stadiu_new.py
 ├── parse_stadiu_silent.py
 ├── q.sh
 ├── q.txt
 ├── readme.md
 ├── requirements.txt
 ├── stadiu
-│   ├── pub
-│   │   ├── 2022-06-30
-│   │   │   └── Art.-11-2020-Redobandire.pdf
-│   │   ├── 2022-12-12
-│   │   │   ├── Art.-11-2016-Redobandire.pdf
-│   │   │   ├── Art.-11-2019-Redobandire.pdf
-│   │   │   ├── Art.-11-2020-Redobandire.pdf
-│   │   │   ├── Art.-11-2021-Redobandire.pdf
-│   │   │   └── Art.-11-2022-Redobandire.pdf
-│   │   ├── 2023-05-02
-│   │   │   ├── Art.-11-2016-Redobandire.pdf
-│   │   │   ├── Art.-11-2017-Redobandire.pdf
-│   │   │   ├── Art.-11-2018-Redobandire.pdf
-│   │   │   ├── Art.-11-2019-Redobandire.pdf
-│   │   │   ├── Art.-11-2020-Redobandire.pdf
-│   │   │   ├── Art.-11-2021-Redobandire.pdf
-│   │   │   ├── Art.-11-2022-Redobandire.pdf
-│   │   │   └── Art.-11-2023-Redobandire.pdf
-│   │   ├── 2023-07-14
-│   │   │   ├── Art.-11-2017-Redobandire.pdf
-│   │   │   ├── Art.-11-2018-Redobandire.pdf
-│   │   │   ├── Art.-11-2019-Redobandire.pdf
-│   │   │   ├── Art.-11-2020-Redobandire.pdf
-│   │   │   ├── Art.-11-2021-Redobandire.pdf
-│   │   │   ├── Art.-11-2022-Redobandire.pdf
-│   │   │   └── Art.-11-2023-Redobandire.pdf
-│   │   ├── 2023-10-06
-│   │   │   ├── Art.-11-2015-Redobandire.pdf
-│   │   │   ├── Art.-11-2016-Redobandire.pdf
-│   │   │   ├── Art.-11-2017-Redobandire.pdf
-│   │   │   ├── Art.-11-2018-Redobandire.pdf
-│   │   │   ├── Art.-11-2019-Redobandire.pdf
-│   │   │   ├── Art.-11-2020-Redobandire.pdf
-│   │   │   ├── Art.-11-2021-Redobandire.pdf
-│   │   │   └── Art.-11-2022-Redobandire.pdf
-│   │   ├── 2024-04-29
-│   │   │   ├── Art.-11-2016-Redobandire.pdf
-│   │   │   ├── Art.-11-2017-Redobandire.pdf
-│   │   │   ├── Art.-11-2018-Redobandire.pdf
-│   │   │   ├── Art.-11-2019-Redobandire.pdf
-│   │   │   ├── Art.-11-2020-Redobandire.pdf
-│   │   │   ├── Art.-11-2021-Redobandire.pdf
-│   │   │   ├── Art.-11-2022-Redobandire.pdf
-│   │   │   ├── Art.-11-2023-Redobandire.pdf
-│   │   │   └── Art.-11-2024-Redobandire.pdf
-│   │   ├── 2024-08-19
-│   │   │   ├── Art.-11-2017-Redobandire.xlsx.pdf
-│   │   │   ├── Art.-11-2018-Redobandire.xlsx.pdf
-│   │   │   ├── Art.-11-2019-Redobandire.xlsx.pdf
-│   │   │   ├── Art.-11-2020-Redobandire.xlsx.pdf
-│   │   │   ├── Art.-11-2021-Redobandire.xlsx.pdf
-│   │   │   ├── Art.-11-2022-Redobandire.xlsx.pdf
-│   │   │   ├── Art.-11-2023-Redobandire.xlsx.pdf
-│   │   │   └── Art.-11-2024-Redobandire.xlsx.pdf
-│   │   ├── 2024-10-16
-│   │   │   ├── Art.-11-2021-Redobandire.pdf
-│   │   │   └── Art.-11-2022-Redobandire.pdf
-│   │   └── 2024-11-13
-│   │       ├── articol_11_2017_12_11_2024.pdf
-│   │       ├── articol_11_2018_12_11_2024.pdf
-│   │       ├── articol_11_2019_12_11_2024.pdf
-│   │       ├── articol_11_2020_12_11_2024.pdf
-│   │       ├── articol_11_2021_12_11_2024.pdf
-│   │       ├── articol_11_2022_12_11_2024.pdf
-│   │       ├── articol_11_2023_12_11_2024.pdf
-│   │       └── articol_11_2024_12_11_2024.pdf
-│   └── update-pub.sh
+│   ├── 2022-06-30
+│   │   └── Art.-11-2020-Redobandire.pdf
+│   ├── 2022-12-12
+│   │   ├── Art.-11-2016-Redobandire.pdf
+│   │   ├── Art.-11-2019-Redobandire.pdf
+│   │   ├── Art.-11-2020-Redobandire.pdf
+│   │   ├── Art.-11-2021-Redobandire.pdf
+│   │   └── Art.-11-2022-Redobandire.pdf
+│   ├── 2023-05-02
+│   │   ├── Art.-11-2016-Redobandire.pdf
+│   │   ├── Art.-11-2017-Redobandire.pdf
+│   │   ├── Art.-11-2018-Redobandire.pdf
+│   │   ├── Art.-11-2019-Redobandire.pdf
+│   │   ├── Art.-11-2020-Redobandire.pdf
+│   │   ├── Art.-11-2021-Redobandire.pdf
+│   │   ├── Art.-11-2022-Redobandire.pdf
+│   │   └── Art.-11-2023-Redobandire.pdf
+│   ├── 2023-07-14
+│   │   ├── Art.-11-2017-Redobandire.pdf
+│   │   ├── Art.-11-2018-Redobandire.pdf
+│   │   ├── Art.-11-2019-Redobandire.pdf
+│   │   ├── Art.-11-2020-Redobandire.pdf
+│   │   ├── Art.-11-2021-Redobandire.pdf
+│   │   ├── Art.-11-2022-Redobandire.pdf
+│   │   └── Art.-11-2023-Redobandire.pdf
+│   ├── 2023-10-06
+│   │   ├── Art.-11-2015-Redobandire.pdf
+│   │   ├── Art.-11-2016-Redobandire.pdf
+│   │   ├── Art.-11-2017-Redobandire.pdf
+│   │   ├── Art.-11-2018-Redobandire.pdf
+│   │   ├── Art.-11-2019-Redobandire.pdf
+│   │   ├── Art.-11-2020-Redobandire.pdf
+│   │   ├── Art.-11-2021-Redobandire.pdf
+│   │   └── Art.-11-2022-Redobandire.pdf
+│   ├── 2024-04-29
+│   │   ├── Art.-11-2016-Redobandire.pdf
+│   │   ├── Art.-11-2017-Redobandire.pdf
+│   │   ├── Art.-11-2018-Redobandire.pdf
+│   │   ├── Art.-11-2019-Redobandire.pdf
+│   │   ├── Art.-11-2020-Redobandire.pdf
+│   │   ├── Art.-11-2021-Redobandire.pdf
+│   │   ├── Art.-11-2022-Redobandire.pdf
+│   │   ├── Art.-11-2023-Redobandire.pdf
+│   │   └── Art.-11-2024-Redobandire.pdf
+│   ├── 2024-08-19
+│   │   ├── Art.-11-2017-Redobandire.xlsx.pdf
+│   │   ├── Art.-11-2018-Redobandire.xlsx.pdf
+│   │   ├── Art.-11-2019-Redobandire.xlsx.pdf
+│   │   ├── Art.-11-2020-Redobandire.xlsx.pdf
+│   │   ├── Art.-11-2021-Redobandire.xlsx.pdf
+│   │   ├── Art.-11-2022-Redobandire.xlsx.pdf
+│   │   ├── Art.-11-2023-Redobandire.xlsx.pdf
+│   │   └── Art.-11-2024-Redobandire.xlsx.pdf
+│   ├── 2024-10-16
+│   │   ├── Art.-11-2021-Redobandire.pdf
+│   │   └── Art.-11-2022-Redobandire.pdf
+│   ├── 2024-11-13
+│   │   ├── articol_11_2017_12_11_2024.pdf
+│   │   ├── articol_11_2018_12_11_2024.pdf
+│   │   ├── articol_11_2019_12_11_2024.pdf
+│   │   ├── articol_11_2020_12_11_2024.pdf
+│   │   ├── articol_11_2021_12_11_2024.pdf
+│   │   ├── articol_11_2022_12_11_2024.pdf
+│   │   ├── articol_11_2023_12_11_2024.pdf
+│   │   └── articol_11_2024_12_11_2024.pdf
+│   ├── 2024-12-04
+│   │   ├── Art._11_2010_Redobandire.pdf
+│   │   ├── Art._11_2012_Redobandire.pdf
+│   │   ├── Art._11_2013_Redobandire.pdf
+│   │   └── Art._11_2014_Redobandire.pdf
+│   └── 2024-12-06
+│       ├── Articol_11_2017_06_12_2024.pdf
+│       ├── Articol_11_2018_06_12_2024.pdf
+│       ├── Articol_11_2019_06_12_2024.pdf
+│       ├── Articol_11_2020_06_12_2024.pdf
+│       ├── Articol_11_2021_06_12_2024.pdf
+│       ├── Articol_11_2022_06_12_2024.pdf
+│       ├── Articol_11_2023_06_12_2024.pdf
+│       └── Articol_11_2024_06_12_2024.pdf
 ├── static
 ├── stat.sql
 ├── todo.txt
 ├── tree.txt
+├── update-ording_all.sh
 ├── update-ording.sh
+├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-14 directories, 1890 files
+15 directories, 1918 files

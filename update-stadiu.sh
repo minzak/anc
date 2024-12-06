@@ -1,12 +1,9 @@
 #!/bin/bash
 
-#stadiu/update-pub.sh
-
-rm ./stadiu/pub/.gitkeep
-python3 ./parse_stadiu.py
+python3 ./get_stadiu.py
+python3 ./parse_stadiu_new.py
 #python3 ./parse_stadiu_silent.py
-touch ./stadiu/pub/.gitkeep
 tree -L 5 -I 'venv|*.log' > tree.txt
 ./q.sh > q.txt
-
+echo "Packing DB."
 tar -cvjSf data.db.bz2 data.db

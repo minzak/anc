@@ -1,7 +1,6 @@
 #!/bin/bash
 
-python3 ./get_ordins.py
-python3 ./parse_ordins_all.py
+python3 ./parse_ordins_new.py
 rm -f *.log
 tree -L 5 -I 'venv|*.log' > tree.txt
 ./q.sh > q.txt
