@@ -9,10 +9,22 @@
 │   └── system_cacert.sh
 ├── data.db
 ├── data.db.bz2
+├── get_juramat.py
 ├── get_ordins.py
 ├── get_stadiu.py
 ├── init_db.sh
 ├── install.sh
+├── juramat
+│   ├── 2024-11-tabel-afisare-site-04.12.2024-ora-09.00.pdf
+│   ├── 2024-11-tabel-afisare-site-04.12.2024-ora-12.30.pdf
+│   ├── 2024-12-05-decembrie-ora-1400.pdf
+│   ├── 2024-12-16-DEC.ORA-1230.pdf
+│   ├── 2024-12-16-DEC.ORA-900.pdf
+│   ├── 2024-12-17-DEC.-ORA-1230.pdf
+│   ├── 2024-12-17-DEC.ORA-900.pdf
+│   ├── 2024-12-18-DEC.ORA-09.00.pdf
+│   ├── 2024-12-18-DEC.ORA-12.30.pdf
+│   └── 2024-12-tabel-afisare-site-11.12.2024-ora-09.00.pdf
 ├── ordins
 │   ├── 2019-12-Ordin-nr.-1477P-din-27.09.2021.pdf
 │   ├── 2019-12-Ordin-nr.-1478P-din-27.07.2021.pdf
@@ -1667,6 +1679,7 @@
 │   ├── 2023-11-OP-252-din-02.02.2024-art-11.pdf
 │   ├── 2023-11-OP-298-din-09.02.2024-art-11.pdf
 │   ├── 2023-11-OP-932-din-16.05.2024-art-11.pdf
+│   ├── 2023-11-Ordiin-2475P-din-06.12.2024-art.11.pdf
 │   ├── 2023-11-ordin-1034-din-11.6.2024.NPE-Kampi.pdf
 │   ├── 2023-11-Ordin-1035-P-13-06-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1067-14-06-2024-art-11-NPE.pdf
@@ -1769,12 +1782,20 @@
 │   ├── 2023-11-Ordin-2410-P-din-28.11.2024-art-11.pdf
 │   ├── 2023-11-ordin-2427-din-02.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2428-din-02.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2430-P-2024-din-02.12.2024-Art.-11.pdf
+│   ├── 2023-11-Ordin-2431P-02.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-243-P-31.01.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2455-din-04.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2456-P-04.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2464-P-2024-din-04.12.2024-Art.-11.pdf
 │   ├── 2023-11-Ordin-2470.P-din-05.12.2024-art.11-docx.pdf
+│   ├── 2023-11-ORDIN-2472-DIN-06.12.24-art.-11.pdf
+│   ├── 2023-11-Ordin-2474P-din-06.12.2024-art.11.pdf
 │   ├── 2023-11-Ordin-2476-din-06.12.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2482-din-06.12.2024.pdf
+│   ├── 2023-11-Ordin-2520-din-10.12.2024-art.-11.pdf
+│   ├── 2023-11-Ordin-2521-din10.12-.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2538-din-12.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
 │   ├── 2023-11-Ordin-384-P-22.02.2024.pdf
@@ -1835,13 +1856,16 @@
 │   ├── 2023-11-Ordin-nr.-935-din-20.05.2024.pdf
 │   ├── 2023-11-Ordinul-1136-din-05-07-2024-art-11.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
+├── parse_juramat_all.py
 ├── parse_ordins_all.py
 ├── parse_ordins_new.py
 ├── parse_stadiu_all.py
 ├── parse_stadiu_new.py
 ├── parse_stadiu_silent.py
+├── q1.sh
 ├── q.sh
 ├── q.txt
+├── raw.txt
 ├── readme.md
 ├── requirements.txt
 ├── stadiu
@@ -1924,13 +1948,13 @@
 │       ├── Articol_11_2022_06_12_2024.pdf
 │       ├── Articol_11_2023_06_12_2024.pdf
 │       └── Articol_11_2024_06_12_2024.pdf
-├── static
 ├── stat.sql
 ├── todo.txt
 ├── tree.txt
+├── update-juramat_all.sh
 ├── update-ording_all.sh
 ├── update-ording.sh
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-15 directories, 1918 files
+15 directories, 1942 files

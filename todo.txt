@@ -13,3 +13,5 @@ parsing file: ./stadiu/pub/2023-07-14/Art.-11-2023-Redobandire.pdf
 FAIL: На одной из страниц файла Art.-11-2023-Redobandire.pdf, после досара 24194/RD/2023не найдено таблиц
 parsing file: ./stadiu/pub/2023-10-06/Art.-11-2015-Redobandire.pdf
 FAIL: На одной из страниц файла Art.-11-2015-Redobandire.pdf, после досара 81154/RD/2015не найдено таблиц
+
+juramant.anc@just.ro

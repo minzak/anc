@@ -1,4 +1,5 @@
 venv/
 data.db
+raw.txt
 *.pdf
 *.log

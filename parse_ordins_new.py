@@ -51,7 +51,7 @@ def is_valid_pdf(filepath):
         return False
 
 logger = setup_logger('main_logger', 'parse-ordins.log')
-SQLlogger = setup_logger('SQLlogger', 'sql-'+datetime.now().strftime("%Y-%m-%d")+'.log')
+SQLlogger = setup_logger('SQLlogger', 'sql-ordins-'+datetime.now().strftime("%Y-%m-%d")+'.log')
 
 # Инициализация базы данных
 connection = sqlite3.connect(Database)

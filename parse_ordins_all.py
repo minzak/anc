@@ -37,7 +37,7 @@ def setup_logger(name, log_file, level=logging.INFO):
 # Main logger
 logger = setup_logger('main_logger', 'parse-ordins.log')
 # SQL logger
-SQLlogger = setup_logger('SQLlogger', 'sql-'+datetime.now().strftime("%Y-%m-%d")+'.log')
+SQLlogger = setup_logger('SQLlogger', 'sql-ordins-'+datetime.now().strftime("%Y-%m-%d")+'.log')
 
 connection = sqlite3.connect(Database)
 connection.set_trace_callback(SQLlogger.info)

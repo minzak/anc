@@ -40,9 +40,9 @@ def setup_logger(name, log_file, level=logging.INFO):
     return logger
 
 # Main logger
-logger = setup_logger('main_logger', 'parse.log')
+logger = setup_logger('main_logger', 'parse-stadiu-'+datetime.now().strftime("%Y-%m-%d")+'.log')
 # SQL logger
-SQLlogger = setup_logger('SQLlogger', 'sql-'+datetime.now().strftime("%Y-%m-%d")+'.log')
+SQLlogger = setup_logger('SQLlogger', 'sql-stadiu-'+datetime.now().strftime("%Y-%m-%d")+'.log')
 
 connection = sqlite3.connect(Database)
 connection.set_trace_callback(SQLlogger.info)
