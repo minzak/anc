@@ -3,5 +3,6 @@ requests
 tools
 bs4
 datetime
-PyMuPDF
 pycurl
+PyMuPDF
+pdfminer.six
