@@ -1,5 +1,8 @@
 # Install
 
+```
+sudo apt update && sudo apt install sqlite3 tree -y
+```
 Используйте sqlite3 совместимую с `box` параметром.
 ```
 $ sqlite3 --version
