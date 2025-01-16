@@ -1,8 +1,20 @@
 #!/bin/bash
 
 #sqlite3 -echo -box data.db 'SELECT * FROM Dosar WHERE result=True AND year=2024;'
-sqlite3 -echo -box data.db 'SELECT COUNT(2023) FROM Dosar WHERE result=True AND year=2023;'
-sqlite3 -echo -box data.db 'SELECT * FROM Dosar WHERE result=True AND year=2023 AND number > 23000;'
+#sqlite3 -echo -box data.db 'SELECT * FROM Dosar WHERE result=True AND year=2023 AND number > 23000;'
+
+#Расшифровка:
+#substr(id, length(id)-3, 4) — последние 4 символа строки, это <год>.
+#CAST(... AS INTEGER) приводит подстроку к числу.
+#instr(id, '/') — позиция первого слэша. substr(id, 1, instr(id, '/') - 1) возвращает все символы до первого слэша, то есть <число>.
+sqlite3 -echo -box data.db '
+SELECT * FROM Dosar
+WHERE result = 1
+AND (    CAST(substr(id, length(id)-3, 4) AS INTEGER) > 2023
+    OR ( CAST(substr(id, length(id)-3, 4) AS INTEGER) = 2023
+           AND
+         CAST(substr(id, 1, instr(id, "/") - 1) AS INTEGER) > 20000  )
+);'
 
 #https://t.me/Yuliya_pm
 sqlite3 -echo -box data.db 'SELECT * from Dosar where id="48275/RD/2023";'

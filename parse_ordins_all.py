@@ -149,7 +149,8 @@ def parse_pdf(file_path):
         ordinance_date = extract_date(file_path)
 
         with fitz.open(file_path) as doc:
-            logger.info(f"Parsing file: {file_path} F:{file_ordin_number} D:{ordinance_date}")
+            #logger.info(f"Parsing file: {file_path} F:{file_ordin_number} D:{ordinance_date}")
+            logger.info(f"Parsing file: {file_path} F:{file_ordin_number} D:{ordinance_date.strftime('%Y-%m-%d')}")
 
             # Iterate through pages to find ANEXA and dosars
             print(f"{'Parsing: ' + CWARN + file_path + CEND:.<205}", end="")
@@ -202,6 +203,7 @@ def parse_pdf(file_path):
 
     except Exception as e:
         logger.error(f"Error parsing file {file_path}: {e}")
+
 
 # Main processing loop
 for filename in os.listdir(Ordins):

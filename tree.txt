@@ -24,7 +24,17 @@
 │   ├── 2024-12-17-DEC.ORA-900.pdf
 │   ├── 2024-12-18-DEC.ORA-09.00.pdf
 │   ├── 2024-12-18-DEC.ORA-12.30.pdf
-│   └── 2024-12-tabel-afisare-site-11.12.2024-ora-09.00.pdf
+│   ├── 2024-12-tabel-afisare-site-11.12.2024-ora-09.00.pdf
+│   ├── 2025-01-13-IANUARIE-ORA-1230.pdf
+│   ├── 2025-01-13-IANUARIE-ORA-900.pdf
+│   ├── 2025-01-16-IANUARIE-ORA-1400.pdf
+│   ├── 2025-01-20-IANUARIE-ORA-0900.pdf
+│   └── 2025-01-20-IANUARIE-ORA-1230.pdf
+├── old
+│   ├── parse_ordins_all.py.PDFMiner
+│   ├── parse_ordins_all.py.PyMuPDF
+│   ├── parse_ordins_new.py.bak
+│   └── update-ording.sh.bak
 ├── ordins
 │   ├── 2019-12-Ordin-nr.-1477P-din-27.09.2021.pdf
 │   ├── 2019-12-Ordin-nr.-1478P-din-27.07.2021.pdf
@@ -1752,6 +1762,7 @@
 │   ├── 2023-11-ordin-2226-din-12.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2227-P-din-13.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2228-din-13.11.2024-art-11-.pdf
+│   ├── 2023-11-Ordin-2229-P-2024-din-13.11.2024-Art.-11.pdf
 │   ├── 2023-11-ORDIN-2230-din-13.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2234.P-din-14.11.2024.art_.11-.pdf
 │   ├── 2023-11-Ordin-2235.P-din-14.11.2024-art-11.pdf
@@ -1760,6 +1771,7 @@
 │   ├── 2023-11-ORDIN-2261-15.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2265-P-din-18.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2266-P-18.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2268-din-18.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2310-din-20.11.24-art.-11.pdf
 │   ├── 2023-11-ORDIN-2312-din-20.11.24-art.-11.pdf
 │   ├── 2023-11-Ordin-2313P-2024-20.11.2024-Art.-11.pdf
@@ -1795,7 +1807,21 @@
 │   ├── 2023-11-ORDIN-2482-din-06.12.2024.pdf
 │   ├── 2023-11-Ordin-2520-din-10.12.2024-art.-11.pdf
 │   ├── 2023-11-Ordin-2521-din10.12-.2024-art-11.pdf
+│   ├── 2023-11-ordin-2522-P-10.12.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2538-din-12.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2541P-12.12.2024-art.-11.pdf
+│   ├── 2023-11-Ordin-2586P-16.12.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2587-din-data-de-16.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2603-P-2024-din-18.12.2024-Art.-11.pdf
+│   ├── 2023-11-Ordin-2605-P-18.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2623P-19.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2635P-din-19.12.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2636P0-19.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2642-P-19.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2645P-din-19.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2714P-din-23.12.2024-art-11.pdf
+│   ├── 2023-11-ORDIN-2733P-24.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2734P-24.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
 │   ├── 2023-11-Ordin-384-P-22.02.2024.pdf
@@ -1803,6 +1829,7 @@
 │   ├── 2023-11-ordin-387-P-23.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-388-23-02-2024-art-11.pdf
 │   ├── 2023-11-Ordin-410-P-26.02.2024-art-11-1.pdf
+│   ├── 2023-11-Ordin-43P-13.01.2025-art-11.pdf
 │   ├── 2023-11-ordin-448-din-28.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-460-P-din-29.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-503-P-06.03.2024.pdf
@@ -1852,13 +1879,18 @@
 │   ├── 2023-11-Ordin-nr.2315P-din-20.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2344Pdin-22.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-nr.-2473-din-06.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-nr.2604P-din-18.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-nr.2624P-din-19.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-nr.2735P-din-24.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 │   ├── 2023-11-Ordin-nr.-935-din-20.05.2024.pdf
 │   ├── 2023-11-Ordinul-1136-din-05-07-2024-art-11.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_juramat_all.py
 ├── parse_ordins_all.py
-├── parse_ordins_new.py
+├── parse_ordins_all_.py
+├── parse_ordins_filename.py
+├── parse_ordins_new.py.bak
 ├── parse_stadiu_all.py
 ├── parse_stadiu_new.py
 ├── parse_stadiu_silent.py
@@ -1939,22 +1971,32 @@
 │   │   ├── Art._11_2012_Redobandire.pdf
 │   │   ├── Art._11_2013_Redobandire.pdf
 │   │   └── Art._11_2014_Redobandire.pdf
-│   └── 2024-12-06
-│       ├── Articol_11_2017_06_12_2024.pdf
-│       ├── Articol_11_2018_06_12_2024.pdf
-│       ├── Articol_11_2019_06_12_2024.pdf
-│       ├── Articol_11_2020_06_12_2024.pdf
-│       ├── Articol_11_2021_06_12_2024.pdf
-│       ├── Articol_11_2022_06_12_2024.pdf
-│       ├── Articol_11_2023_06_12_2024.pdf
-│       └── Articol_11_2024_06_12_2024.pdf
+│   ├── 2024-12-06
+│   │   ├── Articol_11_2017_06_12_2024.pdf
+│   │   ├── Articol_11_2018_06_12_2024.pdf
+│   │   ├── Articol_11_2019_06_12_2024.pdf
+│   │   ├── Articol_11_2020_06_12_2024.pdf
+│   │   ├── Articol_11_2021_06_12_2024.pdf
+│   │   ├── Articol_11_2022_06_12_2024.pdf
+│   │   ├── Articol_11_2023_06_12_2024.pdf
+│   │   └── Articol_11_2024_06_12_2024.pdf
+│   └── 2025-01-16
+│       ├── art_11_2017.pdf
+│       ├── art_11_2018.pdf
+│       ├── art_11_2019.pdf
+│       ├── art_11_2020.pdf
+│       ├── art_11_2021.pdf
+│       ├── art_11_2022.pdf
+│       ├── art_11_2023.pdf
+│       ├── art_11_2024.pdf
+│       └── art_11_2025.pdf
 ├── stat.sql
 ├── todo.txt
 ├── tree.txt
 ├── update-juramat_all.sh
 ├── update-ording_all.sh
-├── update-ording.sh
+├── update-ording.sh.bak
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-15 directories, 1942 files
+17 directories, 1982 files
