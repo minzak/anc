@@ -1890,7 +1890,7 @@
 ├── parse_ordins_all.py
 ├── parse_ordins_all_.py
 ├── parse_ordins_filename.py
-├── parse_ordins_new.py.bak
+├── parse_ordins_new.py
 ├── parse_stadiu_all.py
 ├── parse_stadiu_new.py
 ├── parse_stadiu_silent.py
@@ -1995,8 +1995,9 @@
 ├── tree.txt
 ├── update-juramat_all.sh
 ├── update-ording_all.sh
+├── update-ording_new.sh
 ├── update-ording.sh.bak
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-17 directories, 1982 files
+17 directories, 1983 files
