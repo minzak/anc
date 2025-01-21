@@ -4,13 +4,14 @@
 import os
 import re
 import time
-import sqlite3
+import pycurl
 import logging
+import sqlite3
 import fitz  # pip install PyMuPDF
-from pdfminer.high_level import extract_text
+from io import BytesIO  # Убедимся, что модуль io корректно импортирован
 from datetime import datetime
-import requests
 from bs4 import BeautifulSoup
+
 
 # Фиксируем время начала выполнения
 start_time = time.time()
@@ -59,47 +60,57 @@ def is_valid_pdf(filepath):
         return False
 
 # Выкачивание новых файлов
-response = requests.get(OrdineUrl, headers={"User-Agent": Headers})
-soup = BeautifulSoup(response.content, 'html.parser')
+buffer = BytesIO()
+r = pycurl.Curl()
+r.setopt(pycurl.URL, OrdineUrl)
+r.setopt(pycurl.USERAGENT, Headers)
+
+# Clear buffer before writing
+clear_buffer(buffer)
+
+r.setopt(pycurl.WRITEDATA, buffer)
+r.perform()
+r.close()
+html_content = buffer.getvalue().decode('utf-8')
+soup = BeautifulSoup(html_content, 'html.parser')
+
 # Сбор ссылок на файлы для обработки
 link_hrefs = [link.get('href') for link in soup.find_all('a', href=re.compile(DownloadUrl))]
 links = [(href, Ordins + href.replace(DownloadUrl, '').replace('/', '-')) for href in link_hrefs]
 
 new_files = []
-for href in link_hrefs:
-    # Извлекаем год и месяц из ссылки и добавляем в имя файла
-    match = re.search(r'/storage/(\d{4})/(\d{2})/', href)
-    if match:
-        year, month = match.groups()
-        date_prefix = f"{year}-{month}-"
-    else:
-        date_prefix = ""
+missing_files = []
 
-    local_filename = os.path.join(Ordins, date_prefix + os.path.basename(href))
+for OrdineUrl, FileName in links:
+    if os.path.isfile(FileName):
+        # Вывод всех существуюющих файлов
+        #print(f"{OrdineUrl + CVIOLET + ' -> ' + CWARN + FileName + CEND:.<210}{CWARN}Already exists{CEND}")
+        continue
+    print(f"{OrdineUrl + CVIOLET + ' -> ' + CWARN + FileName + CEND:.<210}", end="")
+    curl = pycurl.Curl()
+    curl.setopt(pycurl.URL, OrdineUrl)
+    curl.setopt(pycurl.USERAGENT, Headers)
+    buffer = BytesIO()
 
-    if not os.path.exists(local_filename):
-        print(f"{href + CVIOLET + ' -> ' + CWARN + local_filename + CEND:.<210}", end="")
-        logger.info(f"Downloading new file: {href}")
-        pdf_response = requests.get(href, headers={"User-Agent": Headers})
-        status_code = pdf_response.status_code
-        #logger.info(f"Response Code: {status_code} for {href}")
+    # Clear buffer before writing
+    clear_buffer(buffer)
 
-        if status_code == 200:
-            with open(local_filename, 'wb') as pdf_file:
-                pdf_file.write(pdf_response.content)
-
-            if not is_valid_pdf(local_filename):
-                print(f"{CRED}Invalid PDF file: {local_filename}{CEND}")
-                logger.warning(f"Invalid PDF: {local_filename}, deleting.")
-                os.remove(local_filename)
-            else:
-                new_files.append(local_filename)
-                print(f"{COK + str(status_code) + ' Success' + CEND}")
-                logger.info(f"GET {status_code} code and pdf validated: {local_filename}")
+    curl.setopt(pycurl.WRITEDATA, buffer)
+    curl.perform()
+    status_code = curl.getinfo(pycurl.RESPONSE_CODE)
+    if status_code == 200:
+        with open(FileName, 'wb') as file_handle:
+            file_handle.write(buffer.getvalue())
+        if is_valid_pdf(FileName):
+            new_files.append(FileName)
+            print(f"{COK + str(status_code) + ' Success' + CEND}")
         else:
-            print(f"{CRED + str(status_code) + ' Download Error' + CEND}")
-            logger.warning(f"Failed to download {href}, Response Code: {status_code}")
-
+            print(f"{CRED}Invalid PDF file: {FileName}{CEND}")
+            os.remove(FileName)
+    else:
+        print(f"{CRED + str(status_code) + ' Download Error' + CEND}")
+        missing_files.append(OrdineUrl)
+    curl.close()
 
 #Extract ordinance date using PDFMiner.
 def date_pdfminer(file_path):

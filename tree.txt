@@ -29,7 +29,8 @@
 │   ├── 2025-01-13-IANUARIE-ORA-900.pdf
 │   ├── 2025-01-16-IANUARIE-ORA-1400.pdf
 │   ├── 2025-01-20-IANUARIE-ORA-0900.pdf
-│   └── 2025-01-20-IANUARIE-ORA-1230.pdf
+│   ├── 2025-01-20-IANUARIE-ORA-1230.pdf
+│   └── 2025-01-23-IANUARIE-ORA-830.pdf
 ├── old
 │   ├── parse_ordins_all.py.PDFMiner
 │   ├── parse_ordins_all.py.PyMuPDF
@@ -1698,7 +1699,10 @@
 │   ├── 2023-11-Ordin-1126-P-01.07.2024-art-11.pdf
 │   ├── 2023-11-Ordin-1127-din-02-07-2024-art-11.pdf
 │   ├── 2023-11-ordin-1137-din-05-07-2024-art-11.pdf
+│   ├── 2023-11-Ordin-118P-21.01.2025-art-11.pdf
+│   ├── 2023-11-ORDIN-120-21.01.2025-art.11.pdf
 │   ├── 2023-11-Ordin-1225-P-din-30-07-2024-art-11.pdf
+│   ├── 2023-11-Ordin-122P-21.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-1231-P-01-08-2024-art-11.pdf
 │   ├── 2023-11-ordin-1235-P-02-08-2024-art-11.pdf
 │   ├── 2023-11-Ordin-125P-din18.01.2024-art-11.pdf
@@ -1853,8 +1857,11 @@
 │   ├── 2023-11-Ordin-923-P-24.04.2024-art-11.pdf
 │   ├── 2023-11-Ordin-927-din-08.05.2024.pdf
 │   ├── 2023-11-Ordin-929-P-13.05.2024.pdf
+│   ├── 2023-11-Ordin-92P-17.01.2025-art.11.pdf
 │   ├── 2023-11-Ordin-930-din-13.05.2024.pdf
 │   ├── 2023-11-Ordin-934-P-2024-din-17-05-2024-Art-11.pdf
+│   ├── 2023-11-Ordin-93-P-17.01.2025-art.11.pdf
+│   ├── 2023-11-Ordin-94-P-17.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-971-29.05.2024-art-11.pdf
 │   ├── 2023-11-Ordinn-2405P-28.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr-1314-din-14-08-2024-Art-11-NPE.pdf
@@ -1888,7 +1895,6 @@
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_juramat_all.py
 ├── parse_ordins_all.py
-├── parse_ordins_all_.py
 ├── parse_ordins_filename.py
 ├── parse_ordins_new.py
 ├── parse_stadiu_all.py
@@ -1996,8 +2002,8 @@
 ├── update-juramat_all.sh
 ├── update-ording_all.sh
 ├── update-ording_new.sh
-├── update-ording.sh.bak
+├── update-ording.sh
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-17 directories, 1983 files
+17 directories, 1989 files
