@@ -30,7 +30,9 @@
 │   ├── 2025-01-16-IANUARIE-ORA-1400.pdf
 │   ├── 2025-01-20-IANUARIE-ORA-0900.pdf
 │   ├── 2025-01-20-IANUARIE-ORA-1230.pdf
-│   └── 2025-01-23-IANUARIE-ORA-830.pdf
+│   ├── 2025-01-23-IANUARIE-ORA-830.pdf
+│   ├── 2025-01-27-IANUARIE-ORA-1230.pdf
+│   └── 2025-01-27-IANUARIE-ORA-900.pdf
 ├── old
 │   ├── parse_ordins_all.py.PDFMiner
 │   ├── parse_ordins_all.py.PyMuPDF
@@ -1700,6 +1702,7 @@
 │   ├── 2023-11-Ordin-1127-din-02-07-2024-art-11.pdf
 │   ├── 2023-11-ordin-1137-din-05-07-2024-art-11.pdf
 │   ├── 2023-11-Ordin-118P-21.01.2025-art-11.pdf
+│   ├── 2023-11-Ordin-119P-21.01.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-120-21.01.2025-art.11.pdf
 │   ├── 2023-11-Ordin-1225-P-din-30-07-2024-art-11.pdf
 │   ├── 2023-11-Ordin-122P-21.01.2025-art-11.pdf
@@ -1714,6 +1717,7 @@
 │   ├── 2023-11-Ordin-1383-P-din-26-08-2024.pdf
 │   ├── 2023-11-Ordin-1385-P-28-08-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1386-P-28-08-2024-art-11.pdf
+│   ├── 2023-11-Ordin-141P-23.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-1478-P-din-11-09-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1480-P-din-12-09-2024-Art-11-NPE.pdf
 │   ├── 2023-11-Ordin-1481P-din-12-09-2024-NPE-art-11.pdf
@@ -1721,6 +1725,7 @@
 │   ├── 2023-11-Ordin-1597-P-din-19-09-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1775-P-26-09-2024-art-11.pdf
 │   ├── 2023-11-Ordin-180-din-22.01.2024-art-11.pdf
+│   ├── 2023-11-Ordin-189P-28.01.2025-art-11.pdf
 │   ├── 2023-11-ordin-1950-P-08.10.2024-art-11.pdf
 │   ├── 2023-11-Ordin-1951-P-08-10-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1952-P-08-10-2024-art-11.pdf
@@ -1794,6 +1799,7 @@
 │   ├── 2023-11-Ordin-2405P-28.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2406-din-28.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2407-din-28.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2408P-28.11.2024-art.-11.pdf
 │   ├── 2023-11-Ordin-2409-P-2024-din-28.11.2024-Art.-11.pdf
 │   ├── 2023-11-Ordin-2410-P-din-28.11.2024-art-11.pdf
 │   ├── 2023-11-ordin-2427-din-02.12.2024-art-11.pdf
@@ -1828,6 +1834,7 @@
 │   ├── 2023-11-Ordin-2734P-24.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
+│   ├── 2023-11-ORDIN-36P-din-13.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-384-P-22.02.2024.pdf
 │   ├── 2023-11-ordin-386-din-23.02.2024-art-11.pdf
 │   ├── 2023-11-ordin-387-P-23.02.2024-art-11.pdf
@@ -1999,11 +2006,11 @@
 ├── stat.sql
 ├── todo.txt
 ├── tree.txt
+├── update-fresh_all.sh
 ├── update-juramat_all.sh
 ├── update-ording_all.sh
-├── update-ording_new.sh
 ├── update-ording.sh
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-17 directories, 1989 files
+17 directories, 1996 files

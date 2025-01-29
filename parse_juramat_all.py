@@ -41,22 +41,27 @@ def process_pdf(file_path, db, logger):
 
     try:
         with fitz.open(file_path) as doc:
-            print(f"{'Parsing: ' + CWARN + file + CEND:.<180}", end="")
+            print(f"{'Parsing: ' + CWARN + file_path + CEND:.<180}", end="")
             for page in doc:
                 text = page.get_text()
 
                 # Извлекаем дату из текста
                 if juramat_date is None:
-                    match = re.search(r'(\d{1,2}[./]\d{1,2}[./]20\d{2})', text)
+                    match = re.search(r'(\d{2}/\d{2}/\d{4})', text)
                     if match:
                         try:
-                            juramat_date = datetime.strptime(match.group(1), '%d.%m.%Y').date()
-                        except ValueError:
                             juramat_date = datetime.strptime(match.group(1), '%d/%m/%Y').date()
+                        except ValueError:
+                            juramat_date = None
 
                 # Извлекаем идентификаторы дел
-                dosar_ids = re.findall(r'\d+/\d{4}', text)
-                for dosar_id in dosar_ids:
+                dosar_ids = re.findall(r'\b\d+/\d{4}\b', text)
+                filtered_ids = [
+                    dosar_id for dosar_id in dosar_ids
+                    if not re.match(r'\d{1,2}/\d{4}', dosar_id)  # Исключаем строки "день/год"
+                ]
+                logger.info(f"Found dosar IDs on page: {filtered_ids}")
+                for dosar_id in filtered_ids:
                     total_records += 1  # Считаем общее количество записей
                     formatted_id = f"{dosar_id.split('/')[0]}/RD/{dosar_id.split('/')[1]}"
                     if formatted_id not in duplicates:
