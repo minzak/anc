@@ -25,6 +25,8 @@
 │   ├── 2024-12-18-DEC.ORA-09.00.pdf
 │   ├── 2024-12-18-DEC.ORA-12.30.pdf
 │   ├── 2024-12-tabel-afisare-site-11.12.2024-ora-09.00.pdf
+│   ├── 2025-01-04-FEBRUARIE-ORA-1230.pdf
+│   ├── 2025-01-04-FEBRUARIE-ORA-900.pdf
 │   ├── 2025-01-13-IANUARIE-ORA-1230.pdf
 │   ├── 2025-01-13-IANUARIE-ORA-900.pdf
 │   ├── 2025-01-16-IANUARIE-ORA-1400.pdf
@@ -32,7 +34,21 @@
 │   ├── 2025-01-20-IANUARIE-ORA-1230.pdf
 │   ├── 2025-01-23-IANUARIE-ORA-830.pdf
 │   ├── 2025-01-27-IANUARIE-ORA-1230.pdf
-│   └── 2025-01-27-IANUARIE-ORA-900.pdf
+│   ├── 2025-01-27-IANUARIE-ORA-900.pdf
+│   ├── 2025-02-03-MARTIE-ORA-1230.pdf
+│   ├── 2025-02-03-MARTIE-ORA-900.pdf
+│   ├── 2025-02-10-FEBRUARIE-ORA-1230.pdf
+│   ├── 2025-02-10-FEBRUARIE-ORA-900.pdf
+│   ├── 2025-02-13-FEBRUARIE-ORA-1400.pdf
+│   ├── 2025-02-17-FEBRUARIE-ORA-1230.pdf
+│   ├── 2025-02-17-FEBRUARIE-ORA-900.pdf
+│   ├── 2025-02-20-FEBRUARIE-ORA-1400.pdf
+│   ├── 2025-02-25-FEBRUARIE-ORA-900.pdf
+│   ├── 2025-02-27-FEBRUARIE-ORA-1400.pdf
+│   ├── 2025-02-tabel-afisare-site-11.02.2025-ora-14.00.pdf
+│   ├── 2025-02-tabel-afisare-site-11.02.2025-ora-9.00.pdf
+│   ├── 2025-02-tabel-afisare-site-18.02.2025-ora-12.30.pdf
+│   └── 2025-02-tabel-afisare-site-18.02.2025-ora-9.00.pdf
 ├── old
 │   ├── parse_ordins_all.py.PDFMiner
 │   ├── parse_ordins_all.py.PyMuPDF
@@ -1704,6 +1720,7 @@
 │   ├── 2023-11-Ordin-118P-21.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-119P-21.01.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-120-21.01.2025-art.11.pdf
+│   ├── 2023-11-Ordin-121P-21.01.2025-Art.-11.pdf
 │   ├── 2023-11-Ordin-1225-P-din-30-07-2024-art-11.pdf
 │   ├── 2023-11-Ordin-122P-21.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-1231-P-01-08-2024-art-11.pdf
@@ -1726,6 +1743,7 @@
 │   ├── 2023-11-Ordin-1775-P-26-09-2024-art-11.pdf
 │   ├── 2023-11-Ordin-180-din-22.01.2024-art-11.pdf
 │   ├── 2023-11-Ordin-189P-28.01.2025-art-11.pdf
+│   ├── 2023-11-Ordin-191P-28.01.2025-art-11.pdf
 │   ├── 2023-11-ordin-1950-P-08.10.2024-art-11.pdf
 │   ├── 2023-11-Ordin-1951-P-08-10-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1952-P-08-10-2024-art-11.pdf
@@ -1832,6 +1850,11 @@
 │   ├── 2023-11-Ordin-2714P-din-23.12.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2733P-24.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2734P-24.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-284P-04.02.2025-art-11.pdf
+│   ├── 2023-11-ORDIN-287-din-04.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-289P-04.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-314P-04.02.2025-art-11i.pdf
+│   ├── 2023-11-Ordin-314P-04.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
 │   ├── 2023-11-ORDIN-36P-din-13.01.2025-art-11.pdf
@@ -1840,17 +1863,23 @@
 │   ├── 2023-11-ordin-387-P-23.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-388-23-02-2024-art-11.pdf
 │   ├── 2023-11-Ordin-410-P-26.02.2024-art-11-1.pdf
+│   ├── 2023-11-Ordin-413P-06.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-43P-13.01.2025-art-11.pdf
 │   ├── 2023-11-ordin-448-din-28.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-460-P-din-29.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-503-P-06.03.2024.pdf
+│   ├── 2023-11-Ordin-574P-12.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-585-15.03.2024-art-11.pdf
 │   ├── 2023-11-Ordin-610-P-19.03.2024-art-11.pdf
+│   ├── 2023-11-Ordin-624P-13.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-631-din-21.03.2024-art-11.pdf
 │   ├── 2023-11-ordin-632-21.03.2024-art-11.pdf
 │   ├── 2023-11-Ordin-637-22.03.2024-art-11.pdf
 │   ├── 2023-11-Ordin-638-P-25.03.2024-art-11.pdf
+│   ├── 2023-11-Ordin-642P-14.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-643P-14.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-66-din-10.01.2024-art-11.pdf
+│   ├── 2023-11-Ordin-721P-18.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-815-din-05.04.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-828-05.04.2024-art-11.pdf
 │   ├── 2023-11-ordin-891-din-12.04.2024-art-11.pdf
@@ -1897,6 +1926,7 @@
 │   ├── 2023-11-Ordin-nr.2624P-din-19.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2735P-din-24.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
+│   ├── 2023-11-Ordin-nr.-722P-din-18.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-935-din-20.05.2024.pdf
 │   ├── 2023-11-Ordinul-1136-din-05-07-2024-art-11.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
@@ -1993,16 +2023,26 @@
 │   │   ├── Articol_11_2022_06_12_2024.pdf
 │   │   ├── Articol_11_2023_06_12_2024.pdf
 │   │   └── Articol_11_2024_06_12_2024.pdf
-│   └── 2025-01-16
-│       ├── art_11_2017.pdf
-│       ├── art_11_2018.pdf
-│       ├── art_11_2019.pdf
-│       ├── art_11_2020.pdf
-│       ├── art_11_2021.pdf
-│       ├── art_11_2022.pdf
-│       ├── art_11_2023.pdf
-│       ├── art_11_2024.pdf
-│       └── art_11_2025.pdf
+│   ├── 2025-01-16
+│   │   ├── art_11_2017.pdf
+│   │   ├── art_11_2018.pdf
+│   │   ├── art_11_2019.pdf
+│   │   ├── art_11_2020.pdf
+│   │   ├── art_11_2021.pdf
+│   │   ├── art_11_2022.pdf
+│   │   ├── art_11_2023.pdf
+│   │   ├── art_11_2024.pdf
+│   │   └── art_11_2025.pdf
+│   └── 2025-02-26
+│       ├── art_11_anul_2017.pdf
+│       ├── art_11_anul_2018.pdf
+│       ├── art_11_anul_2019.pdf
+│       ├── art_11_anul_2020.pdf
+│       ├── art_11_anul_2021.pdf
+│       ├── art_11_anul_2022.pdf
+│       ├── art_11_anul_2023.pdf
+│       ├── art_11_anul_2024.pdf
+│       └── art_11_anul_2025.pdf
 ├── stat.sql
 ├── todo.txt
 ├── tree.txt
@@ -2013,4 +2053,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-17 directories, 1996 files
+18 directories, 2035 files
