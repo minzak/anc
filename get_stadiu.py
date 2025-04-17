@@ -94,10 +94,19 @@ except pycurl.error as e:
     exit()
 
 soup = BeautifulSoup(html_content, 'html.parser')
-articolul_11_section = soup.find("div", id="1576832773102-627a212f-45ce")
+articolul_11_section = soup.find("div", id="articolul-11-tab")
 if not articolul_11_section:
     print(f"{C_ERROR}Не найдена секция ARTICOLUL 11.{C_RESET}")
     exit()
+
+#Вместо поиска по фиксированному id, можно найти все контейнеры с классом "eael-tab-content-item" и затем отфильтровать ссылки, заканчивающиеся на ".pdf".
+#pdf_links = []
+#for section in soup.find_all("div", class_="eael-tab-content-item"):
+#    pdf_links.extend([
+#        link.get('href')
+#        for link in section.find_all('a', href=True)
+#        if link.get('href').endswith(".pdf")
+#    ])
 
 links = [
     link.get('href') for link in articolul_11_section.find_all('a', href=True)

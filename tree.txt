@@ -10,6 +10,7 @@
 ├── data.db
 ├── data.db.bz2
 ├── get_juramat.py
+├── get_minori.py
 ├── get_ordins.py
 ├── get_stadiu.py
 ├── init_db.sh
@@ -37,8 +38,12 @@
 │   ├── 2025-01-27-IANUARIE-ORA-900.pdf
 │   ├── 2025-02-03-MARTIE-ORA-1230.pdf
 │   ├── 2025-02-03-MARTIE-ORA-900.pdf
+│   ├── 2025-02-04-MARTIE-ORA-1230.pdf
+│   ├── 2025-02-04-MARTIE-ORA-900.pdf
+│   ├── 2025-02-06-MARTIE-1400.pdf
 │   ├── 2025-02-10-FEBRUARIE-ORA-1230.pdf
 │   ├── 2025-02-10-FEBRUARIE-ORA-900.pdf
+│   ├── 2025-02-10-MARTIE-ORA-900.pdf
 │   ├── 2025-02-13-FEBRUARIE-ORA-1400.pdf
 │   ├── 2025-02-17-FEBRUARIE-ORA-1230.pdf
 │   ├── 2025-02-17-FEBRUARIE-ORA-900.pdf
@@ -48,12 +53,225 @@
 │   ├── 2025-02-tabel-afisare-site-11.02.2025-ora-14.00.pdf
 │   ├── 2025-02-tabel-afisare-site-11.02.2025-ora-9.00.pdf
 │   ├── 2025-02-tabel-afisare-site-18.02.2025-ora-12.30.pdf
-│   └── 2025-02-tabel-afisare-site-18.02.2025-ora-9.00.pdf
-├── old
-│   ├── parse_ordins_all.py.PDFMiner
-│   ├── parse_ordins_all.py.PyMuPDF
-│   ├── parse_ordins_new.py.bak
-│   └── update-ording.sh.bak
+│   ├── 2025-02-tabel-afisare-site-18.02.2025-ora-9.00.pdf
+│   ├── 2025-03-24-MARTIE-ORA-900.pdf
+│   ├── 2025-03-27-MARTIE-ORA-1400.pdf
+│   ├── 2025-03-Tabel-13-MARTIE-ORA-1400.pdf
+│   ├── 2025-03-tabel-afisare-site-01.04.2025-ora-14.00.pdf
+│   ├── 2025-03-tabel-afisare-site-03.04.2025-ora-14.00.pdf
+│   ├── 2025-03-tabel-afisare-site-07.04.2025-ora-12.30.pdf
+│   ├── 2025-03-tabel-afisare-site-07.04.2025-ora-9.00.pdf
+│   ├── 2025-03-tabel-afisare-site-31.03.2025-ora-12.30-1.pdf
+│   ├── 2025-03-tabel-afisare-site-31.03.2025-ora-12.30.pdf
+│   ├── 2025-03-tabel-afisare-site-31.03.2025-ora-9.00-1.pdf
+│   ├── 2025-03-tabel-afisare-site-31.03.2025-ora-9.00.pdf
+│   ├── 2025-04-17-APRILIE-ORA-1400-1.pdf
+│   ├── 2025-04-tabel-afisare-site-23.04.2025-ora-12.30.pdf
+│   ├── 2025-04-tabel-afisare-site-23.04.2025-ora-9.00.pdf
+│   └── 2025-04-tabel-afisare-site-24.04.2025-ora-14.00.pdf
+├── minori
+│   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
+│   ├── 2020-11-Ordin-minori-nr-1823P-din-3-11-2020.pdf
+│   ├── 2020-11-Ordin-nr-1886P-din-10-11-2020.pdf
+│   ├── 2020-11-Ordin-nr-1887P-din-10-11-2020.pdf
+│   ├── 2020-12-Ordin-2303-P-din-28-12-2020-minori-50-pers-.pdf
+│   ├── 2020-12-Ordin-minori-nr-2108P-din-15-12-2020.pdf
+│   ├── 2020-12-Ordin-minori-nr-2109P-din-15-12-2020.pdf
+│   ├── 2020-12-Ordin-minori-nr-2111P-din-15-12-2020.pdf
+│   ├── 2020-12-Ordin-minori-nr.-2223-P-din-21.12.2020.pdf
+│   ├── 2021-02-Ordin-nr.-251P-din-08.02.2021.pdf
+│   ├── 2021-02-Ordin-nr.-255P-din-09.02.2021-minori.pdf
+│   ├── 2021-02-Ordin-nr.-30P-din-01.02.2021-minori.pdf
+│   ├── 2021-02-Ordin-nr.-31P-din-01.02.2021-minori.pdf
+│   ├── 2021-02-Ordin-nr.-32P-din-01.02.2021.pdf
+│   ├── 2021-02-Ordin-nr.-410P-din-17.02.2021.pdf
+│   ├── 2021-02-Ordin-nr.-491-P-din-24.02.2021-minori.pdf
+│   ├── 2021-03-OP-576-din-02.03.2021.pdf
+│   ├── 2021-03-OP-630-din-09.03.2021-minori-prelucrat.pdf
+│   ├── 2021-03-OP-711-din-23-03-2021-minori-X.pdf
+│   ├── 2021-03-OP-728-din-30.03.2021-minori.pdf
+│   ├── 2021-03-Ordin-minori-nr.-629-P-din-09.03.2021-PRELUCRAT.pdf
+│   ├── 2021-03-Ordin-nr.-532P-din-01.03.2021.pdf
+│   ├── 2021-04-O-755-P-din-02.04.2021-minori.pdf
+│   ├── 2021-04-OP-803-din-13.04.2021-minori.pdf
+│   ├── 2021-04-Ordin-796P-din-09.04.2021-minori.pdf
+│   ├── 2021-04-Ordin-nr.-758P-din-05.04.2021.pdf
+│   ├── 2021-04-Ordin-nr.-759-P-05.04.2021-minori.pdf
+│   ├── 2021-04-Ordin-nr.-760P-din-05.04.2021.pdf
+│   ├── 2021-05-Ordin-nr-1066P-din-28-05-2021-minori.pdf
+│   ├── 2021-05-Ordin-nr-977P-din-17-05-2021-X.pdf
+│   ├── 2021-06-O-1123-P-din-27-06-2024.pdf
+│   ├── 2021-06-O-1124-P-din-27-06-2024-minori.pdf
+│   ├── 2021-06-O-1510-P-din-07.10.2021-minori.pdf
+│   ├── 2021-06-O-1595-P-din-03.11.2021-minori-refacut-anexa-1.pdf
+│   ├── 2021-06-OP-937-din-24.05.2024-minori.pdf
+│   ├── 2021-06-OP-951-din-24.05.2024-minori.pdf
+│   ├── 2021-06-OP-952-din-24.05.2024-minori.pdf
+│   ├── 2021-06-Ord-2152-din-14.12.2023-minori.pdf
+│   ├── 2021-06-Ord-2166-P-din-19.12.2023-minori.pdf
+│   ├── 2021-06-ordin-1121-P-din-27-06-2024-minori.pdf
+│   ├── 2021-06-Ordin-1122-P-27-06-2024-minori.pdf
+│   ├── 2021-06-Ordin-1125-P-2024-din-27-06-2024-Minori.pdf
+│   ├── 2021-06-Ordin-1131-P-din-26.06.2023-minori.pdf
+│   ├── 2021-06-Ordin-1133-P-din-04-07-2024-minori.pdf
+│   ├── 2021-06-Ordin-1142-04-11-Minori-23-pers.pdf
+│   ├── 2021-06-ordin-1155-P-27.06.2023-minori-final.pdf
+│   ├── 2021-06-Ordin-1173-P-din-27.03-minori.pdf
+│   ├── 2021-06-Ordin-1192-05.07.2023-minori.pdf
+│   ├── 2021-06-Ordin-1203-P-2025-din-01.04.2025-Minori.pdf
+│   ├── 2021-06-Ordin-1243-51-persoane-.pdf
+│   ├── 2021-06-Ordin-1294-25.07.2023-minori.pdf
+│   ├── 2021-06-ORDIN-1299-P-28.07.2023-minori.pdf
+│   ├── 2021-06-ORDIN-1313-14-08-2024-minori.pdf
+│   ├── 2021-06-Ordin-133-minori-art-10-.pdf
+│   ├── 2021-06-Ordin-1346-P-04.08.2023-minori.pdf
+│   ├── 2021-06-Ordin-134P-50-pers-minori-1-1.pdf
+│   ├── 2021-06-Ordin-1362P-14.04.2025-minori.pdf
+│   ├── 2021-06-Ordin-1390-P-din-01.09.2023-minori-1.pdf
+│   ├── 2021-06-Ordin-1419-P-07.09.2023-minori.pdf
+│   ├── 2021-06-Ordin-142-22.01.2024-minori.pdf
+│   ├── 2021-06-ordin-1444-minori-6-persoane.pdf
+│   ├── 2021-06-ordin-1445-minori-5-persoane.pdf
+│   ├── 2021-06-ordin-1446-minori-27-persoane.pdf
+│   ├── 2021-06-Ordin-155-22.01.2024-minori.pdf
+│   ├── 2021-06-Ordin-1608-P-din-28.09.2023-minori.pdf
+│   ├── 2021-06-Ordin-1629-P-din-03.10.2023-minori.pdf
+│   ├── 2021-06-ordin-1716-P-din-11.10.2023-minori.pdf
+│   ├── 2021-06-Ordin-1965-16.11.2023-minori.pdf
+│   ├── 2021-06-Ordin-2014-P-din-16-10-2024-minori.pdf
+│   ├── 2021-06-Ordin-2015-P-2024-din-16.10.2024-Minori.pdf
+│   ├── 2021-06-ordin-2016-din-16-10-2024-minori.pdf
+│   ├── 2021-06-Ordin-2020-21.11.2023-minori.pdf
+│   ├── 2021-06-Ordin-2021-21.11.2023-minori.pdf
+│   ├── 2021-06-ORDIN-2027-16-10-2024-minori.pdf
+│   ├── 2021-06-Ordin-2028-P-17-10-2024-minori.pdf
+│   ├── 2021-06-ORDIN-2030-din-18.10.2024-8.2-minori.pdf
+│   ├── 2021-06-Ordin-2031-P-2024-din-18.10.2024-Minori.pdf
+│   ├── 2021-06-Ordin-2032-P-2024-din-18.10.2024-Minori.pdf
+│   ├── 2021-06-ORDIN-2033-18-10-2024-art-11.pdf
+│   ├── 2021-06-Ordin-203-Minori-146-pers-1.pdf
+│   ├── 2021-06-Ordin-2045-P-din-27.11.2023-minor-.pdf
+│   ├── 2021-06-ordin-2079-P-21.10.2024-minori.pdf
+│   ├── 2021-06-Ordin-228-Minori-141-pers.pdf
+│   ├── 2021-06-Ordin-2426-P-din-02.12.2024-minori.pdf
+│   ├── 2021-06-Ordin-2524P-2024-din-10.12.2024-Minori.pdf
+│   ├── 2021-06-Ordin-2588P-16.12.2024-minori.pdf
+│   ├── 2021-06-Ordin-270-Minori-147-pers.pdf
+│   ├── 2021-06-Ordin-309-Minori-152-pers-.pdf
+│   ├── 2021-06-ORDIN-323P-MINORI-7-P.pdf
+│   ├── 2021-06-ordin-382P.pdf
+│   ├── 2021-06-Ordin-414P-06.02.2025-minori.pdf
+│   ├── 2021-06-ORDIN-41-persoane-13-01-2023-144-persoane-minori.pdf
+│   ├── 2021-06-Ordin-42-persoane-13-01-2023-minori-.pdf
+│   ├── 2021-06-Ordin-461P-din-01.03.2024-minori.pdf
+│   ├── 2021-06-ORDIN-484P-MINORI.pdf
+│   ├── 2021-06-O-RDIN-486P-minori.pdf
+│   ├── 2021-06-Ordin-498P-din-10.02-minori.pdf
+│   ├── 2021-06-ordin-601P-minori-52-pers.pdf
+│   ├── 2021-06-Ordin-625P-13.02.2025-minori.pdf
+│   ├── 2021-06-Ordin-629P-55-minori.pdf
+│   ├── 2021-06-Ordin-688-din-29.03.2024-minori.pdf
+│   ├── 2021-06-Ordin-689-din-29.03.2024-minori.pdf
+│   ├── 2021-06-Ordin-690-din-29.03.2024-minori.pdf
+│   ├── 2021-06-Ordin-70P-minori-ART-11.pdf
+│   ├── 2021-06-Ordin-720P.pdf
+│   ├── 2021-06-Ordin-721P.pdf
+│   ├── 2021-06-Ordin-754-minori-152-pers.pdf
+│   ├── 2021-06-Ordin-792P-03.03.2025-minori.pdf
+│   ├── 2021-06-Ordin-813P-minori.pdf
+│   ├── 2021-06-ordin-850P-minor.pdf
+│   ├── 2021-06-ordin-887P-minori-.pdf
+│   ├── 2021-06-ORDIN-88P-MINORI-ART-11.pdf
+│   ├── 2021-06-ordin-893-P-din-10.03.2025-minori.pdf
+│   ├── 2021-06-Ordin-896-Minor-.pdf
+│   ├── 2021-06-Ordin-903-Minori-150-pers.pdf
+│   ├── 2021-06-Ordin-933-P-2024-din-17-05-2024-Minori.pdf
+│   ├── 2021-06-Ordin-971P-din-29.05.2023-minori.pdf
+│   ├── 2021-06-ordin-minori-1229-din-13.07.2023.pdf
+│   ├── 2021-06-Ordin-minori-302P-53-PERS.pdf
+│   ├── 2021-06-Ordin-Minori-313-150-pers-.pdf
+│   ├── 2021-06-Ordin-Minori-352-146-pers-.pdf
+│   ├── 2021-06-Ordin-Minori-384-147-pers-.pdf
+│   ├── 2021-06-Ordin-Minori-427-150-pers.pdf
+│   ├── 2021-06-Ordin-Minori-488-148-pers.pdf
+│   ├── 2021-06-ORDIN-MINORI-508P-4.5.2022.docx.pdf
+│   ├── 2021-06-ORDIN-MINORI-550-148-Pers-.pdf
+│   ├── 2021-06-Ordin-MINORI-58-138-persoane.pdf
+│   ├── 2021-06-Ordin-minori-59-138-pers.pdf
+│   ├── 2021-06-Ordin-Minori-647-148-pers-.pdf
+│   ├── 2021-06-ordin-minori-668P.pdf
+│   ├── 2021-06-ordin-minori-800P.pdf
+│   ├── 2021-06-ordin-minori-855-145-pers-.pdf
+│   ├── 2021-06-ORDIN-MINORI-949P-95-pers-1.pdf
+│   ├── 2021-06-ordin-minori-nr.-18-din-17.01.2022.pdf
+│   ├── 2021-06-Ordin-nr.1056P-din-24.03.2025-Minori.pdf
+│   ├── 2021-06-ordin-nr.-1112P-din-27.10.2022-minori.pdf
+│   ├── 2021-06-Ordin-nr.-1191P-din-05.07.2021.pdf
+│   ├── 2021-06-Ordin-nr-1194P-din-05-07-2021-X.pdf
+│   ├── 2021-06-ORDIN-NR.1439-DIN-22-12-2022.pdf
+│   ├── 2021-06-Ordin_nr._1486P_din_21_09_2020.pdf
+│   ├── 2021-06-Ordin_nr._1487P_din_22_09_2020.pdf
+│   ├── 2021-06-Ordin-nr-1530P-din-18-10-2021-minori.pdf
+│   ├── 2021-06-Ordin_nr._1548P_din_29_09_2020.pdf
+│   ├── 2021-06-Ordin_nr._1549P_din_29_09_2020.pdf
+│   ├── 2021-06-ordin-nr.-154-din-21.02.2022.pdf
+│   ├── 2021-06-ordin-nr.-155-din-22.02.2022-minori.pdf
+│   ├── 2021-06-Ordin-nr-1630P-din-16-11-2021.pdf
+│   ├── 2021-06-Ordin_nr._1637P_din_06_10_2020.pdf
+│   ├── 2021-06-Ordin_nr._1638P_din_06_10_2020.pdf
+│   ├── 2021-06-Ordin_nr._1685P_din_21_10_2020.pdf
+│   ├── 2021-06-Ordin_nr._1686P_din_21_10_2020.pdf
+│   ├── 2021-06-Ordin_nr._1776_P_din_27.10.2020_.pdf
+│   ├── 2021-06-Ordin_nr._1777_P_din_27.10.2020.pdf
+│   ├── 2021-06-Ordin-nr-2029P-din-17-10-2024-minori.pdf
+│   ├── 2021-06-Ordin_nr._205P_din_18.02.2020.pdf
+│   ├── 2021-06-Ordin-nr.-222-din-29.01.2024.pdf
+│   ├── 2021-06-Ordin_nr._2264P_din_20.09.2019.pdf
+│   ├── 2021-06-Ordin_nr._2268_P_din__24.09.2019.pdf
+│   ├── 2021-06-Ordin_nr._2272P_din_27._09_2019.pdf
+│   ├── 2021-06-Ordin_nr._2276_P_din_04.10.2019.pdf
+│   ├── 2021-06-Ordin_nr._231P_din_24.02.2020.pdf
+│   ├── 2021-06-Ordin_nr._232P_din_24.02.2020.pdf
+│   ├── 2021-06-Ordin_nr._233P_din_24.02.2020.pdf
+│   ├── 2021-06-Ordin_nr._234P_din_24.02.2020.pdf
+│   ├── 2021-06-Ordin_nr._235P_din_24.02.2020.pdf
+│   ├── 2021-06-Ordin_nr._2398P_din_31_10_2019_48_MINORI.pdf
+│   ├── 2021-06-Ordin_nr._2402_P_04_11_2019_minori_.pdf
+│   ├── 2021-06-Ordin_nr._2404P_din_08.11.2019.pdf
+│   ├── 2021-06-Ordin_nr._2424P_din_22.11.2019.pdf
+│   ├── 2021-06-Ordin_nr._2428P_din_02.12.2019.pdf
+│   ├── 2021-06-Ordin_nr._2429P_din_02.12.2019.pdf
+│   ├── 2021-06-Ordin_nr._2430P_din_02.12.2019.pdf
+│   ├── 2021-06-Ordin-nr.-2543P-din-12.12.2024.pdf
+│   ├── 2021-06-Ordin-nr.-2561P-din-13.12.2024.pdf
+│   ├── 2021-06-Ordin_nr._284P_din_04.03.2020.pdf
+│   ├── 2021-06-Ordin_nr._285P_din_04.03.2020.pdf
+│   ├── 2021-06-Ordin-nr.3P-din-07.01.2022.pdf
+│   ├── 2021-06-Ordin_nr._418P_din_30_04_2020.pdf
+│   ├── 2021-06-Ordin_nr._419P_din_30_04_2020.pdf
+│   ├── 2021-06-Ordin_nr._501P_din_13.05.2020.pdf
+│   ├── 2021-06-Ordin_nr._5P_din_28_01_2020.pdf
+│   ├── 2021-06-Ordin_nr._627P_din_05_06_2020.pdf
+│   ├── 2021-06-Ordin_nr._642P_din_9.06.2020.pdf
+│   ├── 2021-06-Ordin_nr._643P_din_09.06.2020.pdf
+│   ├── 2021-06-Ordin_nr._654P_din_11_06_2020.pdf
+│   ├── 2021-06-ordin-nr.-656-din-02.06.2022-minori.pdf
+│   ├── 2021-06-Ordin_nr._704P_din_19.06.2020.pdf
+│   ├── 2021-06-Ordin_nr._711_P_din_22_06_2020.pdf
+│   ├── 2021-06-Ordin_nr._736P_din_25_06_2020.pdf
+│   ├── 2021-06-Ordin_nr._775P_din_30_06_2020.pdf
+│   ├── 2021-06-Ordin_nr._77P_din_04.02.2020.pdf
+│   ├── 2021-06-Ordin_nr._7P_din_03.02.2020.pdf
+│   ├── 2021-06-Ordin_nr._819P_din_02_07_2020.pdf
+│   ├── 2021-06-Ordin_nr._827P_din_03_07_2020-1.pdf
+│   ├── 2021-06-Ordin_nr._866P_din_09_07_2020.pdf
+│   ├── 2021-06-ordin-nr.-993-din-04.10.2022.pdf
+│   ├── 2021-06-Ordin-persoane-285-P-din-07.02.2024-minori.pdf
+│   ├── 2021-06-Ordon-pozitiv-Minori-506-147-pers-.pdf
+│   ├── 2022-01-ordin-nr.-21-M-din-19.01.2022.pdf
+│   ├── 2022-06-ordin-nr.-663-din-03.06.2022.pdf
+│   ├── 2022-06-ordin-nr.-665-din-03.06.2022.pdf
+│   └── 2023-02-Ordin-287-Minori-148-pers-.pdf
 ├── ordins
 │   ├── 2019-12-Ordin-nr.-1477P-din-27.09.2021.pdf
 │   ├── 2019-12-Ordin-nr.-1478P-din-27.07.2021.pdf
@@ -1694,8 +1912,10 @@
 │   ├── 2023-11-O-2144-P-din-01.11.2024-art.-11.pdf
 │   ├── 2023-11-O-924-P-din-25.04.2024-art-11.pdf
 │   ├── 2023-11-OP-1033-din-11.06.2024-art-11.pdf
+│   ├── 2023-11-OP-1052-din-20.03.2025-art-11.pdf
 │   ├── 2023-11-OP-1189-din-25-07-2024-art-11.pdf
 │   ├── 2023-11-OP-1192-26-07-2024-art-11.pdf
+│   ├── 2023-11-OP-1201-din-01.04.2025-Art-11.pdf
 │   ├── 2023-11-OP-1230-din-1-08-2024-art-11.pdf
 │   ├── 2023-11-OP-1788-din-30-09-2024-Moldova.pdf
 │   ├── 2023-11-OP-1949-din-07-10-2024-Art-11.pdf
@@ -1711,6 +1931,8 @@
 │   ├── 2023-11-Ordiin-2475P-din-06.12.2024-art.11.pdf
 │   ├── 2023-11-ordin-1034-din-11.6.2024.NPE-Kampi.pdf
 │   ├── 2023-11-Ordin-1035-P-13-06-2024-art-11.pdf
+│   ├── 2023-11-Ordin-1054P-24.03.2025-art.11.pdf
+│   ├── 2023-11-Ordin-1060-P-25.03.2025.pdf
 │   ├── 2023-11-Ordin-1067-14-06-2024-art-11-NPE.pdf
 │   ├── 2023-11-Ordin-1095-din-19-06-2024-art11.pdf
 │   ├── 2023-11-Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
@@ -1720,21 +1942,30 @@
 │   ├── 2023-11-Ordin-118P-21.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-119P-21.01.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-120-21.01.2025-art.11.pdf
+│   ├── 2023-11-Ordin-1202P-01.04.2025-art-11.pdf
 │   ├── 2023-11-Ordin-121P-21.01.2025-Art.-11.pdf
 │   ├── 2023-11-Ordin-1225-P-din-30-07-2024-art-11.pdf
 │   ├── 2023-11-Ordin-122P-21.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-1231-P-01-08-2024-art-11.pdf
 │   ├── 2023-11-ordin-1235-P-02-08-2024-art-11.pdf
+│   ├── 2023-11-Ordin-1256-04.04.2025-art-11.pdf
 │   ├── 2023-11-Ordin-125P-din18.01.2024-art-11.pdf
+│   ├── 2023-11-Ordin-1272.P-din-07.04.2025-art-11.pdf
+│   ├── 2023-11-Ordin-1273.P-07.04.2025-art-11.pdf
+│   ├── 2023-11-Ordin-1274P-07.04.2025-art-11.pdf
 │   ├── 2023-11-Ordin-1280-P-07-08-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1281-P-din-07-08-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1282-P-07-08-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1299-P-12-08-2024-art.-11.pdf
+│   ├── 2023-11-Ordin-1381-din-14.04.2025-art-11.pdf
 │   ├── 2023-11-Ordin-1382-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1383-P-din-26-08-2024.pdf
 │   ├── 2023-11-Ordin-1385-P-28-08-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1386-P-28-08-2024-art-11.pdf
+│   ├── 2023-11-Ordin-1412P-15.04.2025-art-11.pdf
 │   ├── 2023-11-Ordin-141P-23.01.2025-art-11.pdf
+│   ├── 2023-11-Ordin-1449P-16.04.2025-art-11.pdf
+│   ├── 2023-11-ordin-1450-din-16.04.2025-art11.pdf
 │   ├── 2023-11-Ordin-1478-P-din-11-09-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1480-P-din-12-09-2024-Art-11-NPE.pdf
 │   ├── 2023-11-Ordin-1481P-din-12-09-2024-NPE-art-11.pdf
@@ -1867,8 +2098,10 @@
 │   ├── 2023-11-Ordin-43P-13.01.2025-art-11.pdf
 │   ├── 2023-11-ordin-448-din-28.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-460-P-din-29.02.2024-art-11.pdf
+│   ├── 2023-11-Ordin-499-din-10.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-503-P-06.03.2024.pdf
 │   ├── 2023-11-Ordin-574P-12.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-575-din-12.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-585-15.03.2024-art-11.pdf
 │   ├── 2023-11-Ordin-610-P-19.03.2024-art-11.pdf
 │   ├── 2023-11-Ordin-624P-13.02.2025-art-11.pdf
@@ -1880,10 +2113,21 @@
 │   ├── 2023-11-Ordin-643P-14.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-66-din-10.01.2024-art-11.pdf
 │   ├── 2023-11-Ordin-721P-18.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-756-din-27.02.2025-art-11.pdf
+│   ├── 2023-11-ordin-757P-27.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-780-P-2025-28.02.2025-Art.-11.pdf
+│   ├── 2023-11-Ordin-781-din-28.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-793P-03.03.2025-art-11.pdf
 │   ├── 2023-11-Ordin-815-din-05.04.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-828-05.04.2024-art-11.pdf
+│   ├── 2023-11-Ordin-840-P-din-06.03.2025-art-11.pdf
+│   ├── 2023-11-Ordin-841-P-din-06.03.2025-art-11.pdf
+│   ├── 2023-11-ORDIN-842P-06.03.2025-art-11.pdf
+│   ├── 2023-11-Ordin-843-din-06.03.2025-art-11.pdf
 │   ├── 2023-11-ordin-891-din-12.04.2024-art-11.pdf
 │   ├── 2023-11-Ordin-892-12.04.2024.pdf
+│   ├── 2023-11-Ordin-894-din-10.03.2025-art-11.pdf
+│   ├── 2023-11-Ordin-908-P-11.03.2025-art.-11.pdf
 │   ├── 2023-11-Ordin-913-din-12.04.2024-NPE.pdf
 │   ├── 2023-11-Ordin-914-P-22.04.2024-art-11.pdf
 │   ├── 2023-11-Ordin-916-P-22.04.2024-art-11.pdf
@@ -1898,8 +2142,13 @@
 │   ├── 2023-11-Ordin-934-P-2024-din-17-05-2024-Art-11.pdf
 │   ├── 2023-11-Ordin-93-P-17.01.2025-art.11.pdf
 │   ├── 2023-11-Ordin-94-P-17.01.2025-art-11.pdf
+│   ├── 2023-11-Ordin-966P-2025-14.03.2025-Art.-11.pdf
 │   ├── 2023-11-Ordin-971-29.05.2024-art-11.pdf
 │   ├── 2023-11-Ordinn-2405P-28.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-nr.-1017P-din-18.03.2025.pdf
+│   ├── 2023-11-Ordin-nr.-1018P-din-18.03.2025.pdf
+│   ├── 2023-11-Ordin-nr.-1028P-din-19.03.2025.pdf
+│   ├── 2023-11-Ordin-nr.1249P-din-03.04.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr-1314-din-14-08-2024-Art-11-NPE.pdf
 │   ├── 2023-11-Ordin-nr-1400P-din-04-09-2024-Art-11-NPE.pdf
 │   ├── 2023-11-Ordin-nr.-1659P-din-23.09.2024.pdf
@@ -1927,20 +2176,23 @@
 │   ├── 2023-11-Ordin-nr.2735P-din-24.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 │   ├── 2023-11-Ordin-nr.-722P-din-18.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-nr.758P-27.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-nr.782P-din-28.02.2025-art.11.pdf
+│   ├── 2023-11-Ordin-nr.836P-din-05.03.2025-art.-11.pdf
+│   ├── 2023-11-Ordin-nr.837P-din-05.03.2025-art11.pdf
 │   ├── 2023-11-Ordin-nr.-935-din-20.05.2024.pdf
+│   ├── 2023-11-Ordin-nr.-978P-din-17.03.2025.pdf
 │   ├── 2023-11-Ordinul-1136-din-05-07-2024-art-11.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_juramat_all.py
 ├── parse_ordins_all.py
 ├── parse_ordins_filename.py
 ├── parse_ordins_new.py
-├── parse_stadiu_all.py
-├── parse_stadiu_new.py
-├── parse_stadiu_silent.py
+├── parse_stadiu_all_mp.py
+├── parse_stadiu_new_mp.py
 ├── q1.sh
 ├── q.sh
 ├── q.txt
-├── raw.txt
 ├── readme.md
 ├── requirements.txt
 ├── stadiu
@@ -2053,4 +2305,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-18 directories, 2035 files
+18 directories, 2287 files
