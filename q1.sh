@@ -14,4 +14,4 @@ FROM Dosar GROUP BY semestr ORDER BY semestr;'
 
 #FROM Dosar WHERE termen >= CURRENT_DATE GROUP BY semestr ORDER BY semestr;'
 
-sqlite3 -echo -box data.db 'SELECT * FROM Dosar ORDER By depun;' > raw.txt
+sqlite3 -echo -box data.db 'SELECT * FROM Dosar ORDER BY year, number;' > raw.txt
