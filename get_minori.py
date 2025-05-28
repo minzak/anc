@@ -41,6 +41,8 @@ buffer = BytesIO()
 r = pycurl.Curl()
 r.setopt(pycurl.URL, OrdineUrl)
 r.setopt(pycurl.USERAGENT, Headers)
+
+# Clear buffer before writing
 clear_buffer(buffer)
 r.setopt(pycurl.WRITEDATA, buffer)
 r.perform()
@@ -55,8 +57,11 @@ links = [(href, Ordins + href.replace(DownloadUrl, '').replace('/', '-')) for hr
 new_files = []
 missing_files = []
 
+print("Getting Non exist files...")
+
 for OrdineUrl, FileName in links:
     if os.path.isfile(FileName):
+        # Вывод всех существуюющих файлов
         print(f"{OrdineUrl} {CVIOLET}-> {CWARN}{FileName}{CEND}".ljust(186, '.') + f"{CVIOLET}Skipping{CEND}")
         continue
     print(f"{OrdineUrl} {CVIOLET}-> {CWARN}{FileName}{CEND}".ljust(186, '.'), end="")

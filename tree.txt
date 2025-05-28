@@ -72,6 +72,7 @@
 │   ├── 2025-04-tabel-afisare-site-24.04.2025-ora-14.00.pdf
 │   ├── 2025-04-Tabel-SITE-7-mai-2025-ora-09.00.pdf
 │   ├── 2025-04-Tabel-SITE-7-mai-2025-ora-12.30.pdf
+│   ├── 2025-05-29-MAI-ORA-1400.pdf
 │   ├── 2025-05-tabel-afisare-site-02.06.2025-ora-9.00.pdf
 │   ├── 2025-05-tabel-afisare-site-26.05.2025-ora-12.30.pdf
 │   ├── 2025-05-tabel-afisare-site-26.05.2025-ora-9.00.pdf
@@ -147,6 +148,7 @@
 │   ├── 2021-06-Ordin-1709P-12.05.2025-minori.pdf
 │   ├── 2021-06-ordin-1716-P-din-11.10.2023-minori.pdf
 │   ├── 2021-06-Ordin-1965-16.11.2023-minori.pdf
+│   ├── 2021-06-Ordin-1973P-26.05.2025-minori.pdf
 │   ├── 2021-06-Ordin-2014-P-din-16-10-2024-minori.pdf
 │   ├── 2021-06-Ordin-2015-P-2024-din-16.10.2024-Minori.pdf
 │   ├── 2021-06-ordin-2016-din-16-10-2024-minori.pdf
@@ -1993,6 +1995,7 @@
 │   ├── 2023-11-Ordin-1874-P-19.05.2025-Art.-11.pdf
 │   ├── 2023-11-Ordin-189P-28.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-191P-28.01.2025-art-11.pdf
+│   ├── 2023-11-Ordin-1938P-22.05.2025-art-11.pdf
 │   ├── 2023-11-ordin-1950-P-08.10.2024-art-11.pdf
 │   ├── 2023-11-Ordin-1951-P-08-10-2024-art-11.pdf
 │   ├── 2023-11-Ordin-1952-P-08-10-2024-art-11.pdf
@@ -2008,6 +2011,7 @@
 │   ├── 2023-11-ORDIN-2009-P-2024-14.10.2024-ART.-11.pdf
 │   ├── 2023-11-Ordin-2011-P-14-10-2024-art-11.pdf
 │   ├── 2023-11-Ordin-2023-P-22.11.2023-art-11.pdf
+│   ├── 2023-11-Ordin-2033P-28.05.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2066-P-din-29.11.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2083-P-04.12.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2090-P-din-22.10.2024-art-11.pdf
@@ -2212,6 +2216,7 @@
 │   ├── 2025-05-Ordin-1711-P-din-12.05.2025.art_.11-.pdf
 │   ├── 2025-05-Ordin-1712P-din-12.05.2025-art.11-.pdf
 │   ├── 2025-05-Ordin-1819P-13.05.2025-art-11.pdf
+│   ├── 2025-05-Ordin-1977P-26.05.2025-art-11.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_juramat_all.py
 ├── parse_ordins_all.py
@@ -2335,4 +2340,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-18 directories, 2317 files
+18 directories, 2322 files
