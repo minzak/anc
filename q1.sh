@@ -9,9 +9,9 @@ sqlite3 -echo -box data.db \
         WHEN CAST(strftime("%m", termen) AS INTEGER) BETWEEN 10 AND 12 THEN strftime("%Y", termen) || "-4 триместр"
     END AS semestr,
     COUNT(*) AS count
-FROM Dosar GROUP BY semestr ORDER BY semestr;'
+FROM Dosar11 GROUP BY semestr ORDER BY semestr;'
 
 
-#FROM Dosar WHERE termen >= CURRENT_DATE GROUP BY semestr ORDER BY semestr;'
+#FROM Dosar11 WHERE termen >= CURRENT_DATE GROUP BY semestr ORDER BY semestr;'
 
-sqlite3 -echo -box data.db 'SELECT * FROM Dosar ORDER BY year, number;' > raw.txt
+sqlite3 -echo -box data.db 'SELECT * FROM Dosar11 ORDER BY year, number;' > raw.txt

@@ -1,41 +1,77 @@
 #!/usr/bin/python3
-# #!venv/bin/python3
 
 import os
-import re
-import sys
-import sqlite3
+import pdfplumber
 import logging
-import hashlib
-from loguru import logger
+import re
+import time
+from multiprocessing import Pool, current_process
 from datetime import datetime
-from pdfminer.high_level import extract_pages
-from pdfminer.layout import LTTextContainer, LTTextLine, LAParams
-from multiprocessing import current_process, Pool
-from typing import Generator, List, Tuple
+from collections import defaultdict
+from typing import List, Dict, Tuple
+import sqlite3
+import sys
+from loguru import logger
 
-# Константи для кольорового оформлення
-C_SUCCESS = '\033[92m'  # Зелений
-C_ERROR   = '\033[91m'  # Червоний
-C_INFO    = '\033[93m'  # Жовтий
-C_RESET   = '\033[0m'   # Скидання кольорів
-
-Stadiu = './stadiu/'
+# Путь к директории с PDF-файлами
+PDF_DIR = './stadiu'
 #Database = './data.db'
-
 Database = '/dev/shm/data.db'
-# Читаем SQL-скрипт из файла
-#with open('./create_tables.sql', 'r', encoding='utf-8') as f:
-#    sql_script = f.read()
-# Подключаемся к базе данных
-#conn = sqlite3.connect(Database)
-#cursor = conn.cursor()
-# Выполняем все команды из SQL-скрипта
-#cursor.executescript(sql_script)
-# Фиксируем изменения
-#conn.commit()
-#conn.close()
 
+# Имена лог файлов
+SQL_LOG_FILE = '/dev/shm/sql-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '.log'
+PARSE_LOG_FILE = '/dev/shm/parse-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '-{process_id}.log'
+
+# Цвета для вывода в терминал
+C_SUCCESS   = '\033[92m'
+C_INFO      = '\033[93m'
+C_DARK_GRAY = '\033[90m'
+C_RESET     = '\033[0m'
+
+# Порог объединения по вертикали для строк (по координате Y)
+Y_TOLERANCE = 5  # пикселей
+# Порог объединения по горизонтали для слов (по координате X)
+MERGE_X_THRESHOLD = 60  # пикселей (увеличено с 15)
+
+# Ключевые слова заголовков (для пропуска)
+HEADER_KEYWORDS = ['NR', 'NR. DOSAR', 'DATA ÎNREGISTRĂРЇ', 'TERMEN', 'SOLUȚIE', 'DATĂ', 'DATA']
+
+# --- Коды токенов для UID ---
+# UID будет состоять из буквенного кода, соответствующего паттерну каждого токена (см. token_pattern)
+# Если структура токена не распознана — он получает код 'Z' (UNKNOWN)
+TOKEN_CODES = {
+    'D': 'A',           # число (любой длины)
+    'L': 'B',           # 1 буква
+    'LL': 'C',          # 2 буквы
+    'LLL': 'D',         # 3 буквы (ANC)
+    'DD.DD.DDDD': 'E',  # дата
+    'D/L': 'F',         # 123/P
+    'D/L/DD.DD.DDDD': 'G', # 123/P/01.01.2020
+    'D/L/DD': 'H',      # 789/P/07
+    'D/L/D': 'I',       # 123/P/2020
+    'D/LDDDD': 'J',     # 505/P2016
+    'D/*L/D': 'K',      # 1629/*P/2024
+    'D/D': 'L',         # 672/2018
+    'D/DD.DD.DDDD': 'M',# 2189/17.12.2020
+    'DL': 'N',          # 25P
+    'D/L/DDDD': 'O',    # 5/P/2016
+    'D/L/DDDDD': 'P',   # 91/P/20201
+    'D/L/DDD': 'Q',     # 504/P/205
+    'D/LLL/D': 'R',     # 2376/ANC/2014
+    'D/LL/D': 'T',      # 25720/RD/2020
+    'D/LL/DDDD': 'U',   # 5/RD/2016
+    'D/LL/DDDDD': 'V',  # 91/RD/20201
+    'D/LL/DDD': 'W',    # 504/RD/205
+    'D/LL/DD': 'X',     # 789/RD/07
+    'D/LL': 'Y',        # 156/RD
+    'D/LLL/DDDD': '1',  # 5/ANC/2016
+    'D/LLL/DDDDD': '2', # 91/ANC/20201
+    'D/LLL/DDD': '3',   # 504/ANC/205
+    'D/LLL/DD': '4',    # 789/ANC/07
+    'D/LLL': '5',       # 156/ANC
+    'DDL': 'S',         # 25P (двузначное число + буква)
+    'UNKNOWN': 'Z'      # fallback
+}
 
 # Удаляем все обработчики
 logger.remove()
@@ -43,8 +79,8 @@ logger.remove()
 # Обработчик для консоли – только для сообщений без process и SQL
 logger.add(sys.stdout, format="{message}", level="INFO")
 
-# sql-ГГГГ-ММ-ДД.log - лог sql-транзакций
-def setup_logger(name, log_file, level=logging.INFO, mode='w'):
+# --- SQL логгер и setup_sql_logger ---
+def setup_sql_logger(name, log_file, level=logging.INFO, mode='w'):
     log_format = logging.Formatter('%(message)s')
     handler = logging.FileHandler(log_file, mode=mode)
     handler.setFormatter(log_format)
@@ -53,14 +89,339 @@ def setup_logger(name, log_file, level=logging.INFO, mode='w'):
     l.addHandler(handler)
     return l
 
-# SQL логгер
-sql_logger = setup_logger('sql_logger', 'sql-stadiu-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
+# SQL логгер (глобальный как в оригинальном коде)
+sql_logger = setup_sql_logger('sql_logger', SQL_LOG_FILE, mode='w')
 connection = sqlite3.connect(Database)
+# Устанавливаем логгер для SQL запросов. Убрать, если не нужно детально отлаживать SQL запросы
 connection.set_trace_callback(sql_logger.info)
 db = connection.cursor()
 
+def normalize_token(token: str) -> str:
+    token = str(token or '').strip().upper()
+    # Нормализация слешей: // -> /, /// -> / и т.д.
+    token = re.sub(r'/+', '/', token)
+    # Нормализация пробелов вокруг слешей
+    token = re.sub(r'\s*/\s*', '/', token)
+    # Нормализация множественных пробелов
+    token = re.sub(r'\s+', ' ', token)
+    # Нормализация: 44 P 31.01.2011 -> 44/P/31.01.2011
+    token = re.sub(r'(\d+)\s+([A-Z]{1,3})\s+(\d{2}\.\d{2}\.\d{4})', r'\1/\2/\3', token)
+    # Нормализация: 40/P 26.01.2011 -> 40/P/26.01.2011
+    token = re.sub(r'(\d+/[A-Z]{1,3})\s+(\d{2}\.\d{2}\.\d{4})', r'\1/\2', token)
+    # Нормализация: 25P 18.01.2011 -> 25/P/18.01.2011
+    token = re.sub(r'(\d+)([A-Z]{1,3})\s+(\d{2}\.\d{2}\.\d{4})', r'\1/\2/\3', token)
+    return token
 
-# Функція перевірки коректності дати
+# --- Универсальная функция классификации токена ---
+# Возвращает буквенный паттерн токена (например, D/L/DD.DD.DDDD) для анализа структуры
+def classify_token(token: str) -> str:
+    pat = token_pattern(token)
+    # Сопоставляем только по основным паттернам
+    if pat in TOKEN_CODES:
+        return pat
+    # fallback
+    return 'UNKNOWN'
+
+# Возвращает буквенный код для токена по паттерну, либо 'Z' (UNKNOWN)
+def normalize_and_code(token: str) -> str:
+    key = classify_token(token)
+    return TOKEN_CODES.get(key, 'Z')
+
+# --- Построение UID: буквенный код для каждого токена ---
+# Результат — строка вроде 'ABCD' или 'JKL', описывающая типы токенов по позиции
+def build_uid(tokens: List[str]) -> str:
+    return ''.join(normalize_and_code(str(t) if t is not None else '') for t in tokens)
+
+
+# --- Кластеризация слов по вертикали (Y) и объединение по горизонтали (X) ---
+def group_words_by_line(words: List[Dict]) -> Tuple[List[Tuple[float, List[Dict]]], List[Tuple[float, List[str]]]]:
+    """
+    Возвращает два списка:
+    1) clusters_raw: кластеры исходных слов по Y для логирования (cy, [words])
+    2) clusters_merged: кластеры после объединения текстов по X (cy, [merged_texts])
+    """
+    # Группируем слова по Y-координате (строкам)
+    clusters_raw: List[Tuple[float, List[Dict]]] = []
+    for w in words:
+        placed = False
+        for i, (cy, group) in enumerate(clusters_raw):
+            if abs(w['top'] - cy) <= Y_TOLERANCE:
+                group.append(w)
+                # Пересчитываем среднюю Y-координату
+                clusters_raw[i] = (sum(x['top'] for x in group)/len(group), group)
+                placed = True
+                break
+        if not placed:
+            clusters_raw.append((w['top'], [w]))
+
+    # Сортируем кластеры по Y (сверху вниз)
+    clusters_raw.sort(key=lambda x: x[0], reverse=False)
+
+    clusters_merged: List[Tuple[float, List[str]]] = []
+    for cy, group in clusters_raw:
+        # Сортируем слова в группе по X-координате (слева направо)
+        items = sorted(group, key=lambda w: w['x0'])
+
+        # Объединяем слова в одну строку, если они близко по X
+        merged_texts = []
+        if items:
+            cur_text = items[0]['text']
+            cur_end_x = items[0]['x0'] + len(items[0]['text']) * 0.5
+
+            for w in items[1:]:
+                # Проверяем, является ли текущее слово или следующее датой
+                is_current_date = re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", cur_text.strip())
+                is_next_date = re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", w['text'].strip())
+                
+                # Если оба слова - даты, не объединяем их
+                if is_current_date and is_next_date:
+                    merged_texts.append(cur_text)
+                    cur_text = w['text']
+                    cur_end_x = w['x0'] + len(w['text']) * 0.5
+                elif w['x0'] - cur_end_x <= MERGE_X_THRESHOLD:
+                    # Слова близко - объединяем
+                    cur_text += ' ' + w['text']
+                    cur_end_x = w['x0'] + len(w['text']) * 0.5
+                else:
+                    # Слова далеко - начинаем новый токен
+                    merged_texts.append(cur_text)
+                    cur_text = w['text']
+                    cur_end_x = w['x0'] + len(w['text']) * 0.5
+
+            merged_texts.append(cur_text)
+
+        clusters_merged.append((cy, merged_texts))
+
+    return clusters_raw, clusters_merged
+
+# --- Вывод табличной строки в консоль ---
+def print_table_row(fields, uid, original_pattern=None):
+    col_widths = [24, 18, 22, 22, 18]  # ширина колонок
+    row = ''.join(
+        f"{C_INFO}[{C_RESET}{str(f) if f is not None else '':>{col_widths[i]}}{C_INFO}]{C_RESET} "
+        for i, f in enumerate(fields)
+    )
+    pattern = original_pattern if original_pattern else row_pattern(fields)
+    print(f"Algo {C_SUCCESS}{uid}{C_RESET} ".ljust(20) + row + f" {C_DARK_GRAY}| PATTERN: {pattern}{C_RESET}")
+
+# --- Разбор строки таблицы ---
+def process_table_row(fields):
+    filtered_line = [re.sub(r'/\s+', '/', (cell or '').strip()) for cell in fields if cell and str(cell).strip()]
+    sfln = len(filtered_line)
+    pattern = row_pattern(filtered_line)
+    ID = DEPUN = TERMEN = ORDIN = SOLUTIE = None
+    # Новые типы масок
+    if sfln == 5:
+        ID, DEPUN, TERMEN, ORDIN, SOLUTIE = filtered_line
+    elif sfln == 4:
+        ID, DEPUN, ORDIN, SOLUTIE = filtered_line
+        TERMEN = None
+        # Нормализация ORDIN если нужно
+        if ORDIN.endswith('/P') or '/' not in ORDIN:
+            year_solutie = SOLUTIE.split('.')[-1]
+            if ORDIN.endswith('/P'):
+                ORDIN = f"{ORDIN}/{year_solutie}"
+            else:
+                ORDIN = f"{ORDIN}/P/{year_solutie}"
+    elif sfln == 3:
+        mask_parts = pattern.split(' ')
+        # Если первый токен - ORDIN, второй и третий - даты (логически связанные)
+        if (
+            mask_parts[0] in ['D/LL/D', 'D/L/D', 'D/LLL/D'] and
+            mask_parts[1] == 'DD.DD.DDDD' and
+            mask_parts[2] == 'DD.DD.DDDD'
+        ):
+            # Это случай типа: 146/RD/2020 06.01.2020 05.05.2020
+            ID = filtered_line[0]  # 146/RD/2020
+            DEPUN = filtered_line[1]  # 06.01.2020 (первая дата)
+            TERMEN = filtered_line[2]  # 05.05.2020 (вторая дата)
+            ORDIN = None  # нет отдельного приказа
+            SOLUTIE = None  # нет отдельной даты решения
+        # Если третий токен - дата (общий случай)
+        elif mask_parts[2] == 'DD.DD.DDDD':
+            ID = filtered_line[0]
+            DEPUN = filtered_line[1]
+            TERMEN = filtered_line[2]  # дата срока
+            ORDIN = None   # нет приказа
+            SOLUTIE = None  # нет отдельной даты решения
+        # Если первый и третий токен — сложные идентификаторы, второй — дата
+        elif (
+            mask_parts[0] in TOKEN_CODES and
+            mask_parts[1] == 'DD.DD.DDDD' and
+            mask_parts[2] in TOKEN_CODES
+        ):
+            # Правильное распределение: ID, DEPUN, TERMEN, ORDIN, SOLUTIE
+            ID = filtered_line[0]  # первый токен - ID дела
+            DEPUN = filtered_line[1]  # второй токен - дата подачи
+            TERMEN = None  # нет отдельного срока
+            ORDIN = filtered_line[2]  # третий токен
+            SOLUTIE = None
+
+            # Если третий токен содержит дату — извлечь её
+            if mask_parts[2] == 'D/L/DD.DD.DDDD':
+                date_match = re.search(r'\d{2}\.\d{2}\.\d{4}', filtered_line[2])
+                if date_match:
+                    SOLUTIE = date_match.group(0)
+            else:
+                ORDIN = filtered_line[2]
+        else:
+            # Fallback: ID, DEPUN, TERMEN, ORDIN, SOLUTIE
+            ID = filtered_line[0]
+            DEPUN = filtered_line[1]
+
+            # Если третий токен - сложный идентификатор
+            TERMEN = None
+            ORDIN = filtered_line[2]  # третий токен
+            SOLUTIE = None
+            # Если третий токен содержит дату — извлечь её
+            if len(mask_parts) >= 3 and mask_parts[2] == 'D/L/DD.DD.DDDD':
+                date_match = re.search(r'\d{2}\.\d{2}\.\d{4}', filtered_line[2])
+                if date_match:
+                    SOLUTIE = date_match.group(0)
+    elif sfln == 2:
+        mask_parts = pattern.split(' ')
+        if mask_parts[1] == 'DD.DD.DDDD':
+            ID = filtered_line[0]
+            DEPUN = filtered_line[1]
+            TERMEN = ORDIN = SOLUTIE = None
+        else:
+            return None, pattern
+    elif sfln == 1:
+        parts = filtered_line[0].split()
+        if len(parts) >= 3:
+            pat0 = token_pattern(parts[0])
+            pat1 = token_pattern(parts[1])
+            pat2 = token_pattern(parts[2])
+            # Случай: ORDIN дата дата (например, 146/RD/2020 06.01.2020 05.05.2020)
+            if pat0 in ['D/LL/D', 'D/L/D', 'D/LLL/D'] and pat1 == 'DD.DD.DDDD' and pat2 == 'DD.DD.DDDD':
+                ID = parts[0]  # 146/RD/2020
+                DEPUN = parts[1]  # 06.01.2020 (первая дата)
+                TERMEN = parts[2]  # 05.05.2020 (вторая дата)
+                ORDIN = None  # нет отдельного приказа
+                SOLUTIE = None  # нет отдельной даты решения
+            elif pat0 == 'D' and pat1 == 'DD.DD.DDDD' and pat2 == 'DD.DD.DDDD':
+                ID = parts[0]
+                DEPUN = parts[1]
+                TERMEN = parts[2]
+                ORDIN = SOLUTIE = None
+            else:
+                return None, pattern
+        elif len(parts) == 2:
+            pat0 = token_pattern(parts[0])
+            pat1 = token_pattern(parts[1])
+            if pat0 == 'D' and pat1 == 'DD.DD.DDDD':
+                ID = parts[0]
+                DEPUN = parts[1]
+                TERMEN = ORDIN = SOLUTIE = None
+            else:
+                return None, pattern
+        else:
+            return None, pattern
+    else:
+        return None, pattern
+    return [ID, DEPUN, TERMEN, ORDIN, SOLUTIE], pattern
+
+# --- Генерация паттерна для токена ---
+def token_pattern(token: str) -> str:
+    """
+    Возвращает буквенный паттерн токена (например, D/L/DD.DD.DDDD) для анализа структуры
+    """
+    tok = normalize_token(token)
+
+    # 1. D (только цифры) - унифицируем все длины в одну D
+    if re.fullmatch(r"\d+", tok):
+        return 'D'
+
+    # 2. DD.DD.DDDD (дата)
+    if re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", tok):
+        return 'DD.DD.DDDD'
+
+    # 3. L, LL, LLL (буквы)
+    if re.fullmatch(r"[A-Z]{1,3}", tok):
+        return 'L' * len(tok)
+
+    # 4. D/L/DD.DD.DDDD (например, 123/P/01.01.2020)
+    if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{2}\.\d{2}\.\d{4}", tok):
+        parts = tok.split('/')
+        return f"D/{'L'*len(parts[1])}/DD.DD.DDDD"
+
+    # 5. D/L/DD (например, 789/P/07)
+    if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{2}", tok):
+        parts = tok.split('/')
+        return f"D/{'L'*len(parts[1])}/DD"
+
+    # 6. D/L/D (например, 123/P/2020)
+    if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{4,5}", tok):
+        parts = tok.split('/')
+        return f"D/{'L'*len(parts[1])}/D"
+
+    # 7. D/L/DDDD (например, 5/P/2016)
+    if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{4}", tok):
+        parts = tok.split('/')
+        return f"D/{'L'*len(parts[1])}/DDDD"
+
+    # 8. D/L/DDDDD (например, 91/P/20201)
+    if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{5}", tok):
+        parts = tok.split('/')
+        return f"D/{'L'*len(parts[1])}/DDDDD"
+
+    # 9. D/L/DDD (например, 504/P/205)
+    if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{3}", tok):
+        parts = tok.split('/')
+        return f"D/{'L'*len(parts[1])}/DDD"
+
+    # 9.5. D/LLL/D (например, 2376/ANC/2014)
+    if re.fullmatch(r"\d+/[A-Z]{3}/\d{4,5}", tok):
+        parts = tok.split('/')
+        return f"D/LLL/D"
+
+    # 10. D/L (например, 156/P)
+    if re.fullmatch(r"\d+/[A-Z]{1,3}", tok):
+        parts = tok.split('/')
+        return f"D/{'L'*len(parts[1])}"
+
+    # 11. D/LDDDD (например, 505/P2016)
+    if re.fullmatch(r"\d+/[A-Z]{1,3}\d{4,5}", tok):
+        m = re.match(r"(\d+)/([A-Z]+)(\d+)", tok)
+        if m:
+            return f"D/{'L'*len(m.group(2))}D"
+
+    # 12. D/*L/D (например, 1629/*P/2024)
+    if re.fullmatch(r"\d+/\*[A-Z]{1,3}/\d{4,5}", tok):
+        parts = tok.split('/')
+        return f"D/*{'L'*len(parts[1][1:])}/D"
+
+    # 13. D/D (например, 672/2018)
+    if re.fullmatch(r"\d+/\d{4,5}", tok):
+        return "D/D"
+
+    # 14. D/DD.DD.DDDD (например, 2189/17.12.2020)
+    if re.fullmatch(r"\d+/\d{2}\.\d{2}\.\d{4}", tok):
+        return "D/DD.DD.DDDD"
+
+    # 15. DDL (например, 25P - двузначное число + буква)
+    if re.fullmatch(r"\d{2}[A-Z]{1,3}", tok):
+        m = re.match(r"(\d{2})([A-Z]+)", tok)
+        if m:
+            return f"DD{'L'*len(m.group(2))}"
+
+    # 16. DL (например, 25P - однозначное число + буква)
+    if re.fullmatch(r"\d+[A-Z]{1,3}", tok):
+        m = re.match(r"(\d+)([A-Z]+)", tok)
+        if m:
+            return f"D{'L'*len(m.group(2))}"
+
+    # fallback: raw token
+    return tok
+
+# --- Генерация паттерна для строки ---
+def row_pattern(fields: list) -> str:
+    """
+    Возвращает строку паттернов для всей строки (например, D/L/DD.DD.DDDD DDD.DD.DDDD)
+    """
+    return ' '.join(token_pattern(f) for f in fields if f)
+
+# --- Валидация даты ---
 def vali_date(date_text):
     try:
         if date_text:
@@ -69,581 +430,153 @@ def vali_date(date_text):
     except ValueError:
         return False
 
-
-def classify_token(token: str) -> str:
-    if re.fullmatch(r'\d+/?RD/?\d+', token):
-        return 'ID'
-    if re.fullmatch(r'\d{2}\.\d{2}\.\d{4}', token):
-        return 'D'
-    if re.search(r'/P(/|\s|\d)', token):
-        return 'O'
-    if ' ' in token and re.search(r'\d{2}\.\d{2}\.\d{4}', token):
-        return 'M'
-    if re.fullmatch(r'\d+', token):
-        return 'N'
-    if token.strip():
-        return 'T'
-    return 'E'
-
-
-def build_type_mask(tokens: List[str], bitmask: str) -> str:
-    """Формує типову маску на основі непорожніх позицій у токенах (за raw даними)."""
-    return '-'.join(classify_token(t) for i, t in enumerate(tokens) if i < len(bitmask) and bitmask[i] == '1')
-
-
-def build_extended_bitmask(bitmask: str, tokens: List[str]) -> str:
-    """Повертає розширену бітмаску з інформацією про типи токенів."""
-    return f"{bitmask}<{build_type_mask(tokens, bitmask)}>"
-
-
-def classify_ord_field(value: str) -> str:
-    """Класифікація поля ORDIN за форматом."""
-    value = value.strip()
-    if re.fullmatch(r'\d{1,4}/P/\d{4}', value):
-        return 'ORDIN_DATE'
-    elif re.fullmatch(r'\d{1,4}/P', value):
-        return 'ORDIN_NODATE'
-    elif re.search(r'/P\s+\d{2}\.\d{2}\.\d{4}', value):
-        return 'ORDIN_WEIRD_SPACED'
-    elif re.search(r'\d{1,3}P\s+\d{2}\.\d{2}\.\d{4}', value):
-        return 'ORDIN_WEIRD_NOSEP'
-    elif re.fullmatch(r'\d{2}\.\d{2}\.\d{4}', value):
-        return 'DATE_ONLY'
-    elif re.fullmatch(r'\d+', value):
-        return 'NUMERIC_ONLY'
-    elif re.fullmatch(r'\d+/P/\d{4} \d{2}\.\d{2}\.\d{4}', value):
-        return 'ORDIN_MIXED'
-    return 'UNKNOWN'
-
-
-def normalize_bitmask(bitmask: str, target_len: int = 8) -> str:
-    """Обрізає провідні нулі та/або зводить маску до фіксованої довжини (для UID)."""
-    trimmed = bitmask.lstrip('0')
-    if len(trimmed) > target_len:
-        return trimmed[-target_len:]
-    return trimmed.rjust(target_len, '0')
-
-
-def generate_hybrid_uid(bitmask: str, parts: List[str], length: int = 8) -> int:
-    """Гібридний UID: хеш від типової маски (ID-D-O)."""
-    typemask = build_type_mask(parts, bitmask)
-    # Генерируем хеш только от типовой маски
-    hash_digest = hashlib.sha256(typemask.encode()).hexdigest()
-    return int(hash_digest[:8], 16)
-
-
-def parse_line_with_bits(line, process_logger, bitmask=None, bmext=None, parts=None):
-    # Зберігаємо повний (raw) список токенів (з пустими значеннями)
-    raw_line = line[:]
-    # Фільтруємо список – беремо лише непорожні токени для відображення
-    filtered_line = [token for token in raw_line if token.strip() != '']
-    sfln = len(filtered_line)
-
-    DEPUN = None
-    TERMEN = None
-    SOLUTIE = None
-
-    if not raw_line or sfln == 0:
-        process_logger.error(f"[SKIP] line due to insufficient elements: LN: {raw_line}")
+# --- Запись в БД для одной строки ---
+def write_to_db(parsed):
+    """Записывает одну строку в БД"""
+    if not parsed:
         return
 
-    # Обчислюємо бітову маску, BM_EXT і UID, використовуючи повний (raw) список
-    bitmask = generate_bitwise_id(raw_line, total_bits=len(raw_line))
-    bmext = build_extended_bitmask(bitmask, raw_line)
-    unique = generate_hybrid_uid(bitmask, raw_line)
-
-    process_logger.info(f"RAW: {raw_line} LN: {filtered_line} | SFLN: {sfln} | BM: {bmext} | UID: {unique}")
+    ID, DEPUN, TERMEN, ORDIN, SOLUTIE = parsed
+    if DEPUN is None or not vali_date(DEPUN) or (TERMEN is not None and not vali_date(TERMEN)) or (SOLUTIE is not None and not vali_date(SOLUTIE)):
+        return
 
     try:
-        # Обработка для строк с 5 элементами
-        if sfln == 5:
-            ID      = filtered_line[0]
-            YEAR    = ID.split('/')[-1]
-            DEPUN   = filtered_line[1]
-            TERMEN  = filtered_line[2]
-            ORDIN   = filtered_line[3]
-            SOLUTIE = filtered_line[4]
-            extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-            print_formatted_row(extended_line, unique)
-
-        # Обработка для строк с 4 элементами
-        elif sfln == 4:
-            ID      = filtered_line[0]
-            YEAR    = ID.split('/')[-1]
-            DEPUN   = filtered_line[1]
-            TERMEN  = None
-            ORDIN   = filtered_line[2]
-            SOLUTIE = filtered_line[3]
-            if ORDIN.endswith('/P'):
-                year_solutie = SOLUTIE.split('.')[-1]
-                ORDIN = f"{ORDIN}/{year_solutie}"
-            if '/' not in ORDIN:
-                year_solutie = SOLUTIE.split('.')[-1]
-                ORDIN = f"{ORDIN}/P/{year_solutie}"
-            extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-            print_formatted_row(extended_line, unique)
-
-        # Обработка для строк с 3 элементами
-        elif sfln == 3:
-            if bmext.endswith('<ID-D-D>'):
-                # Пример: ['1/RD/2020', '06.01.2020', '05.05.2020']
-                ID      = filtered_line[0]
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[1]
-                TERMEN  = filtered_line[2]
-                ORDIN   = None
-                SOLUTIE = None
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<ID-D-O>'):
-                #LN: ['4/RD/2021', '04.01.2021', '858/P/12.05.2023']
-                ID      = filtered_line[0]
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[1]
-                TERMEN  = None
-                ORDIN   = filtered_line[2]
-                SOLUTIE = None
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<T-D-O>'):
-                #LN: ['1 /RD/2012', '03.01.2012', '217/P/19.04.2013'] | SFLN: 3 | BM: 101001<T-D-O> | UID: 2262805096
-                ID      = filtered_line[0].replace(' ', '')
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[1]
-                TERMEN  = None
-                ORDIN   = filtered_line[2]
-                SOLUTIE = filtered_line[2].split('/')[-1]
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<T-D-D>'):
-                #LN: ['338 /RD/2012', '03.01.2012', '02.05.2012'] | SFLN: 3 | BM: 10011<T-D-D> | UID: 1837862087
-                ID      = filtered_line[0].replace(' ', '')
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[1]
-                TERMEN  = filtered_line[2]
-                ORDIN   = None
-                SOLUTIE = None
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<ID-D-M>'):
-                #LN: ['1314/RD/2010', '15.01.2010', '148 27.09.2010'] | SFLN: 3 | BM: 1001000010<ID-D-M> | UID: 2150298860
-                ID      = filtered_line[0]
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[1]
-                TERMEN  = None
-                ORDIN   = filtered_line[2]
-                SOLUTIE = filtered_line[2].split(' ')[-1]
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<ID-D-T>') or bmext.endswith('<ID-D-N>'):
-                #LN: ['34001/RD/2015', '22.06.2015', '672/2018'] | SFLN: 3 | BM: 100100001<ID-D-T>    | UID: 473801699
-                #LN: ['44914/RD/2018', '22.06.2018', '2189']     | SFLN: 3 | BM: 101000000100<ID-D-N> | UID: 1174457494
-                ID      = filtered_line[0]
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[1]
-                TERMEN  = None
-                ORDIN   = filtered_line[2]
-                SOLUTIE = None
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<T-D-T>'):
-                #LN: ['4007 /RD/2012', '12.01.2012', '58/C/10.01.2013'] | SFLN: 3 | BM: 10010001<T-D-T> | UID: 1897143605
-                ID      = filtered_line[0].replace(' ', '')
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[1]
-                TERMEN  = None
-                ORDIN   = re.sub(r'\/.*?\/', '/P/', filtered_line[2])
-
-                # Условие: Проверяем, является ли последний элемент датой
-                #LN: ['65436 /RD/2012', '10.08.2012', '2376/ANC/2014'] | SFLN: 3 | BM: 10010001<T-D-T> | UID: 1897143605
-                if re.match(r'\d{2}\.\d{2}\.\d{4}', ORDIN.split('/')[-1]):  # Шаблон даты
-                   SOLUTIE = ORDIN.split('/')[-1]
-                else:
-                   SOLUTIE = None
-                #ЕЩВЩ В идеале взять дату документа и дополнить это поле.
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<M-O-D>'):
-                # Пример: ['10000/RD/2020 07.02.2020', '919/P/2023', '19.05.2023']
-                ID      = filtered_line[0].split(' ')[0]
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[0].split(' ')[-1]
-                TERMEN  = None
-                ORDIN   = filtered_line[1]
-                SOLUTIE = filtered_line[2]
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            else:
-                process_logger.info(f"ELSE: Unknown 3-element structure: RAW: {raw_line} FLN: {filtered_line} | SFLN: {sfln} | BM: {bmext} | UID: {unique}")
-                return
-
-        # Обработка для строк с 2 элементами
-        elif sfln == 2:
-            if bmext.endswith('<ID-D>'):
-                # Пример: ['16655/RD/2023', '16.05.2023']
-                ID      = filtered_line[0]
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[1]
-                TERMEN  = None
-                ORDIN   = None
-                SOLUTIE = None
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<ID-M>'):
-                # Пример: ['48/RD/2020', '06.01.2020 05.05.2020']
-                ID      = filtered_line[0]
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[1].split(' ')[0]
-                TERMEN  = filtered_line[1].split(' ')[1]
-                ORDIN   = None
-                SOLUTIE = None
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<M-D>'):
-                # Пример: ['10000/RD/2021 21.05.2021', '10.09.2021']
-                ID      = filtered_line[0].split(' ')[0]
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[0].split(' ')[-1]
-                TERMEN  = filtered_line[1]
-                ORDIN   = None
-                SOLUTIE = None
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            elif bmext.endswith('<M-O>'):
-                # Пример: ['10001/RD/2020 07.02.2020', '1610/P/2023 28.09.2023']
-                ID      = filtered_line[0].split(' ')[0]
-                YEAR    = ID.split('/')[-1]
-                DEPUN   = filtered_line[0].split(' ')[1]
-                TERMEN  = None
-                ORDIN   = filtered_line[1].split(' ')[0]
-                SOLUTIE = filtered_line[1].split(' ')[1]
-                extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-                print_formatted_row(extended_line, unique)
-
-            else:
-                process_logger.info(f"ELSE: Unknown 2-element structure: RAW: {raw_line} FLN: {filtered_line} | SFLN: {sfln} | BM: {bmext} | UID: {unique}")
-                return
-
-        # Обработка для строк с 1 элементом
-        elif sfln == 1 and bmext.endswith('<M>'):
-            # Пример: ['10007/RD/2020 07.02.2020 21.02.2024']
-            ID      = filtered_line[0].split(' ')[0]
-            YEAR    = ID.split('/')[-1]
-            DEPUN   = filtered_line[0].split(' ')[1]
-            TERMEN  = filtered_line[0].split(' ')[2]
-            ORDIN   = None
-            SOLUTIE = None
-            extended_line = [ID, DEPUN, TERMEN, ORDIN, SOLUTIE]
-            print_formatted_row(extended_line, unique)
-
-        else:
-            process_logger.info(f"ELSE: Unknown 1-element structure: RAW: {raw_line} FLN: {filtered_line} | SFLN: {sfln} | BM: {bmext} | UID: {unique}")
-            return
-
-    except Exception as e:
-        process_logger.error(f"Error processing line: {str(e)}")
+        YEAR = int(ID.split('/')[-1]) if '/' in ID else None
+        NUMBER = int(ID.split('/')[0]) if '/' in ID else None
+    except Exception:
         return
 
-    # Поля таблицы Dosar:
-    # id (uniq text) - номер дела
-    # year (int) - год подачи
-    # number (int) - номер досара
-    # depun (date) - дата подачи
-    # solutie (date) - дата решения
-    # ordin (text) - номер приказа
-    # result (int) - результат, true - приказ, false - отказ, null - ещё неизвестно
-    # termen (date) - дата последнего термена
-    # suplimentar (int) - флаг дозапроса, true - по делу были дозапросы, по умолчанию false - данных по дозапросу нет, считаем, что не было.
-
-    # Если есть поля для дальнейшей записи в БД, продолжаем валидацию и запись
-    if DEPUN is None or not vali_date(DEPUN) or (TERMEN is not None and not vali_date(TERMEN)) or (SOLUTIE is not None and not vali_date(SOLUTIE)):
-        process_logger.info(f"FAIL: Unknown structure string: RAW: {raw_line} FLN: {filtered_line} | SFLN: {sfln} | BM: {bmext} | UID: {unique}")
-        return
-
-    NUMBER = int(ID.split("/")[0])
-    DEPUN  = datetime.strptime(DEPUN, '%d.%m.%Y').date()
+    DEPUN_DATE = datetime.strptime(DEPUN, '%d.%m.%Y').date()
+    TERMEN_DATE = None
+    if TERMEN and vali_date(TERMEN):
+        TERMEN_DATE = datetime.strptime(TERMEN, '%d.%m.%Y').date()
+    SOLUTIE_DATE = None
+    if SOLUTIE and vali_date(SOLUTIE):
+        SOLUTIE_DATE = datetime.strptime(SOLUTIE, '%d.%m.%Y').date()
 
     if ORDIN:
-        # Если есть решение, тогда есть id, год, номер, дата подачи, дата решения, номер приказа.
-        # Помечаем результат как неуспешный result=False. Корректировка результата будет на более поздних этапах: по данным приказов и по поиску неуникальных приказов.
-        # Если такой ID уже есть, то вносим данные приказа (возможно, повторно вносим)
-        # Даты Termen нет, поэтому её не вносим, остаётся старой
-        if SOLUTIE:
-            db.execute( 'INSERT INTO Dosar (id, year, number, depun, solutie, ordin, result) VALUES (?, ?, ?, ?, ?, ?, ?) '
+        if SOLUTIE_DATE:
+            db.execute( 'INSERT INTO Dosar11 (id, year, number, depun, solutie, ordin, result) VALUES (?, ?, ?, ?, ?, ?, ?) '
                         'ON CONFLICT(id) DO UPDATE SET solutie=?, ordin=?, result=?',
-                        (ID, YEAR, NUMBER, DEPUN, SOLUTIE, ORDIN, False,
-                        SOLUTIE, ORDIN, False)
+                        (ID, YEAR, NUMBER, DEPUN_DATE, SOLUTIE_DATE, ORDIN, False,
+                        SOLUTIE_DATE, ORDIN, False)
                       )
             sql_logger.info('Modified1: ORDIN SOLUTIE: ' + str(db.rowcount))
         else:
-            db.execute( 'INSERT INTO Dosar (id, year, number, depun, ordin, result) VALUES (?, ?, ?, ?, ?, ?) '
+            db.execute( 'INSERT INTO Dosar11 (id, year, number, depun, ordin, result) VALUES (?, ?, ?, ?, ?, ?) '
                         'ON CONFLICT(id) DO UPDATE SET ordin=?, result=?',
-                        (ID, YEAR, NUMBER, DEPUN, ORDIN, False,
+                        (ID, YEAR, NUMBER, DEPUN_DATE, ORDIN, False,
                         ORDIN, False)
                       )
             sql_logger.info('Modified2: ORDIN: ' + str(db.rowcount))
     else:
-        # Если решения нет, то id, год, номер, дата подачи и, возможно, дата термена:
-        # 1) Добавляем в таблицу Dosar новые данные
-        # 2) Если такой ID в таблице есть, то апдейтим термен
-        # 3) Добавляем в таблицу с терменами новую запись по термену, если термен указан. Если такая же пара ID+termen существует, то данные не внесутся.
-        if TERMEN:
-            db.execute( 'INSERT INTO Dosar (id, year, number, depun, termen) VALUES (?, ?, ?, ?, ?) '
+        if TERMEN_DATE:
+            db.execute( 'INSERT INTO Dosar11 (id, year, number, depun, termen) VALUES (?, ?, ?, ?, ?) '
                         'ON CONFLICT(id) DO UPDATE SET termen=excluded.termen WHERE termen<excluded.termen OR termen IS NULL',
-                        (ID, YEAR, NUMBER, DEPUN, TERMEN)
+                        (ID, YEAR, NUMBER, DEPUN_DATE, TERMEN_DATE)
                       )
-            sql_logger.info('Modified3: TERMEN Dosar: ' + str(db.rowcount))
-
-            db.execute( 'INSERT OR IGNORE INTO Termen (id, termen, stadiu) VALUES (?, ?, ?)',
-                        (ID, TERMEN, STADIUPUBDATE)
+            sql_logger.info('Modified3: TERMEN Dosar11: ' + str(db.rowcount))
+            db.execute( 'INSERT OR IGNORE INTO Termen11 (id, termen, stadiu) VALUES (?, ?, ?)',
+                        (ID, TERMEN_DATE, None)
                       )
-            sql_logger.info('Modified4: TERMEN Termen: ' + str(db.rowcount))
+            sql_logger.info('Modified4: TERMEN Termen11: ' + str(db.rowcount))
         else:
-        # Если термен не указан, то просто добавляем в таблицу Dosar данные о новом деле
-            pass
-            db.execute( 'INSERT OR IGNORE INTO Dosar (id, year, number, depun) VALUES (?, ?, ?, ?)',
-                        (ID, YEAR, NUMBER, DEPUN)
+            db.execute( 'INSERT OR IGNORE INTO Dosar11 (id, year, number, depun) VALUES (?, ?, ?, ?)',
+                        (ID, YEAR, NUMBER, DEPUN_DATE)
                       )
-            sql_logger.info('Modified5: Dosar: ' + str(db.rowcount))
+            sql_logger.info('Modified5: Dosar11: ' + str(db.rowcount))
 
+    # Коммитим каждую запись
     connection.commit()
 
-
-def split_merged_line(line):
-    """
-    Якщо в рядку міститься більше одного коректного ID, розбиває його на окремі записи.
-    Повертає список рядків.
-    """
-    record_pattern_split = re.compile(r'\d+\s*/\s*RD\s*/\s*\d{4}')
-    matches = list(record_pattern_split.finditer(line))
-    if len(matches) <= 1:
-        return [line]
-    records = []
-    for i, match in enumerate(matches):
-        start = match.start()
-        end = matches[i+1].start() if i < len(matches) - 1 else len(line)
-        rec = line[start:end].strip()
-        records.append(rec)
-    return records
-
-
-def generate_bitwise_id(tokens: List[str], total_bits: int = None) -> str:
-    if total_bits is None:
-        total_bits = len(tokens)
-    # Використовуємо raw tokens (без видалення порожніх), щоб зберегти позиції
-    return ''.join('1' if token.strip() != '' else '0' for token in tokens).zfill(total_bits)
-
-
-def extract_text_with_dynamic_columns_yield(filepath, process_logger) -> Generator[Tuple[List[str], str], None, None]:
-    try:
-        laparams = LAParams(
-            line_margin=0.3,      # Увеличиваем расстояние между строками
-            char_margin=2.0,      # Увеличиваем расстояние между символами
-            word_margin=0.1,      # Минимальное расстояние между словами
-            line_overlap=0.3,     # Стандартное перекрытие строк
-            boxes_flow=0.5,       # Настраиваем поток блоков
-            detect_vertical=True, # Включаем обнаружение вертикального текста
-            all_texts=False       # Отключаем обработку всех текстовых блоков
-        )
-        for page_number, page_layout in enumerate(extract_pages(filepath, laparams=laparams), start=1):
-            process_logger.info(f"PAGE: {page_number} - {filepath}")
-            try:
-                rows = {}
-                columns = set()
-                for element in page_layout:
-                    if isinstance(element, LTTextContainer):
-                        for text_line in element:
-                            if isinstance(text_line, LTTextLine):
-                                y = round(text_line.y1, 1)
-                                x = text_line.x0
-                                txt = text_line.get_text().strip()
-                                if txt:
-                                    rows.setdefault(y, []).append((x, txt))
-                                    columns.add(x)
-                sorted_columns = sorted(columns)
-                page_lines = []
-                for y in sorted(rows.keys(), reverse=True):
-                    parts = [''] * len(sorted_columns)
-                    for x, txt in sorted(rows[y], key=lambda t: t[0]):
-                        idx = min(range(len(sorted_columns)), key=lambda i: abs(sorted_columns[i] - x))
-                        parts[idx] = txt
-
-                    # Убираем пустые элементы в начале и в конце
-                    while parts and not parts[0]:
-                        parts.pop(0)
-                    while parts and not parts[-1]:
-                        parts.pop()
-
-                    if parts:  # Если остались непустые элементы
-                        bitmask = generate_bitwise_id(parts, total_bits=len(parts))
-                        page_lines.append((parts, bitmask))
-
-                # Остальной код без изменений
-                header_keywords = ['NR', 'NR. DOSAR', 'DATA ÎNREGISTRĂРЇ', 'TERMEN', 'SOLUȚIE', 'DATĂ', 'DATA']
-                merged_records = []
-                current_parts = []
-                current_mask = ""
-
-                for parts, mask in page_lines:
-                    try:
-                        line_str = ";".join(parts)
-
-                        # Перевіряємо, чи є в рядку заголовок
-                        header_index = None
-                        header_found = None
-                        for keyword in header_keywords:
-                            if any(keyword in p for p in parts):
-                                # Якщо знайшли заголовок, пропускаємо весь рядок
-                                header_found = keyword
-                                break
-
-                        if header_found:
-                            process_logger.info(f"[SKIP] Header found: '{header_found}' in line: {line_str}")
-                            continue
-
-                        # Перевіряємо наявність RD формату в будь-якому токені
-                        rd_found = False
-                        for p in parts:
-                            if p.strip() and re.fullmatch(r'\d+\s*/\s*RD\s*/\s*\d{4}', p.strip()):
-                                rd_found = True
-                                break
-
-                        if rd_found:
-                            if current_parts:
-                                merged_records.append((current_parts, current_mask))
-                            current_parts = parts
-                            current_mask = mask
-                        else:
-                            if current_parts:
-                                current_parts += parts
-                                max_len = max(len(current_mask), len(mask))
-                                a = current_mask.ljust(max_len, '0')
-                                b = mask.ljust(max_len, '0')
-                                current_mask = ''.join('1' if a[i]=='1' or b[i]=='1' else '0' for i in range(max_len))
-                            else:
-                                process_logger.debug(f"[INFO] Skipping non-RD line without context: {line_str}")
-
-                    except Exception as e:
-                        process_logger.error(f"Error processing line: {line_str} | Error: {str(e)}")
-                        continue
-
-                if current_parts:
-                    merged_records.append((current_parts, current_mask))
-
-                for rec_parts, rec_mask in merged_records:
-                    try:
-                        rec_lines = split_merged_line(";".join(rec_parts))
-                        for r in rec_lines:
-                            # Залишаємо всі токени, навіть якщо вони порожні – важливо для збереження позицій
-                            split_line = [token for token in r.split(';')]
-                            if not split_line:
-                                continue
-                            rec_mask = generate_bitwise_id(split_line, total_bits=len(split_line))
-                            yield split_line, rec_mask
-                    except Exception as e:
-                        process_logger.error(f"Error processing record: {rec_parts} | Error: {str(e)}")
-                        continue
-
-            except Exception as e:
-                process_logger.error(f"Error processing page {page_number}: {str(e)}")
-                continue
-
-    except Exception as e:
-        process_logger.error(f"Error processing file {filepath}: {str(e)}")
-        return
-
-
-def print_formatted_row(line, algo_type):
-    """Форматує та виводить рядок."""
-    col_widths = [24, 18, 22, 22, 18]  # приклад ширини колонок
-    formatted_row = "".join(f"{C_INFO}[{C_RESET}{str(cell):>{col_widths[i]}}{C_INFO}]{C_RESET} " for i, cell in enumerate(line))
-    print(f"{'Algo '}{C_SUCCESS}{algo_type}{C_RESET} ".ljust(32), formatted_row)
-
-
-def process_pdf(filepath):
+def process_pdf(pdf_path):
+    # Создаем логгер для текущего процесса как в оригинальном коде
     process_id = f"P{current_process()._identity[0]}" if current_process()._identity else "Main"
     process_logger = logger.bind(process=process_id)
     process_logger.remove()
-    log_filename = f"parse-stadiu-{datetime.now().strftime('%Y-%m-%d')}-{process_id}.log"
+    log_filename = PARSE_LOG_FILE.format(process_id=process_id)
     process_logger.add(log_filename,
                          format="{message}",
                          level="INFO",
                          mode='a',
                          filter=lambda record: "process" in record["extra"] and record["extra"].get("log_type", "") != "SQL")
-    try:
-        for split_line, bitmask in extract_text_with_dynamic_columns_yield(filepath, process_logger):
-            parse_line_with_bits(split_line, process_logger, bitmask=bitmask, parts=split_line)
-        return f"Processed {filepath}"
-    except Exception as e:
-        process_logger.error(f"Error processing {filepath}: {str(e)}")
-        return f"Error processing {filepath}"
 
+    print(f"FILE: {pdf_path}")
+    process_logger.info(f"{C_INFO}FILE: {pdf_path}{C_RESET}")
 
+    with pdfplumber.open(pdf_path) as pdf:
+        for pnum, page in enumerate(pdf.pages, start=1):
+            process_logger.info(f"{pdf_path}:{pnum}")
+            words = page.extract_words(x_tolerance=2, y_tolerance=2)
 
-#FOR LAST DIR ONLY
-#directories = os.listdir(Stadiu)
-#all_files = []
-# Сортировка директорий по дате (если они имеют формат YYYY-MM-DD)
-#directory = sorted(directories, key=lambda d: d, reverse=True)[0]
-#print("Last directry DATE is:", directory)
+            clusters_raw, clusters_merged = group_words_by_line(words)
+            for cy, group in clusters_raw:
+                parts = " ".join(f"'{w['text']}' x0={w['x0']:.2f}" for w in sorted(group, key=lambda w: w['x0']))
+                process_logger.info(f"y={cy:.1f} {parts}")
 
-# Сохраняем дату публикации стадиу для таблицы с терменами
-#STADIUPUBDATE = datetime.strptime(directory, '%Y-%m-%d').date()
+            for cy, fields in clusters_merged:
+                if not fields:
+                    continue
+                line_text = ' '.join(fields)
+                if any(kw in line_text.upper() for kw in HEADER_KEYWORDS):
+                    process_logger.info(f"Header skipped: {line_text}")
+                    continue
+                parsed, pattern = process_table_row(fields)
+                if parsed:
+                    uid = build_uid(parsed)
+                    print_table_row(parsed, uid, pattern)
+                    process_logger.info(f"RAW: {fields} | NORM: {parsed} | UID: {uid} | PATTERN: {pattern}")
 
-# Парсим файлы PDF
-#for filename in sorted(os.listdir(os.path.join(Stadiu, directory))):
-#    if not filename.lower().endswith('.pdf'):
-#        continue
+                    # Записываем в БД сразу, как в оригинальном коде
+                    write_to_db(parsed)
+                else:
+                    uid = build_uid(fields)
+                    pattern = row_pattern(fields)
+                    process_logger.info(f"[SKIP] Unknown structure: {fields} | UID: {uid} | PATTERN: {pattern}")
 
-#    filepath = os.path.join(Stadiu, directory, filename)
-#    all_files.append(filepath)
-#    print(f"Parsing file: {filepath}")
+    return f"Processed {pdf_path}"
 
+# --- Запуск через multiprocessing ---
+def main():
+    files = []
+    for d in sorted(os.listdir(PDF_DIR)):
+        try:
+            datetime.strptime(d, '%Y-%m-%d')
+        except ValueError:
+            continue
+        dir_path = os.path.join(PDF_DIR, d)
+        if not os.path.isdir(dir_path):
+            continue
+        for filename in sorted(os.listdir(dir_path)):
+            if not filename.lower().endswith('.pdf'):
+                continue
+            filepath = os.path.abspath(os.path.join(dir_path, filename))
+            files.append(filepath)
+            #print(f"Parsing file: {filepath}")
+    print(f"{C_SUCCESS}Found {len(files)} PDF files{C_RESET}")
 
-#FOR ALL FILES ONLY
-directories = sorted(os.listdir(Stadiu))
-all_files = []
+    # Парсинг в multiprocessing (запись в БД происходит в каждом процессе)
+    from multiprocessing import Pool
+    with Pool(processes=4) as pool:
+        results = pool.map(process_pdf, files)
 
-# Сбор всех файлов PDF
-for directory in directories:
-    # Сохраняем дату публикации стадиу для таблицы с терменами
-    STADIUPUBDATE = datetime.strptime(directory, '%Y-%m-%d').date()
-    dir_path = os.path.join(Stadiu, directory)
-    for filename in sorted(os.listdir(dir_path)):
-        if filename.lower().endswith('.pdf'):
-            filepath = os.path.join(dir_path, filename)
-            all_files.append(filepath)
+    # Вывод результатов
+    for result in results:
+        print(result)
 
-## Использование multiprocessing.Pool для обработки файлов
-with Pool(processes=4) as pool:  # Количество процессов, можно настроить
-    results = pool.map(process_pdf, all_files)
+    # Финальные апдейты
+    db.execute('UPDATE Dosar11 SET result=1 WHERE result IS 0 AND ordin IN (SELECT ordin FROM Dosar11 GROUP BY ordin HAVING COUNT(*) > 1)')
+    sql_logger.info('Modified UPDATE1: ' + str(db.rowcount))
+    db.execute('UPDATE Dosar11 SET suplimentar=1 WHERE id IN (SELECT id FROM Termen11 GROUP BY id HAVING COUNT(*) > 1)')
+    sql_logger.info('Modified UPDATE2: ' + str(db.rowcount))
+    db.execute('UPDATE Dosar11 SET suplimentar=1 WHERE (JULIANDAY(termen)-JULIANDAY(depun))>365')
+    sql_logger.info('Modified UPDATE3: ' + str(db.rowcount))
+    connection.commit()
+    connection.close()
 
-# Вывод результатов
-for result in results:
-    print(result)
-
-# Помечаем дела с неуникальным номером приказа как положительный результат, result=true
-db.execute( 'UPDATE Dosar SET result=True WHERE result IS False AND ordin IN (SELECT ordin FROM Dosar GROUP BY ordin HAVING COUNT(*) > 1)' )
-sql_logger.info('Modified UPDATE1: ' + str(db.rowcount))
-# Помечаем дела, для которых изменялся термен, как дела с дозапросом suplimentar=true
-db.execute( 'UPDATE Dosar SET suplimentar=True WHERE id IN (SELECT id FROM Termen GROUP BY id HAVING COUNT(*) > 1)' )
-sql_logger.info('Modified UPDATE2: ' + str(db.rowcount))
-# Помечаем дела, для которых термен отстоит от даты подачи больше, чем на 365 дней, как дела с дозапросом suplimentar=true
-db.execute( 'UPDATE Dosar SET suplimentar=True WHERE (JULIANDAY(Termen)-JULIANDAY(depun))>365' )
-sql_logger.info('Modified UPDATE3: ' + str(db.rowcount))
-
-connection.commit()
-connection.close()
-
-quit()
+if __name__ == '__main__':
+    start_time = time.time()
+    main()
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Execution time: {C_SUCCESS}{execution_time:.2f}{C_RESET} seconds")

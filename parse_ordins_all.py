@@ -35,6 +35,7 @@ SQLlogger = setup_logger('SQLlogger', 'sql-ordins-'+datetime.now().strftime("%Y-
 
 # Database setup
 Database = './data.db'
+#Database = '/dev/shm/data.db'
 connection = sqlite3.connect(Database)
 #connection.set_trace_callback(SQLlogger.info)
 db = connection.cursor()
@@ -185,8 +186,8 @@ def parse_pdf(file_path):
             # Process each dosar and update database
             for dosar in dosars:
                 db.execute('''
-                    UPDATE Dosar
-                    SET solutie = IIF(Dosar.solutie IS NULL, ?, Dosar.solutie),
+                    UPDATE Dosar11
+                    SET solutie = IIF(Dosar11.solutie IS NULL, ?, Dosar11.solutie),
                         result = ?,
                         ordin = ?,
                         anexa = ?,

@@ -8,7 +8,6 @@
 │   ├── get_cert.sh
 │   └── system_cacert.sh
 ├── data.db
-├── data.db.bz2
 ├── get_juramat.py
 ├── get_minori.py
 ├── get_ordins.py
@@ -77,7 +76,15 @@
 │   ├── 2025-05-tabel-afisare-site-26.05.2025-ora-12.30.pdf
 │   ├── 2025-05-tabel-afisare-site-26.05.2025-ora-9.00.pdf
 │   ├── 2025-05-Tabel-SITE-27-mai-2025-ora-09.00.pdf
-│   └── 2025-05-Tabel-SITE-27-mai-2025-ora-12.30.pdf
+│   ├── 2025-05-Tabel-SITE-27-mai-2025-ora-12.30.pdf
+│   ├── 2025-06-03-IUILIE-ORA-1400.pdf
+│   ├── 2025-06-23-IUNIE-ORA-900.pdf
+│   ├── 2025-06-30-IUNIE-ORA-900.pdf
+│   ├── 2025-06-tabel-afisare-site-19.06.2025-ora-14.00.pdf
+│   ├── 2025-06-tabel-afisare-site-24.06.2025-ora-09.00.pdf
+│   ├── 2025-06-tabel-afisare-site-24.06.-2025-ora-12.30.pdf
+│   ├── 2025-06-tabel-afisare-site-26.06.2025-ora-10.00.pdf
+│   └── 2025-06-tabel-afisare-site-26.06.2025-ora-14.00.pdf
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
 │   ├── 2020-11-Ordin-minori-nr-1823P-din-3-11-2020.pdf
@@ -163,7 +170,13 @@
 │   ├── 2021-06-Ordin-203-Minori-146-pers-1.pdf
 │   ├── 2021-06-Ordin-2045-P-din-27.11.2023-minor-.pdf
 │   ├── 2021-06-ordin-2079-P-21.10.2024-minori.pdf
+│   ├── 2021-06-Ordin-2082-P-2025-din-30.05.2025-Minori.pdf
+│   ├── 2021-06-Ordin-2083-P-2025-din-30.05.2025-Minori.pdf
+│   ├── 2021-06-Ordin-2117P-02.06.2025-minori.pdf
+│   ├── 2021-06-Ordin-2190P-10.06.2025-minori.pdf
+│   ├── 2021-06-Ordin-2243P-13.06.2025-minori.pdf
 │   ├── 2021-06-Ordin-228-Minori-141-pers.pdf
+│   ├── 2021-06-Ordin-2334P-25.06.2025-minori.pdf
 │   ├── 2021-06-Ordin-2426-P-din-02.12.2024-minori.pdf
 │   ├── 2021-06-Ordin-2524P-2024-din-10.12.2024-Minori.pdf
 │   ├── 2021-06-Ordin-2588P-16.12.2024-minori.pdf
@@ -2019,24 +2032,32 @@
 │   ├── 2023-11-Ordin-2095-P-din-08.12.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2098P-11.12.2023-NPE-art-11-.pdf
 │   ├── 2023-11-Ordin.-2101-din-28.10.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2118P-02.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2135-P-30.10.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2136-30.10.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2142-P-13.12.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2142-P-2024-din-31.10.2024-Art.-11.pdf
+│   ├── 2023-11-Ordin-2144P-04.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2145-P-din-01.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2165-P-din-15.12.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2169-2023-art-11.pdf
 │   ├── 2023-11-ORDIN-2177-art-11-05.11.2024.pdf
+│   ├── 2023-11-Ordin-2181P-04.06.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2182P-04.06.2025-art.11.pdf
 │   ├── 2023-11-ORDIN-2185-06-11-2024-art-11.pdf
 │   ├── 2023-11-Ordin-2186-P-06.11.2024-art-11.pdf
 │   ├── 2023-11-ordin-2186.P21.12.2023.NPE-1.pdf
 │   ├── 2023-11-Ordin-2186.P.21.12.2023.NPE-art-11.pdf
 │   ├── 2023-11-Ordin-2188-P-din-22.12.2023-Art.-11.pdf
+│   ├── 2023-11-Ordin-2189P-06.06.2025-art-11-.pdf
 │   ├── 2023-11-Ordin-2205-P-2024-din-11.11.2024-Art.-11.pdf
+│   ├── 2023-11-Ordin-2206P-11.06.2025-art.11.pdf
 │   ├── 2023-11-ORDIN-2207-11.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2215-din-11.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2221-12.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2221P-12.06.2025-art.11-.pdf
 │   ├── 2023-11-ordin-2222-din-12.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2222P-12.06.2025-art.11.pdf
 │   ├── 2023-11-Ordin-2223-P-12.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2224-din-12.11.2024-art-11.pdf
 │   ├── 2023-11-ordin-2226-din-12.11.2024-art-11.pdf
@@ -2049,10 +2070,20 @@
 │   ├── 2023-11-ORDIN-2237-P-din-15.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2238-din-15.11.2024.pdf
 │   ├── 2023-11-ORDIN-2261-15.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2265P-din-18.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2265-P-din-18.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2266P-18.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2266-P-18.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2267P-18.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2268-din-18.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2268P-18.06.2025-art.-11.pdf
+│   ├── 2023-11-Ordin-2293-din-20.06.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2294-P-20.06.2025-Art.-11.pdf
+│   ├── 2023-11-Ordin-2295-P-20.06.2025-Art.-11.pdf
+│   ├── 2023-11-Ordin-2303P-24.06.2025-ART-11.pdf
+│   ├── 2023-11-Ordin-2309P-24.06.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-2310-din-20.11.24-art.-11.pdf
+│   ├── 2023-11-Ordin-2310P-24.06.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-2312-din-20.11.24-art.-11.pdf
 │   ├── 2023-11-Ordin-2313P-2024-20.11.2024-Art.-11.pdf
 │   ├── 2023-11-Ordin-2342-P-din-22.11.2024-art-11.pdf
@@ -2217,6 +2248,7 @@
 │   ├── 2025-05-Ordin-1712P-din-12.05.2025-art.11-.pdf
 │   ├── 2025-05-Ordin-1819P-13.05.2025-art-11.pdf
 │   ├── 2025-05-Ordin-1977P-26.05.2025-art-11.pdf
+│   ├── 2025-06-Ordin-2204P-11.06.2025-art-11.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_juramat_all.py
 ├── parse_ordins_all.py
@@ -2230,6 +2262,7 @@
 ├── raw.txt
 ├── readme.md
 ├── requirements.txt
+├── shm -> /dev/shm
 ├── stadiu
 │   ├── 2022-06-30
 │   │   └── Art.-11-2020-Redobandire.pdf
@@ -2320,16 +2353,28 @@
 │   │   ├── art_11_2023.pdf
 │   │   ├── art_11_2024.pdf
 │   │   └── art_11_2025.pdf
-│   └── 2025-02-26
-│       ├── art_11_anul_2017.pdf
-│       ├── art_11_anul_2018.pdf
-│       ├── art_11_anul_2019.pdf
-│       ├── art_11_anul_2020.pdf
-│       ├── art_11_anul_2021.pdf
-│       ├── art_11_anul_2022.pdf
-│       ├── art_11_anul_2023.pdf
-│       ├── art_11_anul_2024.pdf
-│       └── art_11_anul_2025.pdf
+│   ├── 2025-02-26
+│   │   ├── art_11_anul_2017.pdf
+│   │   ├── art_11_anul_2018.pdf
+│   │   ├── art_11_anul_2019.pdf
+│   │   ├── art_11_anul_2020.pdf
+│   │   ├── art_11_anul_2021.pdf
+│   │   ├── art_11_anul_2022.pdf
+│   │   ├── art_11_anul_2023.pdf
+│   │   ├── art_11_anul_2024.pdf
+│   │   └── art_11_anul_2025.pdf
+│   └── 2025-06-23
+│       ├── Art-11-RD-2015.pdf
+│       ├── Art-11-RD-2016.pdf
+│       ├── Art-11-RD-2017.pdf
+│       ├── Art-11-RD-2018.pdf
+│       ├── Art-11-RD-2019.pdf
+│       ├── Art-11-RD-2020.pdf
+│       ├── Art-11-RD-2021.pdf
+│       ├── Art-11-RD-2022.pdf
+│       ├── Art-11-RD-2023.pdf
+│       ├── Art-11-RD-2024.pdf
+│       └── Art-11-RD-2025.pdf
 ├── stat.sql
 ├── todo.txt
 ├── tree.txt
@@ -2340,4 +2385,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-18 directories, 2322 files
+20 directories, 2365 files

@@ -84,7 +84,7 @@ def upsert_dosar_record(db, dosar_id, juramat_date, suplimentar_count, logger):
     #Обновляет или вставляет запись в базу данных.
     try:
         db.execute('''
-            INSERT INTO Dosar (id, year, number, juramat, suplimentar, result)
+            INSERT INTO Dosar11 (id, year, number, juramat, suplimentar, result)
             VALUES (?, ?, ?, ?, ?, ?)
             ON CONFLICT(id) DO UPDATE SET
                 juramat = excluded.juramat,
@@ -107,6 +107,7 @@ def upsert_dosar_record(db, dosar_id, juramat_date, suplimentar_count, logger):
 SQLlogger = setup_logger('SQLlogger', 'sql-juramat-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
 # Подключение к базе данных
 database_path = './data.db'
+#database_path = '/dev/shm/data.db'
 connection = sqlite3.connect(database_path)
 connection.set_trace_callback(SQLlogger.info)
 db = connection.cursor()

@@ -6,5 +6,6 @@ datetime
 pycurl
 PyMuPDF
 pdfminer.six
+pdfplumber
 loguru
 ace_tools

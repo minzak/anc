@@ -62,7 +62,7 @@ print("Getting Non exist files...")
 for OrdineUrl, FileName in links:
     if os.path.isfile(FileName):
         # Вывод всех существуюющих файлов
-        print(f"{OrdineUrl} {CVIOLET}-> {CWARN}{FileName}{CEND}".ljust(186, '.') + f"{CVIOLET}Skipping{CEND}")
+        #print(f"{OrdineUrl} {CVIOLET}-> {CWARN}{FileName}{CEND}".ljust(186, '.') + f"{CVIOLET}Skipping{CEND}")
         continue
     print(f"{OrdineUrl} {CVIOLET}-> {CWARN}{FileName}{CEND}".ljust(186, '.'), end="")
     curl = pycurl.Curl()
