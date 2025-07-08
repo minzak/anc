@@ -213,8 +213,8 @@ def parse_pdf(file_path):
 
             for dosar in dosars:
                 db.execute('''
-                    UPDATE Dosar
-                    SET solutie = IIF(Dosar.solutie IS NULL, ?, Dosar.solutie),
+                    UPDATE Dosar11
+                    SET solutie = IIF(Dosar11.solutie IS NULL, ?, Dosar11.solutie),
                         result = ?,
                         ordin = ?,
                         anexa = ?,

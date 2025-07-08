@@ -22,7 +22,7 @@ SELECT
     strftime("%Y-%m", depun) as DepunMonth,
     count(*) as Total,
     ROUND(100.0*SUM(CASE WHEN solutie IS NOT NULL THEN 1 ELSE 0 END)/count(*), 1) as Procent
-FROM Dosar
+FROM Dosar11
 GROUP BY strftime("%Y-%m", depun)
 ) Months
 LEFT JOIN
@@ -33,7 +33,7 @@ LEFT JOIN
         SUM(CASE WHEN result=False THEN 1 ELSE 0 END) as Rejects,
         SUM(CASE WHEN result=True AND suplimentar=True THEN 1 ELSE 0 END) as SupOrdins,
         SUM(CASE WHEN result=False AND suplimentar=True THEN 1 ELSE 0 END) as SupRefuzuri
-    FROM Dosar WHERE solutie BETWEEN DATE('now', '-1 month') AND DATE('now')
+    FROM Dosar11 WHERE solutie BETWEEN DATE('now', '-1 month') AND DATE('now')
     GROUP BY strftime("%Y-%m", depun)
 ) Results
 ON Months.DepunMonth = Results.DepunMonth
@@ -64,7 +64,7 @@ SELECT
     strftime("%Y-%m", depun) as DepunMonth,
     count(*) as Total,
     ROUND(100.0*SUM(CASE WHEN solutie IS NOT NULL THEN 1 ELSE 0 END)/count(*), 1) as Procent
-FROM Dosar
+FROM Dosar11
 GROUP BY strftime("%Y-%m", depun)
 ) Months
 LEFT JOIN
@@ -75,7 +75,7 @@ LEFT JOIN
         SUM(CASE WHEN result=False THEN 1 ELSE 0 END) as Rejects,
         SUM(CASE WHEN result=True AND suplimentar=True THEN 1 ELSE 0 END) as SupOrdins,
         SUM(CASE WHEN result=False AND suplimentar=True THEN 1 ELSE 0 END) as SupRefuzuri
-    FROM Dosar WHERE solutie BETWEEN DATE('now', '-3 month') AND DATE('now')
+    FROM Dosar11 WHERE solutie BETWEEN DATE('now', '-3 month') AND DATE('now')
     GROUP BY strftime("%Y-%m", depun)
 ) Results
 ON Months.DepunMonth = Results.DepunMonth

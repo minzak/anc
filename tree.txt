@@ -8,6 +8,7 @@
 │   ├── get_cert.sh
 │   └── system_cacert.sh
 ├── data.db
+├── data.db.bz2
 ├── get_juramat.py
 ├── get_minori.py
 ├── get_ordins.py
@@ -85,6 +86,7 @@
 │   ├── 2025-06-tabel-afisare-site-24.06.-2025-ora-12.30.pdf
 │   ├── 2025-06-tabel-afisare-site-26.06.2025-ora-10.00.pdf
 │   └── 2025-06-tabel-afisare-site-26.06.2025-ora-14.00.pdf
+├── logs.tar.gz
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
 │   ├── 2020-11-Ordin-minori-nr-1823P-din-3-11-2020.pdf
@@ -173,6 +175,7 @@
 │   ├── 2021-06-Ordin-2082-P-2025-din-30.05.2025-Minori.pdf
 │   ├── 2021-06-Ordin-2083-P-2025-din-30.05.2025-Minori.pdf
 │   ├── 2021-06-Ordin-2117P-02.06.2025-minori.pdf
+│   ├── 2021-06-Ordin-2119-02.06.2025-minori.pdf
 │   ├── 2021-06-Ordin-2190P-10.06.2025-minori.pdf
 │   ├── 2021-06-Ordin-2243P-13.06.2025-minori.pdf
 │   ├── 2021-06-Ordin-228-Minori-141-pers.pdf
@@ -2048,6 +2051,7 @@
 │   ├── 2023-11-Ordin-2186-P-06.11.2024-art-11.pdf
 │   ├── 2023-11-ordin-2186.P21.12.2023.NPE-1.pdf
 │   ├── 2023-11-Ordin-2186.P.21.12.2023.NPE-art-11.pdf
+│   ├── 2023-11-Ordin-2188P-06.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2188-P-din-22.12.2023-Art.-11.pdf
 │   ├── 2023-11-Ordin-2189P-06.06.2025-art-11-.pdf
 │   ├── 2023-11-Ordin-2205-P-2024-din-11.11.2024-Art.-11.pdf
@@ -2089,6 +2093,7 @@
 │   ├── 2023-11-Ordin-2342-P-din-22.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2343P-din-22.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2345-din-22.11.2024-art-11-NPE.pdf
+│   ├── 2023-11-Ordin-2345P-08.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2347-P-2024-din-22.11.2024-Art.-11.pdf
 │   ├── 2023-11-Ordin-2367P-2024-din-26.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2368P-din-26.11.2024-art-11.pdf
@@ -2256,10 +2261,11 @@
 ├── parse_ordins_new.py
 ├── parse_stadiu_all_mp.py
 ├── parse_stadiu_new_mp.py
-├── q1.sh
 ├── q.sh
 ├── q.txt
-├── raw.txt
+├── raw_dosar11.txt
+├── raw.sh
+├── raw_termen11.txt
 ├── readme.md
 ├── requirements.txt
 ├── shm -> /dev/shm
@@ -2385,4 +2391,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-20 directories, 2365 files
+20 directories, 2371 files
