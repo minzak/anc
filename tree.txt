@@ -2230,6 +2230,8 @@
 │   ├── 2023-11-Ordin-nr.-2269-din-18.11.2024.pdf
 │   ├── 2023-11-Ordin-nr.2315P-din-20.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2344Pdin-22.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-nr.2368P-08.07.2025-art-11.pdf
+│   ├── 2023-11-Ordin-nr.2369P-din-08.07.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-nr.-2473-din-06.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2604P-din-18.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2624P-din-19.12.2024-art-11.pdf
@@ -2391,4 +2393,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-20 directories, 2371 files
+20 directories, 2373 files
