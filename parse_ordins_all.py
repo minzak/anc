@@ -30,12 +30,13 @@ def setup_logger(name, log_file, level=logging.INFO, mode='w'):
     logger.addHandler(handler)
     return logger
 
-logger = setup_logger('main_logger', 'parse-ordins-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
-SQLlogger = setup_logger('SQLlogger', 'sql-ordins-'+datetime.now().strftime("%Y-%m-%d")+'.log', mode='w')
+# Имена лог файлов
+logger = setup_logger('main_logger', '/dev/shm/parse-ordins-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
+SQLlogger = setup_logger('SQLlogger', '/dev/shm/sql-ordins-'+datetime.now().strftime("%Y-%m-%d")+'.log', mode='w')
 
 # Database setup
-Database = './data.db'
-#Database = '/dev/shm/data.db'
+#Database = './data.db'
+Database = '/dev/shm/data.db'
 connection = sqlite3.connect(Database)
 #connection.set_trace_callback(SQLlogger.info)
 db = connection.cursor()
@@ -133,6 +134,29 @@ def extract_date(file_path):
     return date  # Return as datetime object if found, otherwise None
 
 
+# --- Пересчет отказов (полный) ---
+def recompute_refuzuri_full():
+
+    #db.execute('UPDATE Dosar11 SET refuz=0 WHERE ordin IS NOT NULL')
+    db.execute('''
+        UPDATE Dosar11
+        SET refuz=1
+        WHERE ordin IN (
+            SELECT ordin FROM Dosar11 WHERE ordin IS NOT NULL GROUP BY ordin HAVING COUNT(*)=1
+        )
+    ''')
+    SQLlogger.info('Refuz set: ' + str(db.rowcount))
+
+    db.execute('''
+        INSERT OR REPLACE INTO Refuz11 (id, ordin, depun, solutie)
+        SELECT id, ordin, depun, solutie
+        FROM Dosar11
+        WHERE refuz=1 AND ordin IS NOT NULL
+    ''')
+    SQLlogger.info('Refuz11 rebuilt: ' + str(db.rowcount))
+
+
+
 # Parsing function
 def parse_pdf(file_path):
     try:
@@ -210,6 +234,8 @@ def parse_pdf(file_path):
 for filename in os.listdir(Ordins):
     if filename.endswith(('.pdf', '.PDF')):
         parse_pdf(os.path.join(Ordins, filename))
+
+recompute_refuzuri_full()
 
 connection.close()
 logger.info("Processing complete.")

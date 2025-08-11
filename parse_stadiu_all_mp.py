@@ -133,6 +133,33 @@ def build_uid(tokens: List[str]) -> str:
     return ''.join(normalize_and_code(str(t) if t is not None else '') for t in tokens)
 
 
+# --- Подсчет и маркировка отказов (рефузов) ---
+def recompute_refuzuri():
+    """
+    Быстро помечает в `Dosar11` отказы (refuz=1) по критерию: номер приказа `ordin` встречается ровно один раз.
+    """
+
+    db.execute('''
+        UPDATE Dosar11
+        SET refuz=1
+        WHERE ordin IN (
+            SELECT ordin
+            FROM Dosar11
+            WHERE ordin IS NOT NULL
+            GROUP BY ordin
+            HAVING COUNT(*) = 1
+        )
+    ''')
+    sql_logger.info('Refuz set: ' + str(db.rowcount))
+
+    db.execute('''
+        INSERT OR REPLACE INTO Refuz11 (id, ordin, depun, solutie)
+        SELECT id, ordin, depun, solutie
+        FROM Dosar11
+        WHERE refuz=1 AND ordin IS NOT NULL
+    ''')
+    sql_logger.info('Refuz11 rebuilt: ' + str(db.rowcount))
+
 # --- Кластеризация слов по вертикали (Y) и объединение по горизонтали (X) ---
 def group_words_by_line(words: List[Dict]) -> Tuple[List[Tuple[float, List[Dict]]], List[Tuple[float, List[str]]]]:
     """
@@ -172,7 +199,7 @@ def group_words_by_line(words: List[Dict]) -> Tuple[List[Tuple[float, List[Dict]
                 # Проверяем, является ли текущее слово или следующее датой
                 is_current_date = re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", cur_text.strip())
                 is_next_date = re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", w['text'].strip())
-                
+
                 # Если оба слова - даты, не объединяем их
                 if is_current_date and is_next_date:
                     merged_texts.append(cur_text)
@@ -571,6 +598,10 @@ def main():
     sql_logger.info('Modified UPDATE2: ' + str(db.rowcount))
     db.execute('UPDATE Dosar11 SET suplimentar=1 WHERE (JULIANDAY(termen)-JULIANDAY(depun))>365')
     sql_logger.info('Modified UPDATE3: ' + str(db.rowcount))
+
+    # Пересчет отказов (уникальные приказы)
+    recompute_refuzuri()
+
     connection.commit()
     connection.close()
 

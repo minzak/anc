@@ -16,3 +16,6 @@
 
 sqlite3 -echo -box data.db 'SELECT * FROM Dosar11 ORDER BY year, number;' > raw_dosar11.txt
 sqlite3 -echo -box data.db 'SELECT * FROM Termen11 ORDER BY id, termen;' > raw_termen11.txt
+sqlite3 -echo -box data.db 'SELECT * FROM Refuz11 ORDER BY id, ordin;' > raw_refuz11.txt
+
+sqlite3 -echo -box data.db "SELECT strftime('%Y-%m', solutie) AS year_month, COUNT(*) AS refusals_count FROM Refuz11 WHERE solutie IS NOT NULL GROUP BY year_month ORDER BY year_month;" > raw_refuz11_by_month.txt

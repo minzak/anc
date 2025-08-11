@@ -8,6 +8,7 @@ import pycurl
 import logging
 import sqlite3
 import fitz  # pip install PyMuPDF
+from pdfminer.high_level import extract_text
 from io import BytesIO  # Убедимся, что модуль io корректно импортирован
 from datetime import datetime
 from bs4 import BeautifulSoup
@@ -173,6 +174,31 @@ def extract_date(file_path):
     date = date_pdfminer(file_path)
     return date
 
+# --- Пересчет отказов (инкрементально по списку ординов) ---
+def recompute_refuzuri():
+
+    db.execute('''
+        UPDATE Dosar11
+        SET refuz=1
+        WHERE ordin IN (
+            SELECT ordin
+            FROM Dosar11
+            WHERE ordin IS NOT NULL
+            GROUP BY ordin
+            HAVING COUNT(*) = 1
+        )
+    ''')
+    SQLlogger.info('Refuz set: ' + str(db.rowcount))
+
+    db.execute('''
+        INSERT OR REPLACE INTO Refuz11 (id, ordin, depun, solutie)
+        SELECT id, ordin, depun, solutie
+        FROM Dosar11
+        WHERE refuz=1 AND ordin IS NOT NULL
+    ''')
+    SQLlogger.info('Refuz11 rebuilt: ' + str(db.rowcount))
+
+
 # Parsing function
 def parse_pdf(file_path):
     try:
@@ -225,6 +251,7 @@ def parse_pdf(file_path):
 
             print(f"{'found ' + COK + str(len(dosars)).zfill(4) + CEND + ' dosars'}")
             logger.info(f"Processed {len(dosars)} dosars from {file_path}")
+
             connection.commit()
 
     except Exception as e:
@@ -236,6 +263,8 @@ logger.info('Start parsing ordins at ' + datetime.now().strftime("%Y-%m-%d %M:%S
 # Парсинг только новых файлов
 for filename in new_files:
     parse_pdf(filename)
+
+recompute_refuzuri()
 
 connection.close()
 logger.info("Processing complete.")
