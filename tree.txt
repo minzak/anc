@@ -2306,9 +2306,13 @@
 ├── q.sh
 ├── q.txt
 ├── raw_dosar11.txt
+├── raw_refuz11_bymonth.txt
+├── raw_refuz11_bypercent.txt
+├── raw_refuz11.txt
 ├── raw.sh
 ├── raw_termen11.txt
 ├── readme.md
+├── recompute_refuzuri.py
 ├── requirements.txt
 ├── shm -> /dev/shm
 ├── stadiu
@@ -2433,4 +2437,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-20 directories, 2413 files
+20 directories, 2417 files

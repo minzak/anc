@@ -41,4 +41,3 @@ connection.commit()
 print("Готово.")
 connection.close()
 
-

@@ -15,8 +15,8 @@ from loguru import logger
 
 # Путь к директории с PDF-файлами
 PDF_DIR = './stadiu'
-#Database = './data.db'
-Database = '/dev/shm/data.db'
+Database = './data.db'
+#Database = '/dev/shm/data.db'
 
 # Имена лог файлов
 SQL_LOG_FILE = '/dev/shm/sql-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '.log'
