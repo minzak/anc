@@ -2,7 +2,8 @@
 
 python3 ./get_juramat.py
 python3 ./parse_juramat_all.py
-rm -f *.log
+python3 ./recompute_refuzuri.py
+#rm -f *.log
 tree -L 5 -I 'venv|old|*.log' > tree.txt
 ./q.sh > q.txt
 echo "Packing DB."
