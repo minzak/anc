@@ -33,8 +33,12 @@ sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="27030/RD/2021";'
 #https://t.me/vorkos
 sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="38286/RD/2021";'
 
-sqlite3 -echo -box data.db '.read stat.sql'
+#sqlite3 -echo -box data.db '.read stat.sql'
 
 #sqlite3 -echo -box data.db 'SELECT MAX(termen) AS max_termen FROM Dosar11;'
 #sqlite3 -echo -box data.db 'SELECT termen, COUNT(*) AS count FROM Dosar11 WHERE termen >= CURRENT_DATE GROUP BY termen ORDER BY termen;'
 
+# Refuz ALL Time
+#sqlite3 -echo -box data.db "SELECT strftime('%Y-%m', solutie) AS year_month, COUNT(*) AS refusals_count FROM Refuz11 WHERE solutie IS NOT NULL GROUP BY year_month ORDER BY year_month;"
+# Refuz Above 2024
+sqlite3 -echo -box data.db "SELECT strftime('%Y-%m', solutie) AS year_month, COUNT(*) AS refusals_count FROM Refuz11 WHERE solutie IS NOT NULL AND strftime('%Y', solutie) >= '2024' GROUP BY year_month ORDER BY year_month;"

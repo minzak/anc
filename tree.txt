@@ -93,7 +93,11 @@
 │   ├── 2025-07-Tabel-SITE-31-iulie-2025-ora-14.00.pdf
 │   ├── 2025-08-07-AUGUST-ORA-1400.pdf
 │   ├── 2025-08-tabel-afisare-site-04.08.2025-ora-12.30.pdf
-│   └── 2025-08-tabel-afisare-site-04.08.2025-ora-9.00.pdf
+│   ├── 2025-08-tabel-afisare-site-04.08.2025-ora-9.00.pdf
+│   ├── 2025-08-tabel-afisare-site-19.08.2025-ora-12.30.pdf
+│   ├── 2025-08-tabel-afisare-site-19.08.2025-ora-9.00.pdf
+│   ├── 2025-08-Tabel-SITE-25-august-2025-ora-09.00.pdf
+│   └── 2025-08-Tabel-SITE-25-august-2025-ora-12.30.pdf
 ├── logs.tar.gz
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
@@ -197,6 +201,10 @@
 │   ├── 2021-06-Ordin-2569-P-din-28.07.2025-Minori.pdf
 │   ├── 2021-06-Ordin-2588P-16.12.2024-minori.pdf
 │   ├── 2021-06-Ordin-270-Minori-147-pers.pdf
+│   ├── 2021-06-Ordin.2789P-12.08.2025-49P-minori.pdf
+│   ├── 2021-06-Ordin-2792P-14.08.2025-minori.pdf
+│   ├── 2021-06-Ordin-2797P-18.08.2025-minori.pdf
+│   ├── 2021-06-Ordin-2798P-18.08.2025-minori.pdf
 │   ├── 2021-06-Ordin-309-Minori-152-pers-.pdf
 │   ├── 2021-06-ORDIN-323P-MINORI-7-P.pdf
 │   ├── 2021-06-ordin-382P.pdf
@@ -287,6 +295,7 @@
 │   ├── 2021-06-Ordin_nr._2430P_din_02.12.2019.pdf
 │   ├── 2021-06-Ordin-nr.-2543P-din-12.12.2024.pdf
 │   ├── 2021-06-Ordin-nr.-2561P-din-13.12.2024.pdf
+│   ├── 2021-06-Ordin-nr.2790P-13.08.2025-minori.pdf
 │   ├── 2021-06-Ordin_nr._284P_din_04.03.2020.pdf
 │   ├── 2021-06-Ordin_nr._285P_din_04.03.2020.pdf
 │   ├── 2021-06-Ordin-nr.3P-din-07.01.2022.pdf
@@ -2073,6 +2082,7 @@
 │   ├── 2023-11-Ordin-2188-P-din-22.12.2023-Art.-11.pdf
 │   ├── 2023-11-Ordin-2189P-06.06.2025-art-11-.pdf
 │   ├── 2023-11-Ordin-2205-P-2024-din-11.11.2024-Art.-11.pdf
+│   ├── 2023-11-Ordin-2206P-11.06.2025-art.11ii.pdf
 │   ├── 2023-11-Ordin-2206P-11.06.2025-art.11.pdf
 │   ├── 2023-11-ORDIN-2207-11.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2215-din-11.11.2024-art-11.pdf
@@ -2155,6 +2165,7 @@
 │   ├── 2023-11-ordin-2522-P-10.12.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2538-din-12.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2541P-12.12.2024-art.-11.pdf
+│   ├── 2023-11-Ordin-2567P-28.07.2025-art-11ii.pdf
 │   ├── 2023-11-Ordin-2586P-16.12.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2587-din-data-de-16.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2603-P-2024-din-18.12.2024-Art.-11.pdf
@@ -2172,8 +2183,15 @@
 │   ├── 2023-11-Ordin-2727P-06.08.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-2733P-24.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2734P-24.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2764P-11.08.2025-art-11i.pdf
 │   ├── 2023-11-Ordin-2764P-11.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2765P-11.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2769P-12.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2770P-12.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2772P-12.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2773P-12.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2787P-12.08.2025-art.-11.pdf
+│   ├── 2023-11-Ordin-2791P-13.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-284P-04.02.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-287-din-04.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-289P-04.02.2025-art-11.pdf
@@ -2276,6 +2294,7 @@
 │   ├── 2023-11-Ordin-nr.2678P-din-31.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-2695P-01.08.2025-Art.-11.pdf
 │   ├── 2023-11-Ordin-nr.2735P-din-24.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-nr.2788P-din-12.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 │   ├── 2023-11-Ordin-nr.-722P-din-18.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr.758P-27.02.2025-art-11.pdf
@@ -2306,8 +2325,8 @@
 ├── q.sh
 ├── q.txt
 ├── raw_dosar11.txt
-├── raw_refuz11_bymonth.txt
-├── raw_refuz11_bypercent.txt
+├── raw_refuz11_by_month.txt
+├── raw_refuz11_by_percent.txt
 ├── raw_refuz11.txt
 ├── raw.sh
 ├── raw_termen11.txt
@@ -2437,4 +2456,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-20 directories, 2417 files
+20 directories, 2436 files
