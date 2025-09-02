@@ -15,8 +15,8 @@ from loguru import logger
 
 # Путь к директории с PDF-файлами
 PDF_DIR = './stadiu'
-Database = './data.db'
-#Database = '/dev/shm/data.db'
+#Database = './data.db'
+Database = '/dev/shm/data.db'
 
 # Имена лог файлов
 SQL_LOG_FILE = '/dev/shm/sql-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '.log'
@@ -134,10 +134,8 @@ def build_uid(tokens: List[str]) -> str:
 
 
 # --- Подсчет и маркировка отказов (рефузов) ---
+#Быстро помечает в `Dosar11` отказы (refuz=1) по критерию: номер приказа `ordin` встречается ровно один раз.
 def recompute_refuzuri():
-    """
-    Быстро помечает в `Dosar11` отказы (refuz=1) по критерию: номер приказа `ordin` встречается ровно один раз.
-    """
 
     db.execute('''
         UPDATE Dosar11
@@ -151,6 +149,7 @@ def recompute_refuzuri():
         )
     ''')
     sql_logger.info('Refuz set: ' + str(db.rowcount))
+    print(f"Total refuz set to 1 with uniq ordin = 1: {C_SUCCESS}{str(db.rowcount)}{C_RESET}")
 
     db.execute('''
         INSERT OR REPLACE INTO Refuz11 (id, ordin, depun, solutie)

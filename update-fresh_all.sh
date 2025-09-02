@@ -20,10 +20,11 @@ python3 ./get_minori.py
 
 python3 ./recompute_refuzuri.py
 
-cp -f /dev/shm/data.db $(pwd)/data.db
+mv -f /dev/shm/data.db $(pwd)/data.db
 
 tree -L 5 -I 'venv|old|*.log' > tree.txt
 ./q.sh > q.txt
+./raw.sh
 
 echo "Packing DB."
 tar -cvjSf data.db.bz2 data.db

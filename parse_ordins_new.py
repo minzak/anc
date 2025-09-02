@@ -189,6 +189,7 @@ def recompute_refuzuri():
         )
     ''')
     SQLlogger.info('Refuz set: ' + str(db.rowcount))
+    print(f"Total refuz set to 1 with uniq ordin = 1: {COK}{str(db.rowcount)}{CEND}")
 
     db.execute('''
         INSERT OR REPLACE INTO Refuz11 (id, ordin, depun, solutie)

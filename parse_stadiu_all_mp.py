@@ -134,10 +134,8 @@ def build_uid(tokens: List[str]) -> str:
 
 
 # --- Подсчет и маркировка отказов (рефузов) ---
+#Быстро помечает в `Dosar11` отказы (refuz=1) по критерию: номер приказа `ordin` встречается ровно один раз.
 def recompute_refuzuri():
-    """
-    Быстро помечает в `Dosar11` отказы (refuz=1) по критерию: номер приказа `ordin` встречается ровно один раз.
-    """
 
     db.execute('''
         UPDATE Dosar11
@@ -151,6 +149,7 @@ def recompute_refuzuri():
         )
     ''')
     sql_logger.info('Refuz set: ' + str(db.rowcount))
+    print(f"Total refuz set to 1 with uniq ordin = 1: {COK}{str(db.rowcount)}{CEND}")
 
     db.execute('''
         INSERT OR REPLACE INTO Refuz11 (id, ordin, depun, solutie)
@@ -159,6 +158,7 @@ def recompute_refuzuri():
         WHERE refuz=1 AND ordin IS NOT NULL
     ''')
     sql_logger.info('Refuz11 rebuilt: ' + str(db.rowcount))
+
 
 # --- Кластеризация слов по вертикали (Y) и объединение по горизонтали (X) ---
 def group_words_by_line(words: List[Dict]) -> Tuple[List[Tuple[float, List[Dict]]], List[Tuple[float, List[str]]]]:

@@ -146,6 +146,7 @@ def recompute_refuzuri_full():
         )
     ''')
     SQLlogger.info('Refuz set: ' + str(db.rowcount))
+    print(f"Total refuz set to 1 with uniq ordin = 1: {COK}{str(db.rowcount)}{CEND}")
 
     db.execute('''
         INSERT OR REPLACE INTO Refuz11 (id, ordin, depun, solutie)
@@ -154,7 +155,6 @@ def recompute_refuzuri_full():
         WHERE refuz=1 AND ordin IS NOT NULL
     ''')
     SQLlogger.info('Refuz11 rebuilt: ' + str(db.rowcount))
-
 
 
 # Parsing function

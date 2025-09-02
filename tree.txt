@@ -1,6 +1,8 @@
 .
 ├── create_tables.sql
 ├── crt
+│   ├── cacert.pem.crt
+│   ├── cetatenie-just-ro-chain.pem
 │   ├── cetatenie-just-ro_chain.pem
 │   ├── cetatenie-just-ro_g2.pem
 │   ├── cetatenie-just-ro.pem
@@ -92,12 +94,19 @@
 │   ├── 2025-07-29-IULIE-ORA-900.pdf
 │   ├── 2025-07-Tabel-SITE-31-iulie-2025-ora-14.00.pdf
 │   ├── 2025-08-07-AUGUST-ORA-1400.pdf
+│   ├── 2025-08-26-AUGUST-ORA-1230.pdf
+│   ├── 2025-08-26-AUGUST-ORA-900.pdf
+│   ├── 2025-08-tabel-afisare-site-01.09.2025-ora-13.00.pdf
 │   ├── 2025-08-tabel-afisare-site-04.08.2025-ora-12.30.pdf
 │   ├── 2025-08-tabel-afisare-site-04.08.2025-ora-9.00.pdf
+│   ├── 2025-08-tabel-afisare-site-04.09.2025-ora-14.00.pdf
 │   ├── 2025-08-tabel-afisare-site-19.08.2025-ora-12.30.pdf
 │   ├── 2025-08-tabel-afisare-site-19.08.2025-ora-9.00.pdf
+│   ├── 2025-08-tabel-afisare-site-28.08.2025-ora-14.00.pdf
 │   ├── 2025-08-Tabel-SITE-25-august-2025-ora-09.00.pdf
-│   └── 2025-08-Tabel-SITE-25-august-2025-ora-12.30.pdf
+│   ├── 2025-08-Tabel-SITE-25-august-2025-ora-12.30.pdf
+│   ├── 2025-09-02-SEPTEMBRIE-ORA-1230.pdf
+│   └── 2025-09-02-SEPTEMBRIE-ORA-900.pdf
 ├── logs.tar.gz
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
@@ -205,6 +214,8 @@
 │   ├── 2021-06-Ordin-2792P-14.08.2025-minori.pdf
 │   ├── 2021-06-Ordin-2797P-18.08.2025-minori.pdf
 │   ├── 2021-06-Ordin-2798P-18.08.2025-minori.pdf
+│   ├── 2021-06-Ordin-2922P-01.09.2025-minori.pdf
+│   ├── 2021-06-Ordin-2930P-02-09-2025-minori.pdf
 │   ├── 2021-06-Ordin-309-Minori-152-pers-.pdf
 │   ├── 2021-06-ORDIN-323P-MINORI-7-P.pdf
 │   ├── 2021-06-ordin-382P.pdf
@@ -2192,8 +2203,20 @@
 │   ├── 2023-11-Ordin-2773P-12.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2787P-12.08.2025-art.-11.pdf
 │   ├── 2023-11-Ordin-2791P-13.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2796P-18.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2814P-19.08.2025-art.-11.pdf
+│   ├── 2023-11-Ordin-2815P-19.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2819P-20.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2830P-21.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2834-P-2025-din-21.08.2025-Art.-11.pdf
 │   ├── 2023-11-Ordin-284P-04.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2874P-25.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2875P-25.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2876P-25.08.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-287-din-04.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2887-P-27.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2888P-27.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2896P-28.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-289P-04.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-314P-04.02.2025-art-11i.pdf
 │   ├── 2023-11-Ordin-314P-04.02.2025-art-11.pdf
@@ -2434,18 +2457,30 @@
 │   │   ├── art_11_anul_2023.pdf
 │   │   ├── art_11_anul_2024.pdf
 │   │   └── art_11_anul_2025.pdf
-│   └── 2025-06-23
-│       ├── Art-11-RD-2015.pdf
-│       ├── Art-11-RD-2016.pdf
-│       ├── Art-11-RD-2017.pdf
-│       ├── Art-11-RD-2018.pdf
-│       ├── Art-11-RD-2019.pdf
-│       ├── Art-11-RD-2020.pdf
-│       ├── Art-11-RD-2021.pdf
-│       ├── Art-11-RD-2022.pdf
-│       ├── Art-11-RD-2023.pdf
-│       ├── Art-11-RD-2024.pdf
-│       └── Art-11-RD-2025.pdf
+│   ├── 2025-06-23
+│   │   ├── Art-11-RD-2015.pdf
+│   │   ├── Art-11-RD-2016.pdf
+│   │   ├── Art-11-RD-2017.pdf
+│   │   ├── Art-11-RD-2018.pdf
+│   │   ├── Art-11-RD-2019.pdf
+│   │   ├── Art-11-RD-2020.pdf
+│   │   ├── Art-11-RD-2021.pdf
+│   │   ├── Art-11-RD-2022.pdf
+│   │   ├── Art-11-RD-2023.pdf
+│   │   ├── Art-11-RD-2024.pdf
+│   │   └── Art-11-RD-2025.pdf
+│   └── 2025-08-25
+│       ├── Art-11-2015-25.08.2025.pdf
+│       ├── Art-11-2016-25.08.2025.pdf
+│       ├── Art-11-2017-25.08.2025.pdf
+│       ├── Art-11-2018-25.08.2025.pdf
+│       ├── Art-11-2019-25.08.2025.pdf
+│       ├── Art-11-2020-25.08.2025.pdf
+│       ├── Art-11-2021-25.08.2025.pdf
+│       ├── Art-11-2022-25.08.2025.pdf
+│       ├── Art-11-2023-25.08.2025.pdf
+│       ├── Art-11-2024-25.08.2025ii.pdf
+│       └── Art-11-2025-25.08.2025.pdf
 ├── stat.sql
 ├── todo.txt
 ├── tree.txt
@@ -2456,4 +2491,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-20 directories, 2436 files
+21 directories, 2470 files
