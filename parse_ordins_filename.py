@@ -19,6 +19,9 @@ CWARN   = '\033[93m'
 CVIOLET = '\033[95m'
 CEND    = '\033[0m'
 
+# Constants
+Ordins = './ordins/'
+
 # Logging setup
 def setup_logger(name, log_file, level=logging.INFO, mode='w'):
     LogFormat = logging.Formatter('%(message)s')
@@ -30,9 +33,6 @@ def setup_logger(name, log_file, level=logging.INFO, mode='w'):
     return logger
 
 logger = setup_logger('main_logger', 'parse-ordins-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
-
-# Constants
-Ordins = './ordins/'
 
 # Parsing function
 def parse_pdf(file_path):

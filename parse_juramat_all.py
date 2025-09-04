@@ -18,6 +18,13 @@ CEND    = '\033[0m'
 # Фиксируем время начала выполнения
 start_time = time.time()
 
+# Обработка PDF файлов
+pdf_dir = './juramat/'
+
+# Подключение к базе данных
+database_path = './data.db'
+#database_path = '/dev/shm/data.db'
+
 # Конфигурация логгирования
 def setup_logger(name, log_file, level=logging.INFO, mode='w'):
     log_format = logging.Formatter('%(message)s')
@@ -31,6 +38,12 @@ def setup_logger(name, log_file, level=logging.INFO, mode='w'):
 
 # Main logger
 logger = setup_logger('main_logger', 'parse-juramat-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
+# SQL logger
+SQLlogger = setup_logger('SQLlogger', 'sql-juramat-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
+
+connection = sqlite3.connect(database_path)
+connection.set_trace_callback(SQLlogger.info)
+db = connection.cursor()
 
 
 def process_pdf(file_path, db, logger):
@@ -103,17 +116,6 @@ def upsert_dosar_record(db, dosar_id, juramat_date, suplimentar_count, logger):
         logger.error(f"Error upserting record for Dosar ID: {dosar_id}: {e}")
 
 
-# SQL logger
-SQLlogger = setup_logger('SQLlogger', 'sql-juramat-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
-# Подключение к базе данных
-database_path = './data.db'
-#database_path = '/dev/shm/data.db'
-connection = sqlite3.connect(database_path)
-connection.set_trace_callback(SQLlogger.info)
-db = connection.cursor()
-
-# Обработка PDF файлов
-pdf_dir = './juramat/'
 total_files = 0
 total_unique_records = 0
 total_all_records = 0

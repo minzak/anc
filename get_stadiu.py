@@ -11,7 +11,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import shutil
 from urllib.parse import urljoin, urlparse
-import random
+#import random
 
 # Константы
 BASE_URL = "https://cetatenie.just.ro/stadiu-dosar/"
@@ -27,11 +27,11 @@ CERTIFICATE_PATH = './crt/cetatenie-just-ro-chain.pem'
 ENV_COOKIE = os.environ.get('COOKIE', '').strip()
 
 # Цвета для вывода
-C_SUCCESS = '\033[92m'  # Зеленый
-C_ERROR = '\033[91m'  # Красный
-C_INFO = '\033[93m'  # Желтый
-C_VIOLET = '\033[95m'  # Фиолетовый
-C_RESET = '\033[0m'  # Сброс цвета
+COK = '\033[92m'  # Зеленый
+CRED = '\033[91m'  # Красный
+CWARN = '\033[93m'  # Желтый
+CVIOLET = '\033[95m'  # Фиолетовый
+CEND = '\033[0m'  # Сброс цвета
 
 # Фиксируем время начала выполнения
 start_time = time.time()
@@ -108,7 +108,7 @@ except Exception:
                 html_content = r_lp.text
 
 if not html_content:
-    print(f"{C_ERROR}Ошибка при загрузке страницы {BASE_URL}{C_RESET}")
+    print(f"{CRED}Ошибка при загрузке страницы {BASE_URL}{CEND}")
     exit()
 
 soup = BeautifulSoup(html_content, 'html.parser')
@@ -121,7 +121,7 @@ if not articolul_11_section:
     if sections:
         articolul_11_section = sections[0]  # Assuming first is ARTICOLUL 11
 if not articolul_11_section:
-    print(f"{C_ERROR}Не найдена секция ARTICOLUL 11.{C_RESET}")
+    print(f"{CRED}Не найдена секция ARTICOLUL 11.{CEND}")
     exit()
 
 # Extract PDF links
@@ -136,7 +136,7 @@ existing_hashes = {}
 for folder in sorted(os.listdir(BASE_DIR)):
     folder_path = os.path.join(BASE_DIR, folder)
     if os.path.isdir(folder_path):
-        print(f"{C_INFO}Scanning folder: {folder}{C_RESET}")
+        print(f"{CWARN}Scanning folder: {folder}{CEND}")
         for file in os.listdir(folder_path):
             file_path = os.path.join(folder_path, file)
             file_year = extract_year_from_filename(file)
@@ -147,8 +147,8 @@ for folder in sorted(os.listdir(BASE_DIR)):
                     existing_files_by_year[file_year] = []
                 existing_files_by_year[file_year].append(file_path)
                 existing_hashes[file_path] = file_hash
-                print(f"File: {file}, Year: {C_SUCCESS}{file_year}{C_RESET}, HASH: {C_INFO}{file_hash}{C_RESET}")
-print(f"{C_SUCCESS}Scanning directories complete.{C_RESET}")
+                print(f"File: {file}, Year: {COK}{file_year}{CEND}, HASH: {CWARN}{file_hash}{CEND}")
+print(f"{COK}Scanning directories complete.{CEND}")
 
 os.makedirs(TEMP_DIR, exist_ok=True)
 
@@ -163,16 +163,16 @@ def _cookie_header_from_session(sess: requests.Session) -> str:
 for link in links:
     filename = os.path.basename(link)
     if not filename:
-        print(f"{C_INFO}Пропущен некорректный URL: {link}{C_RESET}")
+        print(f"{CWARN}Пропущен некорректный URL: {link}{CEND}")
         continue
 
     file_year = extract_year_from_filename(filename)
     if not file_year:
-        print(f"{C_INFO}Пропущен файл без указания года: {filename}{C_RESET}")
+        print(f"{CWARN}Пропущен файл без указания года: {filename}{CEND}")
         continue
 
     temp_filepath = os.path.join(TEMP_DIR, filename)
-    print(f"{link} {C_VIOLET}-> {C_INFO}{temp_filepath}{C_RESET}".ljust(160, '.'), end="")
+    print(f"{link} {CVIOLET}-> {CWARN}{temp_filepath}{CEND}".ljust(160, '.'), end="")
 
     status_code = None
     content_bytes = None
@@ -255,7 +255,7 @@ for link in links:
                 for old_filepath in existing_files_by_year[file_year]:
                     old_hash = existing_hashes.get(old_filepath)
                     if temp_hash == old_hash:
-                        print(f"{C_RESET}Skipping file for {file_year} already present with same HASH.{C_RESET}")
+                        print(f"{CEND}Skipping file for {file_year} already present with same HASH.{CEND}")
                         os.remove(temp_filepath)
                         break
                 else:
@@ -265,7 +265,7 @@ for link in links:
                     os.makedirs(new_folder, exist_ok=True)
                     final_filepath = os.path.join(new_folder, filename)
                     shutil.move(temp_filepath, final_filepath)
-                    print(f"{C_SUCCESS}{status_code} Success{C_RESET}")
+                    print(f"{COK}{status_code} Success{CEND}")
             else:
                 # No existing files for this year, save the file
                 today = datetime.now().strftime("%Y-%m-%d")
@@ -273,11 +273,11 @@ for link in links:
                 os.makedirs(new_folder, exist_ok=True)
                 final_filepath = os.path.join(new_folder, filename)
                 shutil.move(temp_filepath, final_filepath)
-                print(f"{C_SUCCESS}{status_code} Success{C_RESET}")
+                print(f"{COK}{status_code} Success{CEND}")
     elif status_code == 404:
-        print(f"{C_ERROR}{status_code} Download Error{C_RESET}")
+        print(f"{CRED}{status_code} Download Error{CEND}")
     else:
-        print(f"{C_ERROR}Ошибка при скачивании файла: {filename}{C_RESET}")
+        print(f"{CRED}Ошибка при скачивании файла: {filename}{CEND}")
 
 # Удаляем временную папку
 if os.path.exists(TEMP_DIR):
@@ -286,5 +286,5 @@ if os.path.exists(TEMP_DIR):
 # Вычисляем время выполнения
 end_time = time.time()
 execution_time = end_time - start_time
-print(f"{'Execution time: '}{C_SUCCESS}{execution_time:.2f}{C_RESET} seconds")
+print(f"{'Execution time: '}{COK}{execution_time:.2f}{CEND} seconds")
 quit()

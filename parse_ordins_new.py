@@ -24,6 +24,7 @@ CWARN   = '\033[93m'
 CVIOLET = '\033[95m'
 CEND    = '\033[0m'
 
+Database = './data.db'
 Ordins = './ordins/'
 OrdineUrl = "https://cetatenie.just.ro/ordine-articolul-1-1/"
 DownloadUrl = 'https://cetatenie.just.ro/storage/'
@@ -44,7 +45,6 @@ logger = setup_logger('main_logger', 'parse-ordins-new-' + datetime.now().strfti
 SQLlogger = setup_logger('SQLlogger', 'sql-ordins-new-'+datetime.now().strftime("%Y-%m-%d")+'.log', mode='w')
 
 # Database setup
-Database = './data.db'
 connection = sqlite3.connect(Database)
 db = connection.cursor()
 

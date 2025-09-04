@@ -95,7 +95,7 @@ SELECT strftime('%Y-%m', solutie) AS year_month, COUNT(*) AS refusals_count FROM
 │ 2024-04    │ 161            │
 │ 2024-05    │ 22             │
 │ 2024-06    │ 119            │
-│ 2024-07    │ 70             │
+│ 2024-07    │ 71             │
 │ 2024-08    │ 113            │
 │ 2024-09    │ 382            │
 │ 2024-10    │ 254            │

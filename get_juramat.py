@@ -10,7 +10,7 @@ from io import BytesIO
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 import hashlib
-import random
+#import random
 
 # Фиксируем время начала выполнения
 start_time = time.time()
@@ -128,7 +128,7 @@ for href in unique_hrefs:
     dest = Ordins + rel.replace('/', '-')
     links.append((href, dest))
 
-print(f"Discovered {len(links)} PDF link(s) on juramant page.")
+print(f"Discovered {COK}{len(links)}{CEND} PDF links on juramant page.")
 
 new_files = []
 missing_files = []
@@ -151,7 +151,7 @@ for OrdineUrl, FileName in links:
     status_code = None
     content_bytes = None
 
-    time.sleep(random.uniform(0.7, 1.8))  # Random delay to avoid bans
+    #time.sleep(random.uniform(0.7, 1.8))  # Random delay to avoid bans
 
     # Try with requests
     try:
@@ -234,7 +234,7 @@ for OrdineUrl, FileName in links:
         print(f"{CRED}{str(status_code) if status_code is not None else '000'} Download Error{CEND}")
         missing_files.append(OrdineUrl)
 
-print(f"New files: {len(new_files)}; Missing/failed: {len(missing_files)}")
+print(f"\nNew files: {COK}{len(new_files)}{CEND}; Missing/failed: {COK}{len(missing_files)}{CEND}")
 # Execution time
 end_time = time.time()
 execution_time = end_time - start_time

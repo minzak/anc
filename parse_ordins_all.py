@@ -13,6 +13,12 @@ import time
 # Фиксируем время начала выполнения
 start_time = time.time()
 
+# Constants
+Ordins = './ordins/'
+# Database setup
+#Database = './data.db'
+Database = '/dev/shm/data.db'
+
 # Константы
 CRED    = '\033[91m'
 COK     = '\033[92m'
@@ -34,16 +40,9 @@ def setup_logger(name, log_file, level=logging.INFO, mode='w'):
 logger = setup_logger('main_logger', '/dev/shm/parse-ordins-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
 SQLlogger = setup_logger('SQLlogger', '/dev/shm/sql-ordins-'+datetime.now().strftime("%Y-%m-%d")+'.log', mode='w')
 
-# Database setup
-#Database = './data.db'
-Database = '/dev/shm/data.db'
 connection = sqlite3.connect(Database)
 #connection.set_trace_callback(SQLlogger.info)
 db = connection.cursor()
-
-# Constants
-Ordins = './ordins/'
-
 
 #Extract ordinance date using PDFMiner.
 def date_pdfminer(file_path):

@@ -11,7 +11,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 import hashlib
-import random
+#import random
 
 # Фиксируем время начала выполнения
 start_time = time.time()
@@ -125,11 +125,20 @@ unique_hrefs = [u for u in link_hrefs if u not in seen and not seen.add(u)]
 
 links = []
 for href in unique_hrefs:
-    rel = urlparse(href).path.replace('/storage/', '').lstrip('/')
-    dest = Ordins + rel.replace('/', '-')
+    parsed = urlparse(href)
+    path_parts = parsed.path.split('/')
+    # Extract year and month (assuming URL structure like /wp-content/uploads/YYYY/MM/filename.pdf)
+    if len(path_parts) >= 4 and path_parts[-3].isdigit() and path_parts[-2].isdigit():
+        year, month = path_parts[-3], path_parts[-2]
+        file_name = path_parts[-1]
+        new_file_name = f"{year}-{month}-{file_name}"
+    else:
+        # Fallback to just the file name if the expected structure isn't found
+        new_file_name = os.path.basename(parsed.path)
+    dest = os.path.join(Ordins, new_file_name)
     links.append((href, dest))
 
-print(f"Discovered {len(links)} PDF link(s) on ordine-minori page.")
+print(f"Discovered {COK}{len(links)}{CEND} PDF links on ordine-minori page.")
 
 new_files = []
 missing_files = []
@@ -152,7 +161,7 @@ for OrdineUrl, FileName in links:
     status_code = None
     content_bytes = None
 
-    time.sleep(random.uniform(0.7, 1.8))  # Random delay to avoid bans
+    #time.sleep(random.uniform(0.7, 1.8))  # Random delay to avoid bans
 
     # Try with requests
     try:
@@ -235,7 +244,7 @@ for OrdineUrl, FileName in links:
         print(f"{CRED}{str(status_code) if status_code is not None else '000'} Download Error{CEND}")
         missing_files.append(OrdineUrl)
 
-print(f"New files: {len(new_files)}; Missing/failed: {len(missing_files)}")
+print(f"\nNew files: {COK}{len(new_files)}{CEND}; Missing/failed: {COK}{len(missing_files)}{CEND}")
 # Execution time
 end_time = time.time()
 execution_time = end_time - start_time
