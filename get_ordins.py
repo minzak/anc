@@ -30,7 +30,7 @@ Headers = 'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.
 REFERER = 'https://cetatenie.just.ro/ordine-articolul-1-1/'
 
 # Path to certificate (adjust if needed)
-CERTIFICATE_PATH = './crt/cetatenie-just-ro-chain.pem'
+CERTIFICATE_PATH = './crt/cetatenie-just-ro_chain.pem'
 
 # Environment cookie override if needed
 ENV_COOKIE = os.environ.get('COOKIE', '').strip()

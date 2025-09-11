@@ -21,7 +21,7 @@ BASE_DIR = "./stadiu/"
 TEMP_DIR = "./temp/"
 
 # Path to certificate (adjust if needed)
-CERTIFICATE_PATH = './crt/cetatenie-just-ro-chain.pem'
+CERTIFICATE_PATH = './crt/cetatenie-just-ro_chain.pem'
 
 # Environment cookie override if needed
 ENV_COOKIE = os.environ.get('COOKIE', '').strip()
