@@ -208,6 +208,8 @@ def parse_pdf(file_path):
 
             # Process each dosar and update database
             for dosar in dosars:
+                # Очищаем дату от "00:00:00" перед записью в БД
+                clean_ordinance_date = ordinance_date.strftime('%Y-%m-%d') if ordinance_date else None
                 db.execute('''
                     UPDATE Dosar11
                     SET solutie = IIF(Dosar11.solutie IS NULL, ?, Dosar11.solutie),
@@ -216,7 +218,7 @@ def parse_pdf(file_path):
                         anexa = ?,
                         cminori = ?
                     WHERE id = ?
-                ''', (ordinance_date, True, f"{file_ordin_number}/P/{ordinance_date.year}", dosar["anexa"], dosar["cminori"], dosar["id"]))
+                ''', (clean_ordinance_date, True, f"{file_ordin_number}/P/{ordinance_date.year}", dosar["anexa"], dosar["cminori"], dosar["id"]))
                 #SQLlogger.info('Modified: ' + str(db.rowcount))
                 # Log the update in a more compact format
                 SQLlogger.info(f"UPDATE: ID:{dosar['id']} | Result:{True} | Ordin_date {ordinance_date} | Ordin:{file_ordin_number}/P/{ordinance_date.year} | ANEXA:{dosar['anexa']} | Minori:{dosar['cminori']} | Modified:{db.rowcount} rows")

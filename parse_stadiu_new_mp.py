@@ -34,7 +34,7 @@ Y_TOLERANCE = 5  # пикселей
 MERGE_X_THRESHOLD = 60  # пикселей (увеличено с 15)
 
 # Ключевые слова заголовков (для пропуска)
-HEADER_KEYWORDS = ['NR', 'NR. DOSAR', 'DATA ÎNREGISTRĂРЇ', 'TERMEN', 'SOLUȚIE', 'DATĂ', 'DATA']
+HEADER_KEYWORDS = ['NR', 'NR. DOSAR', 'DATA ÎNREGISTRĂР Ї', 'TERMEN', 'SOLUȚIE', 'DATĂ', 'DATA']
 
 # --- Коды токенов для UID ---
 # UID будет состоять из буквенного кода, соответствующего паттерну каждого токена (см. token_pattern)
@@ -233,7 +233,10 @@ def print_table_row(fields, uid, original_pattern=None):
 
 # --- Разбор строки таблицы ---
 def process_table_row(fields):
-    filtered_line = [re.sub(r'/\s+', '/', (cell or '').strip()) for cell in fields if cell and str(cell).strip()]
+    # Также Удаляем "00:00:00" из полей, если присутствует
+    filtered_line = [re.sub(r'/\s+', '/', (cell or '').replace('00:00:00', '').strip())
+                     for cell in fields if cell and str(cell).strip()]
+
     sfln = len(filtered_line)
     pattern = row_pattern(filtered_line)
     ID = DEPUN = TERMEN = ORDIN = SOLUTIE = None

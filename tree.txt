@@ -8,10 +8,13 @@
 │   ├── get_cert.sh
 │   └── system_cacert.sh
 ├── data.db
-├── data.db.bz2
+├── get_juramat_no_ssl.py
 ├── get_juramat.py
+├── get_minori_no_ssl.py
 ├── get_minori.py
+├── get_ordins_no_ssl.py
 ├── get_ordins.py
+├── get_stadiu_no_ssl.py
 ├── get_stadiu.py
 ├── init_db.sh
 ├── install.sh
@@ -110,8 +113,15 @@
 │   ├── wp-content-uploads-2025-09-16-SEPTEMBRIE-ORA-1230.pdf
 │   ├── wp-content-uploads-2025-09-16-SEPTEMBRIE-ORA-900.pdf
 │   ├── wp-content-uploads-2025-09-22-SEPTEMBRIE-ORA-900.pdf
-│   └── wp-content-uploads-2025-09-TABEL-site-11.09.2025-14.00.pdf
-├── logs.tar.gz
+│   ├── wp-content-uploads-2025-09-tabel-afisare-site-25.09.2025-ora-14.00.pdf
+│   ├── wp-content-uploads-2025-09-tabel-afisare-site-29.09.2025-ora-12.30.pdf
+│   ├── wp-content-uploads-2025-09-tabel-afisare-site-29.09.2025-ora-9.00.pdf
+│   ├── wp-content-uploads-2025-09-TABEL-site-11.09.2025-14.00.pdf
+│   ├── wp-content-uploads-2025-09-Tabel-SITE-18-septembrie-2025-ora-14.00.pdf
+│   ├── wp-content-uploads-2025-09-Tabel-SITE-23-septembrie-2025-ora-09.00.pdf
+│   ├── wp-content-uploads-2025-09-Tabel-SITE-23-septembrie-2025-ora-12.30.pdf
+│   ├── wp-content-uploads-2025-09-Tabel-SITE-30-septembrie-2025-ora-09.00.pdf
+│   └── wp-content-uploads-2025-09-Tabel-SITE-30-septembrie-2025-ora-12.30.pdf
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
 │   ├── 2020-11-Ordin-minori-nr-1823P-din-3-11-2020.pdf
@@ -220,6 +230,9 @@
 │   ├── 2021-06-Ordin-2798P-18.08.2025-minori.pdf
 │   ├── 2021-06-Ordin-2922P-01.09.2025-minori.pdf
 │   ├── 2021-06-Ordin-2930P-02-09-2025-minori.pdf
+│   ├── 2021-06-Ordin-3043P-11.09.2025-Minori.pdf
+│   ├── 2021-06-Ordin-3051-P-din-12.09.2025-Minori.pdf
+│   ├── 2021-06-Ordin-3053P-12.09.2025-Minori.pdf
 │   ├── 2021-06-Ordin-309-Minori-152-pers-.pdf
 │   ├── 2021-06-ORDIN-323P-MINORI-7-P.pdf
 │   ├── 2021-06-ordin-382P.pdf
@@ -2223,8 +2236,13 @@
 │   ├── 2023-11-Ordin-2888P-27.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2896P-28.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-289P-04.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3111P-22.09.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3112P-22.09.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3113P-22.09.2025-art.-11.pdf
+│   ├── 2023-11-ORDIN-3115P-22.09.2025-art-11.pdf
 │   ├── 2023-11-Ordin-314P-04.02.2025-art-11i.pdf
 │   ├── 2023-11-Ordin-314P-04.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3158-P-23.09.2025-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
 │   ├── 2023-11-ORDIN-36P-din-13.01.2025-art-11.pdf
@@ -2346,6 +2364,7 @@
 │   ├── 2025-06-Ordin-2204P-11.06.2025-art-11.pdf
 │   ├── 2025-09-Ordin-2998P-09.09.2025-art-11.pdf
 │   ├── 2025-09-Ordin-3005P-10.09.2025-art-11.pdf
+│   ├── 2025-09-ORDIN-3054-din-12.09.2025-art-11.pdf
 │   ├── 2025-09-Ordin-nr.3000P-din-10.09.2025-art-11.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_juramat_all.py
@@ -2355,6 +2374,7 @@
 ├── parse_stadiu_all_mp.py
 ├── parse_stadiu_new_mp.py
 ├── q.sh
+├── q_.sh
 ├── q.txt
 ├── raw_dosar11.txt
 ├── raw_refuz11_by_month.txt
@@ -2477,18 +2497,30 @@
 │   │   ├── Art-11-RD-2023.pdf
 │   │   ├── Art-11-RD-2024.pdf
 │   │   └── Art-11-RD-2025.pdf
-│   └── 2025-08-25
-│       ├── Art-11-2015-25.08.2025.pdf
-│       ├── Art-11-2016-25.08.2025.pdf
-│       ├── Art-11-2017-25.08.2025.pdf
-│       ├── Art-11-2018-25.08.2025.pdf
-│       ├── Art-11-2019-25.08.2025.pdf
-│       ├── Art-11-2020-25.08.2025.pdf
-│       ├── Art-11-2021-25.08.2025.pdf
-│       ├── Art-11-2022-25.08.2025.pdf
-│       ├── Art-11-2023-25.08.2025.pdf
-│       ├── Art-11-2024-25.08.2025ii.pdf
-│       └── Art-11-2025-25.08.2025.pdf
+│   ├── 2025-08-25
+│   │   ├── Art-11-2015-25.08.2025.pdf
+│   │   ├── Art-11-2016-25.08.2025.pdf
+│   │   ├── Art-11-2017-25.08.2025.pdf
+│   │   ├── Art-11-2018-25.08.2025.pdf
+│   │   ├── Art-11-2019-25.08.2025.pdf
+│   │   ├── Art-11-2020-25.08.2025.pdf
+│   │   ├── Art-11-2021-25.08.2025.pdf
+│   │   ├── Art-11-2022-25.08.2025.pdf
+│   │   ├── Art-11-2023-25.08.2025.pdf
+│   │   ├── Art-11-2024-25.08.2025ii.pdf
+│   │   └── Art-11-2025-25.08.2025.pdf
+│   └── 2025-09-24
+│       ├── Art-11-2015-24.09.2025.pdf
+│       ├── Art-11-2016-24.09.2025.pdf
+│       ├── Art-11-2017-24.09.2025ii.pdf
+│       ├── Art-11-2018-24.09.2025ii.pdf
+│       ├── Art-11-2019-24.09.2025.pdf
+│       ├── Art-11-2020-24.09.2025.pdf
+│       ├── Art-11-2021-24.09.2025.pdf
+│       ├── Art-11-2022-24.09.2025.pdf
+│       ├── Art-11-2023-24.09.2025.pdf
+│       ├── Art-11-2024-24.09.2025.pdf
+│       └── Art-11-2025-24.09.2025.pdf
 ├── stat.sql
 ├── todo.txt
 ├── tree.txt
@@ -2499,4 +2531,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-21 directories, 2478 files
+22 directories, 2509 files

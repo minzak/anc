@@ -149,7 +149,7 @@ def recompute_refuzuri():
         )
     ''')
     sql_logger.info('Refuz set: ' + str(db.rowcount))
-    print(f"Total refuz set to 1 with uniq ordin = 1: {COK}{str(db.rowcount)}{CEND}")
+    print(f"Total refuz set to 1 with uniq ordin = 1: {C_SUCCESS}{str(db.rowcount)}{C_RESET}")
 
     db.execute('''
         INSERT OR REPLACE INTO Refuz11 (id, ordin, depun, solutie)
@@ -233,7 +233,9 @@ def print_table_row(fields, uid, original_pattern=None):
 
 # --- Разбор строки таблицы ---
 def process_table_row(fields):
-    filtered_line = [re.sub(r'/\s+', '/', (cell or '').strip()) for cell in fields if cell and str(cell).strip()]
+    # Также Удаляем "00:00:00" из полей, если присутствует
+    filtered_line = [re.sub(r'/\s+', '/', (cell or '').replace('00:00:00', '').strip())
+                                      for cell in fields if cell and str(cell).strip()]
     sfln = len(filtered_line)
     pattern = row_pattern(filtered_line)
     ID = DEPUN = TERMEN = ORDIN = SOLUTIE = None
