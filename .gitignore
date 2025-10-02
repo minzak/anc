@@ -1,6 +1,7 @@
 venv/
 old/
 shm/
+tools/
 data.db
 raw.txt
 *.pdf

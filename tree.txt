@@ -235,6 +235,8 @@
 │   ├── 2021-06-Ordin-3053P-12.09.2025-Minori.pdf
 │   ├── 2021-06-Ordin-309-Minori-152-pers-.pdf
 │   ├── 2021-06-ORDIN-323P-MINORI-7-P.pdf
+│   ├── 2021-06-Ordin-3441P-din-30.09-minori.pdf
+│   ├── 2021-06-Ordin-3505P-01.10.2025-minori.pdf
 │   ├── 2021-06-ordin-382P.pdf
 │   ├── 2021-06-Ordin-414P-06.02.2025-minori.pdf
 │   ├── 2021-06-ORDIN-41-persoane-13-01-2023-144-persoane-minori.pdf
@@ -355,7 +357,11 @@
 │   ├── 2025-04-Ordin-nr.-1452-din-22.04.2025.pdf
 │   ├── 2025-04-Ordin-nr.-1453-din-22.04.2025.pdf
 │   ├── 2025-07-Ordin-nr.-2541-din-23.07.2025-minori.pdf
-│   └── 2025-07-Ordin-nr.-2566-din-23.07.2025-minori.pdf
+│   ├── 2025-07-Ordin-nr.-2566-din-23.07.2025-minori.pdf
+│   ├── 2025-09-Ordin-3159P-23.09.2025-minori.pdf
+│   ├── 2025-09-Ordin-3160P-23.09.2025-minori.pdf
+│   ├── 2025-09-ordin-3355P-29.09.2025-minori.pdf
+│   └── 2025-09-Ordin-3356P-29.09.2025-minori.pdf
 ├── ordins
 │   ├── 2019-12-Ordin-nr.-1477P-din-27.09.2021.pdf
 │   ├── 2019-12-Ordin-nr.-1478P-din-27.07.2021.pdf
@@ -2245,6 +2251,7 @@
 │   ├── 2023-11-Ordin-3158-P-23.09.2025-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
+│   ├── 2023-11-Ordin-3442P-30.09.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-36P-din-13.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-384-P-22.02.2024.pdf
 │   ├── 2023-11-ordin-386-din-23.02.2024-art-11.pdf
@@ -2369,22 +2376,19 @@
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_juramat_all.py
 ├── parse_ordins_all.py
-├── parse_ordins_filename.py
 ├── parse_ordins_new.py
 ├── parse_stadiu_all_mp.py
 ├── parse_stadiu_new_mp.py
 ├── q.sh
-├── q_.sh
+├── q_stat.sh
 ├── q.txt
 ├── raw_dosar11.txt
-├── raw_refuz11_by_month.txt
-├── raw_refuz11_by_percent.txt
-├── raw_refuz11.txt
 ├── raw.sh
 ├── raw_termen11.txt
 ├── readme.md
 ├── recompute_refuzuri.py
 ├── shm -> /dev/shm
+├── sql.txt
 ├── stadiu
 │   ├── 2022-06-30
 │   │   └── Art.-11-2020-Redobandire.pdf
@@ -2523,6 +2527,11 @@
 │       └── Art-11-2025-24.09.2025.pdf
 ├── stat.sql
 ├── todo.txt
+├── tools
+│   ├── dump_pdf_text.py
+│   ├── run_parser_on_list.py
+│   ├── run_single_parse.py
+│   └── test_dosar_regex.py
 ├── tree.txt
 ├── update-fresh_all.sh
 ├── update-juramat_all.sh
@@ -2531,4 +2540,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-22 directories, 2509 files
+23 directories, 2517 files

@@ -22,8 +22,8 @@ start_time = time.time()
 pdf_dir = './juramat/'
 
 # Подключение к базе данных
-database_path = './data.db'
-#database_path = '/dev/shm/data.db'
+#database_path = './data.db'
+database_path = '/dev/shm/data.db'
 
 # Конфигурация логгирования
 def setup_logger(name, log_file, level=logging.INFO, mode='w'):

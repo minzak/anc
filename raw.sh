@@ -19,29 +19,30 @@ sqlite3 -echo -box data.db 'SELECT * FROM Termen11 ORDER BY id, termen;' > raw_t
 
 #sqlite3 -echo -box data.db "SELECT * FROM Dosar11 WHERE result = 1 AND refuz = 1;"
 
-sqlite3 -echo -box data.db 'SELECT * FROM Refuz11 ORDER BY id, ordin;' > raw_refuz11.txt
-sqlite3 -echo -box data.db "SELECT strftime('%Y-%m', solutie) AS year_month, COUNT(*) AS refusals_count FROM Refuz11 WHERE solutie IS NOT NULL GROUP BY year_month ORDER BY year_month;" > raw_refuz11_by_month.txt
+#sqlite3 -echo -box data.db 'SELECT * FROM Refuz11 ORDER BY id, ordin;' > raw_refuz11.txt
+#sqlite3 -echo -box data.db "SELECT strftime('%Y-%m', solutie) AS year_month, COUNT(*) AS refusals_count FROM Refuz11 WHERE solutie IS NOT NULL GROUP BY year_month ORDER BY year_month;" > raw_refuz11_by_month.txt
 
-sqlite3 -echo -box data.db "
-SELECT 
-    r.year_month,
-    r.refusals_count,
-    t.total_orders,
-    ROUND(r.refusals_count * 100.0 / t.total_orders, 2) AS refusal_percent
-FROM (
-    SELECT strftime('%Y-%m', solutie) AS year_month,
-           COUNT(*) AS refusals_count
-    FROM Refuz11
-    WHERE solutie IS NOT NULL
-    GROUP BY year_month
-) AS r
-JOIN (
-    SELECT strftime('%Y-%m', solutie) AS year_month,
-           COUNT(*) AS total_orders
-    FROM Dosar11
-    WHERE solutie IS NOT NULL
-    GROUP BY year_month
-) AS t
-ON r.year_month = t.year_month
-ORDER BY r.year_month;
-" > raw_refuz11_by_percent.txt
+#sqlite3 -echo -box data.db "
+#SELECT
+#    r.year_month,
+#    r.refusals_count,
+#    t.total_orders,
+#    ROUND(r.refusals_count * 100.0 / t.total_orders, 2) AS refusal_percent
+#FROM (
+#    SELECT strftime('%Y-%m', solutie) AS year_month,
+#           COUNT(*) AS refusals_count
+#    FROM Refuz11
+#    WHERE solutie IS NOT NULL
+#    GROUP BY year_month
+#) AS r
+#JOIN (
+#    SELECT strftime('%Y-%m', solutie) AS year_month,
+#           COUNT(*) AS total_orders
+#    FROM Dosar11
+#    WHERE solutie IS NOT NULL
+#    GROUP BY year_month
+#) AS t
+#ON r.year_month = t.year_month
+#ORDER BY r.year_month;
+#" > raw_refuz11_by_percent.txt
+

@@ -6,8 +6,8 @@ import logging
 import sqlite3
 from datetime import datetime
 
-DB_PATH = 'data.db'
-#DB_PATH = '/dev/shm/data.db'
+#DB_PATH = 'data.db'
+DB_PATH = '/dev/shm/data.db'
 
 # Константы
 CRED    = '\033[91m'
