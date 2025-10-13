@@ -8,6 +8,7 @@
 │   ├── get_cert.sh
 │   └── system_cacert.sh
 ├── data.db
+├── data.db.bz2
 ├── get_juramat_no_ssl.py
 ├── get_juramat.py
 ├── get_minori_no_ssl.py
@@ -121,7 +122,9 @@
 │   ├── wp-content-uploads-2025-09-Tabel-SITE-23-septembrie-2025-ora-09.00.pdf
 │   ├── wp-content-uploads-2025-09-Tabel-SITE-23-septembrie-2025-ora-12.30.pdf
 │   ├── wp-content-uploads-2025-09-Tabel-SITE-30-septembrie-2025-ora-09.00.pdf
-│   └── wp-content-uploads-2025-09-Tabel-SITE-30-septembrie-2025-ora-12.30.pdf
+│   ├── wp-content-uploads-2025-09-Tabel-SITE-30-septembrie-2025-ora-12.30.pdf
+│   └── wp-content-uploads-2025-10-tabel-afisare-site-14.10.2025-ora-9.00.pdf
+├── logs.tar.gz
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
 │   ├── 2020-11-Ordin-minori-nr-1823P-din-3-11-2020.pdf
@@ -237,6 +240,7 @@
 │   ├── 2021-06-ORDIN-323P-MINORI-7-P.pdf
 │   ├── 2021-06-Ordin-3441P-din-30.09-minori.pdf
 │   ├── 2021-06-Ordin-3505P-01.10.2025-minori.pdf
+│   ├── 2021-06-Ordin-3581P-03.10.2025-minori.pdf
 │   ├── 2021-06-ordin-382P.pdf
 │   ├── 2021-06-Ordin-414P-06.02.2025-minori.pdf
 │   ├── 2021-06-ORDIN-41-persoane-13-01-2023-144-persoane-minori.pdf
@@ -2251,6 +2255,7 @@
 │   ├── 2023-11-Ordin-3158-P-23.09.2025-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
+│   ├── 2023-11-Ordin-3354P-29.09.2025-Art.11.pdf
 │   ├── 2023-11-Ordin-3442P-30.09.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-36P-din-13.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-384-P-22.02.2024.pdf
@@ -2373,6 +2378,7 @@
 │   ├── 2025-09-Ordin-3005P-10.09.2025-art-11.pdf
 │   ├── 2025-09-ORDIN-3054-din-12.09.2025-art-11.pdf
 │   ├── 2025-09-Ordin-nr.3000P-din-10.09.2025-art-11.pdf
+│   ├── 2025-10-Ordin-2887-P-27.08.2025-art-11ii.pdf
 │   └── Ordin-1097-P-2024-din-26-06-2024-Art-11-NPE.pdf
 ├── parse_juramat_all.py
 ├── parse_ordins_all.py
@@ -2540,4 +2546,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-23 directories, 2517 files
+23 directories, 2523 files
