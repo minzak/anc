@@ -365,7 +365,8 @@
 │   ├── 2025-09-Ordin-3159P-23.09.2025-minori.pdf
 │   ├── 2025-09-Ordin-3160P-23.09.2025-minori.pdf
 │   ├── 2025-09-ordin-3355P-29.09.2025-minori.pdf
-│   └── 2025-09-Ordin-3356P-29.09.2025-minori.pdf
+│   ├── 2025-09-Ordin-3356P-29.09.2025-minori.pdf
+│   └── 2025-10-Ordin-3669P-13.10.2025-minori.pdf
 ├── ordins
 │   ├── 2019-12-Ordin-nr.-1477P-din-27.09.2021.pdf
 │   ├── 2019-12-Ordin-nr.-1478P-din-27.07.2021.pdf
@@ -2257,6 +2258,9 @@
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
 │   ├── 2023-11-Ordin-3354P-29.09.2025-Art.11.pdf
 │   ├── 2023-11-Ordin-3442P-30.09.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3670P-13.10.2025-art-11.pdf
+│   ├── 2023-11-ordin-3671P-13.10.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3696P-14.10.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-36P-din-13.01.2025-art-11.pdf
 │   ├── 2023-11-Ordin-384-P-22.02.2024.pdf
 │   ├── 2023-11-ordin-386-din-23.02.2024-art-11.pdf
@@ -2385,6 +2389,8 @@
 ├── parse_ordins_new.py
 ├── parse_stadiu_all_mp.py
 ├── parse_stadiu_new_mp.py
+├── __pycache__
+│   └── parse_ordins_all.cpython-39.pyc
 ├── q.sh
 ├── q_stat.sh
 ├── q.txt
@@ -2546,4 +2552,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-23 directories, 2523 files
+24 directories, 2528 files
