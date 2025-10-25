@@ -2,8 +2,10 @@
 ├── create_tables.sql
 ├── crt
 │   ├── cetatenie-just-ro_chain.pem
+│   ├── cetatenie-just-ro_chain.pem.bak
 │   ├── cetatenie-just-ro_g2.pem
 │   ├── cetatenie-just-ro.pem
+│   ├── cetatenie-just-ro_.pem
 │   ├── cetatenie-just-ro_web_ca.pem
 │   ├── get_cert.sh
 │   └── system_cacert.sh
@@ -241,6 +243,7 @@
 │   ├── 2021-06-Ordin-3441P-din-30.09-minori.pdf
 │   ├── 2021-06-Ordin-3505P-01.10.2025-minori.pdf
 │   ├── 2021-06-Ordin-3581P-03.10.2025-minori.pdf
+│   ├── 2021-06-Ordin-3693P-14.10.2025-Minori.pdf
 │   ├── 2021-06-ordin-382P.pdf
 │   ├── 2021-06-Ordin-414P-06.02.2025-minori.pdf
 │   ├── 2021-06-ORDIN-41-persoane-13-01-2023-144-persoane-minori.pdf
@@ -2262,10 +2265,16 @@
 │   ├── 2023-11-ordin-3671P-13.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3696P-14.10.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-36P-din-13.01.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3732P-15.10.2025-art-11.pdf
+│   ├── 2023-11-ordin-3733P-15.10.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3734P15.10.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3824P-20.10.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3829-P-22.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-384-P-22.02.2024.pdf
 │   ├── 2023-11-ordin-386-din-23.02.2024-art-11.pdf
 │   ├── 2023-11-ordin-387-P-23.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-388-23-02-2024-art-11.pdf
+│   ├── 2023-11-Ordin-3952P-24.10.2025-art-11pdf.pdf
 │   ├── 2023-11-Ordin-410-P-26.02.2024-art-11-1.pdf
 │   ├── 2023-11-Ordin-413P-06.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-43P-13.01.2025-art-11.pdf
@@ -2552,4 +2561,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-24 directories, 2528 files
+24 directories, 2537 files

@@ -6,10 +6,10 @@ import time
 import sqlite3
 import logging
 import fitz  # pip install PyMuPDF
-from pdfminer.high_level import extract_text
-from datetime import datetime
 import time
 import unicodedata
+from pdfminer.high_level import extract_text
+from datetime import datetime
 
 # Фиксируем время начала выполнения
 start_time = time.time()
@@ -66,7 +66,6 @@ Ordins = './ordins/'
 total_dosars = 0
 total_files = 0
 
-# --- Helpers ---
 def parse_date_from_filename(name: str):
     try:
         text = name
