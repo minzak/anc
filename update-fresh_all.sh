@@ -24,6 +24,7 @@ mv -f /dev/shm/data.db $(pwd)/data.db
 
 tree -L 5 -I 'venv|old|*.log' > tree.txt
 ./q.sh > q.txt
+./qx.sh > qx.txt
 ./raw.sh
 
 echo "Packing DB."

@@ -2,10 +2,8 @@
 ├── create_tables.sql
 ├── crt
 │   ├── cetatenie-just-ro_chain.pem
-│   ├── cetatenie-just-ro_chain.pem.bak
 │   ├── cetatenie-just-ro_g2.pem
 │   ├── cetatenie-just-ro.pem
-│   ├── cetatenie-just-ro_.pem
 │   ├── cetatenie-just-ro_web_ca.pem
 │   ├── get_cert.sh
 │   └── system_cacert.sh
@@ -125,7 +123,10 @@
 │   ├── wp-content-uploads-2025-09-Tabel-SITE-23-septembrie-2025-ora-12.30.pdf
 │   ├── wp-content-uploads-2025-09-Tabel-SITE-30-septembrie-2025-ora-09.00.pdf
 │   ├── wp-content-uploads-2025-09-Tabel-SITE-30-septembrie-2025-ora-12.30.pdf
-│   └── wp-content-uploads-2025-10-tabel-afisare-site-14.10.2025-ora-9.00.pdf
+│   ├── wp-content-uploads-2025-10-30-OCTOMBRIE-ORA-1400.pdf
+│   ├── wp-content-uploads-2025-10-tabel-afisare-site-06.11.2025-ora-14.00.pdf
+│   ├── wp-content-uploads-2025-10-tabel-afisare-site-14.10.2025-ora-9.00.pdf
+│   └── wp-content-uploads-2025-11-10-NOIEMBRIE-ORA-900.pdf
 ├── logs.tar.gz
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
@@ -245,8 +246,12 @@
 │   ├── 2021-06-Ordin-3581P-03.10.2025-minori.pdf
 │   ├── 2021-06-Ordin-3693P-14.10.2025-Minori.pdf
 │   ├── 2021-06-ordin-382P.pdf
+│   ├── 2021-06-Ordin-3867P-23.10.2025-minori.pdf
+│   ├── 2021-06-Ordin-3973P-27.10.2025-minori.pdf
 │   ├── 2021-06-Ordin-414P-06.02.2025-minori.pdf
 │   ├── 2021-06-ORDIN-41-persoane-13-01-2023-144-persoane-minori.pdf
+│   ├── 2021-06-Ordin-4202P-07.11.2025-art.8.2.pdf
+│   ├── 2021-06-Ordin-4203P-07.11.2025-minori.pdf
 │   ├── 2021-06-Ordin-42-persoane-13-01-2023-minori-.pdf
 │   ├── 2021-06-Ordin-461P-din-01.03.2024-minori.pdf
 │   ├── 2021-06-ORDIN-484P-MINORI.pdf
@@ -335,6 +340,8 @@
 │   ├── 2021-06-Ordin-nr.2790P-13.08.2025-minori.pdf
 │   ├── 2021-06-Ordin_nr._284P_din_04.03.2020.pdf
 │   ├── 2021-06-Ordin_nr._285P_din_04.03.2020.pdf
+│   ├── 2021-06-Ordin-nr.-3826-din-22.10.2025.pdf
+│   ├── 2021-06-Ordin-nr.-3974-din-27.10.2025.pdf
 │   ├── 2021-06-Ordin-nr.3P-din-07.01.2022.pdf
 │   ├── 2021-06-Ordin_nr._418P_din_30_04_2020.pdf
 │   ├── 2021-06-Ordin_nr._419P_din_30_04_2020.pdf
@@ -2268,15 +2275,23 @@
 │   ├── 2023-11-Ordin-3732P-15.10.2025-art-11.pdf
 │   ├── 2023-11-ordin-3733P-15.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3734P15.10.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3807P-20.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3824P-20.10.2025-art-11.pdf
+│   ├── 2023-11-ordin-3825P-22.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3829-P-22.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-384-P-22.02.2024.pdf
 │   ├── 2023-11-ordin-386-din-23.02.2024-art-11.pdf
 │   ├── 2023-11-ordin-387-P-23.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-388-23-02-2024-art-11.pdf
 │   ├── 2023-11-Ordin-3952P-24.10.2025-art-11pdf.pdf
+│   ├── 2023-11-ordin-4029P-28.10.2025-art.-11.pdf
+│   ├── 2023-11-Ordin-4065P-29.10.2025-art-11.pdf
+│   ├── 2023-11-Ordin-4066P-29.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-410-P-26.02.2024-art-11-1.pdf
 │   ├── 2023-11-Ordin-413P-06.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-4154P-04.11.2025-art-11.pdf
+│   ├── 2023-11-Ordin-4205P-07.11.2025-Art.-11.pdf
+│   ├── 2023-11-Ordin-4289P-11.11.2025-Art.-11.pdf
 │   ├── 2023-11-Ordin-43P-13.01.2025-art-11.pdf
 │   ├── 2023-11-ordin-448-din-28.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-460-P-din-29.02.2024-art-11.pdf
@@ -2367,6 +2382,8 @@
 │   ├── 2023-11-Ordin-nr.2735P-din-24.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2788P-din-12.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2941P-din-05.09.2025-art-11.pdf
+│   ├── 2023-11-Ordin-nr.-4087-din-03.11.2025.pdf
+│   ├── 2023-11-Ordin-nr.-4114-din-03.11.2025.pdf
 │   ├── 2023-11-Ordin-nr.-691-din-29.03.2024.pdf
 │   ├── 2023-11-Ordin-nr.-722P-din-18.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr.758P-27.02.2025-art-11.pdf
@@ -2400,16 +2417,20 @@
 ├── parse_stadiu_new_mp.py
 ├── __pycache__
 │   └── parse_ordins_all.cpython-39.pyc
+├── q1.sql
+├── q2.sql
+├── q3.sql
 ├── q.sh
 ├── q_stat.sh
 ├── q.txt
+├── qx.sh
+├── qx.txt
 ├── raw_dosar11.txt
 ├── raw.sh
 ├── raw_termen11.txt
 ├── readme.md
 ├── recompute_refuzuri.py
 ├── shm -> /dev/shm
-├── sql.txt
 ├── stadiu
 │   ├── 2022-06-30
 │   │   └── Art.-11-2020-Redobandire.pdf
@@ -2534,18 +2555,30 @@
 │   │   ├── Art-11-2023-25.08.2025.pdf
 │   │   ├── Art-11-2024-25.08.2025ii.pdf
 │   │   └── Art-11-2025-25.08.2025.pdf
-│   └── 2025-09-24
-│       ├── Art-11-2015-24.09.2025.pdf
-│       ├── Art-11-2016-24.09.2025.pdf
-│       ├── Art-11-2017-24.09.2025ii.pdf
-│       ├── Art-11-2018-24.09.2025ii.pdf
-│       ├── Art-11-2019-24.09.2025.pdf
-│       ├── Art-11-2020-24.09.2025.pdf
-│       ├── Art-11-2021-24.09.2025.pdf
-│       ├── Art-11-2022-24.09.2025.pdf
-│       ├── Art-11-2023-24.09.2025.pdf
-│       ├── Art-11-2024-24.09.2025.pdf
-│       └── Art-11-2025-24.09.2025.pdf
+│   ├── 2025-09-24
+│   │   ├── Art-11-2015-24.09.2025.pdf
+│   │   ├── Art-11-2016-24.09.2025.pdf
+│   │   ├── Art-11-2017-24.09.2025ii.pdf
+│   │   ├── Art-11-2018-24.09.2025ii.pdf
+│   │   ├── Art-11-2019-24.09.2025.pdf
+│   │   ├── Art-11-2020-24.09.2025.pdf
+│   │   ├── Art-11-2021-24.09.2025.pdf
+│   │   ├── Art-11-2022-24.09.2025.pdf
+│   │   ├── Art-11-2023-24.09.2025.pdf
+│   │   ├── Art-11-2024-24.09.2025.pdf
+│   │   └── Art-11-2025-24.09.2025.pdf
+│   └── 2025-10-24
+│       ├── Art-11-2015-update-24.10.2025.pdf
+│       ├── Art-11-2016-update-24.10.2025.pdf
+│       ├── Art-11-2017-update-24.10.2025.pdf
+│       ├── Art-11-2018-update-24.10.2025.pdf
+│       ├── Art-11-2019-update-24.10.2025.pdf
+│       ├── Art-11-2020-update-24.10.2025.pdf
+│       ├── Art-11-2021-update-24.10.2025.pdf
+│       ├── Art-11-2022-update-24.10.2025.pdf
+│       ├── Art-11-2023-update-24.10.2025.pdf
+│       ├── Art-11-2024-update-24.10.2025.pdf
+│       └── Art-11-2025-update-24.10.2025.pdf
 ├── stat.sql
 ├── todo.txt
 ├── tools
@@ -2561,4 +2594,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-24 directories, 2537 files
+25 directories, 2569 files
