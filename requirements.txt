@@ -1,0 +1,11 @@
+pandas
+requests
+tools
+bs4
+datetime
+pycurl
+PyMuPDF
+pdfminer.six
+loguru
+ace_tools
+pdfplumber

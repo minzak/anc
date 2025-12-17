@@ -8,6 +8,9 @@ import logging
 from datetime import datetime
 import fitz  # install using pip install PyMuPDF
 
+import sys
+sys.dont_write_bytecode = True
+
 # Константы
 CRED    = '\033[91m'
 COK     = '\033[92m'

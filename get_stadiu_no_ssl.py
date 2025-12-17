@@ -14,6 +14,9 @@ from urllib.parse import urljoin, urlparse
 import urllib3
 #import random
 
+import sys
+sys.dont_write_bytecode = True
+
 # Отключение предупреждений о небезопасных SSL соединениях
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source venv/bin/activate
+
 rm -f *.log
 cp -f data.db /dev/shm/
 python3 ./get_stadiu_no_ssl.py

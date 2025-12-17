@@ -17,6 +17,8 @@ from datetime import datetime
 import unicodedata
 from bs4 import BeautifulSoup
 
+import sys
+sys.dont_write_bytecode = True
 
 # Фиксируем время начала выполнения
 start_time = time.time()

@@ -11,6 +11,9 @@ import unicodedata
 from pdfminer.high_level import extract_text
 from datetime import datetime
 
+import sys
+sys.dont_write_bytecode = True
+
 # Фиксируем время начала выполнения
 start_time = time.time()
 

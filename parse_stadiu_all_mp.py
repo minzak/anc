@@ -13,6 +13,9 @@ import sqlite3
 import sys
 from loguru import logger
 
+import sys
+sys.dont_write_bytecode = True
+
 # Путь к директории с PDF-файлами
 PDF_DIR = './stadiu'
 #Database = './data.db'

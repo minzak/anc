@@ -28,10 +28,13 @@ sqlite3 -echo -box data.db 'SELECT COUNT(*) AS count FROM Dosar11 WHERE depun = 
 
 #https://t.me/msgme1
 sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="14833/RD/2024";'
+#https://t.me/ruldughina Анастасия
+sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="34431/RD/2023";'
 #https://t.me/Olyasoroka23
 sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="27030/RD/2021";'
 #https://t.me/vorkos
 sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="38286/RD/2021";'
+
 
 #sqlite3 -echo -box data.db '.read stat.sql'
 

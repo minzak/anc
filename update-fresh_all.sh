@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source venv/bin/activate
+
 rm -f data.db
 rm -f *.log
 

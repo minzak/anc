@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os
 import re
@@ -11,6 +11,9 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 import hashlib
 #import random
+
+import sys
+sys.dont_write_bytecode = True
 
 # Фиксируем время начала выполнения
 start_time = time.time()

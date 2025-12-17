@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source venv/bin/activate
+
 cp -f data.db /dev/shm/
 python3 ./get_juramat_no_ssl.py
 python3 ./parse_juramat_all.py

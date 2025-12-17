@@ -6,6 +6,9 @@ import logging
 import sqlite3
 from datetime import datetime
 
+import sys
+sys.dont_write_bytecode = True
+
 #DB_PATH = 'data.db'
 DB_PATH = '/dev/shm/data.db'
 

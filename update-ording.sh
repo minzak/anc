@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source venv/bin/activate
+
 cp -f data.db /dev/shm/
 python3 ./parse_ordins_new.py
 mv -f /dev/shm/data.db $(pwd)/data.db
