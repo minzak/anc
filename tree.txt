@@ -134,6 +134,7 @@
 │   ├── wp-content-uploads-2025-12-04-DECEMBRIE-ORA-1400.pdf
 │   ├── wp-content-uploads-2025-12-15-DECEMBRIE-ORA-900.pdf
 │   ├── wp-content-uploads-2025-12-tabel-afisare-site-16.12.2025-ora-9.00.pdf
+│   ├── wp-content-uploads-2025-12-tabel-afisare-site-18.12.2025-ora-12.00.pdf
 │   ├── wp-content-uploads-2025-12-tabel-afisare-site-18.12.2025-ora-14.00.pdf
 │   └── wp-content-uploads-2025-12-Tabel-SITE-17.12.2025-ora-09.00.pdf
 ├── logs.tar.gz
@@ -2322,6 +2323,7 @@
 │   ├── 2023-11-ordin-4743P-din-24.11.2025-art.-11.pdf
 │   ├── 2023-11-Ordin-4744P-24.11.2025-art.-11.pdf
 │   ├── 2023-11-ORDIN-4745-24.11.2025-art-11.pdf
+│   ├── 2023-11-ordin-4746-din-11.12.2025-art-11.pdf
 │   ├── 2023-11-Ordin-4839P-26.11.2025-art-11.pdf
 │   ├── 2023-11-Ordin-4841P-26.11.2025-art-11.pdf
 │   ├── 2023-11-Ordin-4944P-28.11.2025-art-11.pdf
@@ -2336,6 +2338,16 @@
 │   ├── 2023-11-Ordin-5186P-15.12.2025-art.-11.pdf
 │   ├── 2023-11-Ordin-5250P-16.12.2025-art-11.pdf
 │   ├── 2023-11-ordin-5251P-16.12.2025-art-11.pdf
+│   ├── 2023-11-Ordin-5389P-22.12.2025-art-11.pdf
+│   ├── 2023-11-Ordin-5390P-22.12.2025-art-11.pdf
+│   ├── 2023-11-Ordin-5391P-22.12.2025-art-11.pdf
+│   ├── 2023-11-Ordin-5422P-23.12.2025-art-11.pdf
+│   ├── 2023-11-Ordin-5423P-23.12.2025-art-11.pdf
+│   ├── 2023-11-Ordin-5424P-23.12.2025-art-11.pdf
+│   ├── 2023-11-Ordin-5445P-23.12.2025-art-11.pdf
+│   ├── 2023-11-Ordin-5446P-23.12.2025-art-11.pdf
+│   ├── 2023-11-Ordin-5447P-23.12.2025-art.-11.pdf
+│   ├── 2023-11-Ordin-5448-P-23.12.2025-art-11.pdf
 │   ├── 2023-11-Ordin-574P-12.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-575-din-12.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-585-15.03.2024-art-11.pdf
@@ -2648,4 +2660,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-26 directories, 2623 files
+26 directories, 2635 files
