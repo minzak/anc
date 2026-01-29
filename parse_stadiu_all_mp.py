@@ -16,38 +16,38 @@ from loguru import logger
 import sys
 sys.dont_write_bytecode = True
 
-# Путь к директории с PDF-файлами
+# Path to directory with PDF files
 PDF_DIR = './stadiu'
 #Database = './data.db'
 Database = '/dev/shm/data.db'
 
-# Имена лог файлов
+# Log file names
 SQL_LOG_FILE = '/dev/shm/sql-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '.log'
 PARSE_LOG_FILE = '/dev/shm/parse-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '-{process_id}.log'
 
-# Цвета для вывода в терминал
+# Colors for terminal output
 C_SUCCESS   = '\033[92m'
 C_INFO      = '\033[93m'
 C_DARK_GRAY = '\033[90m'
 C_RESET     = '\033[0m'
 
-# Порог объединения по вертикали для строк (по координате Y)
-Y_TOLERANCE = 5  # пикселей
-# Порог объединения по горизонтали для слов (по координате X)
-MERGE_X_THRESHOLD = 60  # пикселей (увеличено с 15)
+# Vertical merge threshold for rows (by Y coordinate)
+Y_TOLERANCE = 5  # pixels
+# Horizontal merge threshold for words (by X coordinate)
+MERGE_X_THRESHOLD = 60  # pixels (increased from 15)
 
-# Ключевые слова заголовков (для пропуска)
+# Header keywords (to skip)
 HEADER_KEYWORDS = ['NR', 'NR. DOSAR', 'DATA ÎNREGISTRĂРЇ', 'TERMEN', 'SOLUȚIE', 'DATĂ', 'DATA']
 
-# --- Коды токенов для UID ---
-# UID будет состоять из буквенного кода, соответствующего паттерну каждого токена (см. token_pattern)
-# Если структура токена не распознана — он получает код 'Z' (UNKNOWN)
+# --- Token codes for UID ---
+# UID will consist of a letter code corresponding to each token's pattern (see token_pattern)
+# If token structure is not recognized — it gets code 'Z' (UNKNOWN)
 TOKEN_CODES = {
-    'D': 'A',           # число (любой длины)
-    'L': 'B',           # 1 буква
-    'LL': 'C',          # 2 буквы
-    'LLL': 'D',         # 3 буквы (ANC)
-    'DD.DD.DDDD': 'E',  # дата
+    'D': 'A',           # number (any length)
+    'L': 'B',           # 1 letter
+    'LL': 'C',          # 2 letters
+    'LLL': 'D',         # 3 letters (ANC)
+    'DD.DD.DDDD': 'E',  # date
     'D/L': 'F',         # 123/P
     'D/L/DD.DD.DDDD': 'G', # 123/P/01.01.2020
     'D/L/DD': 'H',      # 789/P/07
@@ -72,17 +72,17 @@ TOKEN_CODES = {
     'D/LLL/DDD': '3',   # 504/ANC/205
     'D/LLL/DD': '4',    # 789/ANC/07
     'D/LLL': '5',       # 156/ANC
-    'DDL': 'S',         # 25P (двузначное число + буква)
+    'DDL': 'S',         # 25P (two-digit number + letter)
     'UNKNOWN': 'Z'      # fallback
 }
 
-# Удаляем все обработчики
+# Remove all handlers
 logger.remove()
 
-# Обработчик для консоли – только для сообщений без process и SQL
+# Console handler – only for messages without process and SQL
 logger.add(sys.stdout, format="{message}", level="INFO")
 
-# --- SQL логгер и setup_sql_logger ---
+# --- SQL logger and setup_sql_logger ---
 def setup_sql_logger(name, log_file, level=logging.INFO, mode='w'):
     log_format = logging.Formatter('%(message)s')
     handler = logging.FileHandler(log_file, mode=mode)
@@ -92,52 +92,52 @@ def setup_sql_logger(name, log_file, level=logging.INFO, mode='w'):
     l.addHandler(handler)
     return l
 
-# SQL логгер (глобальный как в оригинальном коде)
+# SQL logger (global as in original code)
 sql_logger = setup_sql_logger('sql_logger', SQL_LOG_FILE, mode='w')
 connection = sqlite3.connect(Database)
-# Устанавливаем логгер для SQL запросов. Убрать, если не нужно детально отлаживать SQL запросы
+# Set up logger for SQL queries. Remove if detailed SQL query debugging is not needed
 connection.set_trace_callback(sql_logger.info)
 db = connection.cursor()
 
 def normalize_token(token: str) -> str:
     token = str(token or '').strip().upper()
-    # Нормализация слешей: // -> /, /// -> / и т.д.
+    # Normalize slashes: // -> /, /// -> / etc.
     token = re.sub(r'/+', '/', token)
-    # Нормализация пробелов вокруг слешей
+    # Normalize spaces around slashes
     token = re.sub(r'\s*/\s*', '/', token)
-    # Нормализация множественных пробелов
+    # Normalize multiple spaces
     token = re.sub(r'\s+', ' ', token)
-    # Нормализация: 44 P 31.01.2011 -> 44/P/31.01.2011
+    # Normalization: 44 P 31.01.2011 -> 44/P/31.01.2011
     token = re.sub(r'(\d+)\s+([A-Z]{1,3})\s+(\d{2}\.\d{2}\.\d{4})', r'\1/\2/\3', token)
-    # Нормализация: 40/P 26.01.2011 -> 40/P/26.01.2011
+    # Normalization: 40/P 26.01.2011 -> 40/P/26.01.2011
     token = re.sub(r'(\d+/[A-Z]{1,3})\s+(\d{2}\.\d{2}\.\d{4})', r'\1/\2', token)
-    # Нормализация: 25P 18.01.2011 -> 25/P/18.01.2011
+    # Normalization: 25P 18.01.2011 -> 25/P/18.01.2011
     token = re.sub(r'(\d+)([A-Z]{1,3})\s+(\d{2}\.\d{2}\.\d{4})', r'\1/\2/\3', token)
     return token
 
-# --- Универсальная функция классификации токена ---
-# Возвращает буквенный паттерн токена (например, D/L/DD.DD.DDDD) для анализа структуры
+# --- Universal token classification function ---
+# Returns letter pattern of token (e.g., D/L/DD.DD.DDDD) for structure analysis
 def classify_token(token: str) -> str:
     pat = token_pattern(token)
-    # Сопоставляем только по основным паттернам
+    # Match only by main patterns
     if pat in TOKEN_CODES:
         return pat
     # fallback
     return 'UNKNOWN'
 
-# Возвращает буквенный код для токена по паттерну, либо 'Z' (UNKNOWN)
+# Returns letter code for token by pattern, or 'Z' (UNKNOWN)
 def normalize_and_code(token: str) -> str:
     key = classify_token(token)
     return TOKEN_CODES.get(key, 'Z')
 
-# --- Построение UID: буквенный код для каждого токена ---
-# Результат — строка вроде 'ABCD' или 'JKL', описывающая типы токенов по позиции
+# --- UID construction: letter code for each token ---
+# Result — string like 'ABCD' or 'JKL', describing token types by position
 def build_uid(tokens: List[str]) -> str:
     return ''.join(normalize_and_code(str(t) if t is not None else '') for t in tokens)
 
 
-# --- Подсчет и маркировка отказов (рефузов) ---
-#Быстро помечает в `Dosar11` отказы (refuz=1) по критерию: номер приказа `ordin` встречается ровно один раз.
+# --- Count and mark rejections (refuzuri) ---
+# Quickly marks rejections (refuz=1) in `Dosar11` by criterion: ordinance number `ordin` appears exactly once.
 def recompute_refuzuri():
 
     db.execute('''
@@ -163,57 +163,57 @@ def recompute_refuzuri():
     sql_logger.info('Refuz11 rebuilt: ' + str(db.rowcount))
 
 
-# --- Кластеризация слов по вертикали (Y) и объединение по горизонтали (X) ---
+# --- Word clustering by vertical (Y) and merging by horizontal (X) ---
 def group_words_by_line(words: List[Dict]) -> Tuple[List[Tuple[float, List[Dict]]], List[Tuple[float, List[str]]]]:
     """
-    Возвращает два списка:
-    1) clusters_raw: кластеры исходных слов по Y для логирования (cy, [words])
-    2) clusters_merged: кластеры после объединения текстов по X (cy, [merged_texts])
+    Returns two lists:
+    1) clusters_raw: clusters of original words by Y for logging (cy, [words])
+    2) clusters_merged: clusters after merging texts by X (cy, [merged_texts])
     """
-    # Группируем слова по Y-координате (строкам)
+    # Group words by Y coordinate (rows)
     clusters_raw: List[Tuple[float, List[Dict]]] = []
     for w in words:
         placed = False
         for i, (cy, group) in enumerate(clusters_raw):
             if abs(w['top'] - cy) <= Y_TOLERANCE:
                 group.append(w)
-                # Пересчитываем среднюю Y-координату
+                # Recalculate average Y coordinate
                 clusters_raw[i] = (sum(x['top'] for x in group)/len(group), group)
                 placed = True
                 break
         if not placed:
             clusters_raw.append((w['top'], [w]))
 
-    # Сортируем кластеры по Y (сверху вниз)
+    # Sort clusters by Y (top to bottom)
     clusters_raw.sort(key=lambda x: x[0], reverse=False)
 
     clusters_merged: List[Tuple[float, List[str]]] = []
     for cy, group in clusters_raw:
-        # Сортируем слова в группе по X-координате (слева направо)
+        # Sort words in group by X coordinate (left to right)
         items = sorted(group, key=lambda w: w['x0'])
 
-        # Объединяем слова в одну строку, если они близко по X
+        # Merge words into one string if they are close by X
         merged_texts = []
         if items:
             cur_text = items[0]['text']
             cur_end_x = items[0]['x0'] + len(items[0]['text']) * 0.5
 
             for w in items[1:]:
-                # Проверяем, является ли текущее слово или следующее датой
+                # Check if current word or next is a date
                 is_current_date = re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", cur_text.strip())
                 is_next_date = re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", w['text'].strip())
 
-                # Если оба слова - даты, не объединяем их
+                # If both words are dates, don't merge them
                 if is_current_date and is_next_date:
                     merged_texts.append(cur_text)
                     cur_text = w['text']
                     cur_end_x = w['x0'] + len(w['text']) * 0.5
                 elif w['x0'] - cur_end_x <= MERGE_X_THRESHOLD:
-                    # Слова близко - объединяем
+                    # Words close - merge
                     cur_text += ' ' + w['text']
                     cur_end_x = w['x0'] + len(w['text']) * 0.5
                 else:
-                    # Слова далеко - начинаем новый токен
+                    # Words far - start new token
                     merged_texts.append(cur_text)
                     cur_text = w['text']
                     cur_end_x = w['x0'] + len(w['text']) * 0.5
@@ -224,9 +224,9 @@ def group_words_by_line(words: List[Dict]) -> Tuple[List[Tuple[float, List[Dict]
 
     return clusters_raw, clusters_merged
 
-# --- Вывод табличной строки в консоль ---
+# --- Print table row to console ---
 def print_table_row(fields, uid, original_pattern=None):
-    col_widths = [24, 18, 22, 22, 18]  # ширина колонок
+    col_widths = [24, 18, 22, 22, 18]  # column widths
     row = ''.join(
         f"{C_INFO}[{C_RESET}{str(f) if f is not None else '':>{col_widths[i]}}{C_INFO}]{C_RESET} "
         for i, f in enumerate(fields)
@@ -234,21 +234,21 @@ def print_table_row(fields, uid, original_pattern=None):
     pattern = original_pattern if original_pattern else row_pattern(fields)
     print(f"Algo {C_SUCCESS}{uid}{C_RESET} ".ljust(20) + row + f" {C_DARK_GRAY}| PATTERN: {pattern}{C_RESET}")
 
-# --- Разбор строки таблицы ---
+# --- Parse table row ---
 def process_table_row(fields):
-    # Также Удаляем "00:00:00" из полей, если присутствует
+    # Also remove "00:00:00" from fields if present
     filtered_line = [re.sub(r'/\s+', '/', (cell or '').replace('00:00:00', '').strip())
                                       for cell in fields if cell and str(cell).strip()]
     sfln = len(filtered_line)
     pattern = row_pattern(filtered_line)
     ID = DEPUN = TERMEN = ORDIN = SOLUTIE = None
-    # Новые типы масок
+    # New mask types
     if sfln == 5:
         ID, DEPUN, TERMEN, ORDIN, SOLUTIE = filtered_line
     elif sfln == 4:
         ID, DEPUN, ORDIN, SOLUTIE = filtered_line
         TERMEN = None
-        # Нормализация ORDIN если нужно
+        # Normalize ORDIN if needed
         if ORDIN.endswith('/P') or '/' not in ORDIN:
             year_solutie = SOLUTIE.split('.')[-1]
             if ORDIN.endswith('/P'):
@@ -257,39 +257,39 @@ def process_table_row(fields):
                 ORDIN = f"{ORDIN}/P/{year_solutie}"
     elif sfln == 3:
         mask_parts = pattern.split(' ')
-        # Если первый токен - ORDIN, второй и третий - даты (логически связанные)
+        # If first token is ORDIN, second and third are dates (logically related)
         if (
             mask_parts[0] in ['D/LL/D', 'D/L/D', 'D/LLL/D'] and
             mask_parts[1] == 'DD.DD.DDDD' and
             mask_parts[2] == 'DD.DD.DDDD'
         ):
-            # Это случай типа: 146/RD/2020 06.01.2020 05.05.2020
+            # This is case like: 146/RD/2020 06.01.2020 05.05.2020
             ID = filtered_line[0]  # 146/RD/2020
-            DEPUN = filtered_line[1]  # 06.01.2020 (первая дата)
-            TERMEN = filtered_line[2]  # 05.05.2020 (вторая дата)
-            ORDIN = None  # нет отдельного приказа
-            SOLUTIE = None  # нет отдельной даты решения
-        # Если третий токен - дата (общий случай)
+            DEPUN = filtered_line[1]  # 06.01.2020 (first date)
+            TERMEN = filtered_line[2]  # 05.05.2020 (second date)
+            ORDIN = None  # no separate ordinance
+            SOLUTIE = None  # no separate decision date
+        # If third token is date (general case)
         elif mask_parts[2] == 'DD.DD.DDDD':
             ID = filtered_line[0]
             DEPUN = filtered_line[1]
-            TERMEN = filtered_line[2]  # дата срока
-            ORDIN = None   # нет приказа
-            SOLUTIE = None  # нет отдельной даты решения
-        # Если первый и третий токен — сложные идентификаторы, второй — дата
+            TERMEN = filtered_line[2]  # term date
+            ORDIN = None   # no ordinance
+            SOLUTIE = None  # no separate decision date
+        # If first and third tokens are complex identifiers, second is date
         elif (
             mask_parts[0] in TOKEN_CODES and
             mask_parts[1] == 'DD.DD.DDDD' and
             mask_parts[2] in TOKEN_CODES
         ):
-            # Правильное распределение: ID, DEPUN, TERMEN, ORDIN, SOLUTIE
-            ID = filtered_line[0]  # первый токен - ID дела
-            DEPUN = filtered_line[1]  # второй токен - дата подачи
-            TERMEN = None  # нет отдельного срока
-            ORDIN = filtered_line[2]  # третий токен
+            # Correct distribution: ID, DEPUN, TERMEN, ORDIN, SOLUTIE
+            ID = filtered_line[0]  # first token - case ID
+            DEPUN = filtered_line[1]  # second token - submission date
+            TERMEN = None  # no separate term
+            ORDIN = filtered_line[2]  # third token
             SOLUTIE = None
 
-            # Если третий токен содержит дату — извлечь её
+            # If third token contains date — extract it
             if mask_parts[2] == 'D/L/DD.DD.DDDD':
                 date_match = re.search(r'\d{2}\.\d{2}\.\d{4}', filtered_line[2])
                 if date_match:
@@ -301,11 +301,11 @@ def process_table_row(fields):
             ID = filtered_line[0]
             DEPUN = filtered_line[1]
 
-            # Если третий токен - сложный идентификатор
+            # If third token is complex identifier
             TERMEN = None
-            ORDIN = filtered_line[2]  # третий токен
+            ORDIN = filtered_line[2]  # third token
             SOLUTIE = None
-            # Если третий токен содержит дату — извлечь её
+            # If third token contains date — extract it
             if len(mask_parts) >= 3 and mask_parts[2] == 'D/L/DD.DD.DDDD':
                 date_match = re.search(r'\d{2}\.\d{2}\.\d{4}', filtered_line[2])
                 if date_match:
@@ -324,13 +324,13 @@ def process_table_row(fields):
             pat0 = token_pattern(parts[0])
             pat1 = token_pattern(parts[1])
             pat2 = token_pattern(parts[2])
-            # Случай: ORDIN дата дата (например, 146/RD/2020 06.01.2020 05.05.2020)
+            # Case: ORDIN date date (e.g., 146/RD/2020 06.01.2020 05.05.2020)
             if pat0 in ['D/LL/D', 'D/L/D', 'D/LLL/D'] and pat1 == 'DD.DD.DDDD' and pat2 == 'DD.DD.DDDD':
                 ID = parts[0]  # 146/RD/2020
-                DEPUN = parts[1]  # 06.01.2020 (первая дата)
-                TERMEN = parts[2]  # 05.05.2020 (вторая дата)
-                ORDIN = None  # нет отдельного приказа
-                SOLUTIE = None  # нет отдельной даты решения
+                DEPUN = parts[1]  # 06.01.2020 (first date)
+                TERMEN = parts[2]  # 05.05.2020 (second date)
+                ORDIN = None  # no separate ordinance
+                SOLUTIE = None  # no separate decision date
             elif pat0 == 'D' and pat1 == 'DD.DD.DDDD' and pat2 == 'DD.DD.DDDD':
                 ID = parts[0]
                 DEPUN = parts[1]
@@ -353,91 +353,91 @@ def process_table_row(fields):
         return None, pattern
     return [ID, DEPUN, TERMEN, ORDIN, SOLUTIE], pattern
 
-# --- Генерация паттерна для токена ---
+# --- Generate pattern for token ---
 def token_pattern(token: str) -> str:
     """
-    Возвращает буквенный паттерн токена (например, D/L/DD.DD.DDDD) для анализа структуры
+    Returns letter pattern of token (e.g., D/L/DD.DD.DDDD) for structure analysis
     """
     tok = normalize_token(token)
 
-    # 1. D (только цифры) - унифицируем все длины в одну D
+    # 1. D (digits only) - unify all lengths into one D
     if re.fullmatch(r"\d+", tok):
         return 'D'
 
-    # 2. DD.DD.DDDD (дата)
+    # 2. DD.DD.DDDD (date)
     if re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", tok):
         return 'DD.DD.DDDD'
 
-    # 3. L, LL, LLL (буквы)
+    # 3. L, LL, LLL (letters)
     if re.fullmatch(r"[A-Z]{1,3}", tok):
         return 'L' * len(tok)
 
-    # 4. D/L/DD.DD.DDDD (например, 123/P/01.01.2020)
+    # 4. D/L/DD.DD.DDDD (e.g., 123/P/01.01.2020)
     if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{2}\.\d{2}\.\d{4}", tok):
         parts = tok.split('/')
         return f"D/{'L'*len(parts[1])}/DD.DD.DDDD"
 
-    # 5. D/L/DD (например, 789/P/07)
+    # 5. D/L/DD (e.g., 789/P/07)
     if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{2}", tok):
         parts = tok.split('/')
         return f"D/{'L'*len(parts[1])}/DD"
 
-    # 6. D/L/D (например, 123/P/2020)
+    # 6. D/L/D (e.g., 123/P/2020)
     if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{4,5}", tok):
         parts = tok.split('/')
         return f"D/{'L'*len(parts[1])}/D"
 
-    # 7. D/L/DDDD (например, 5/P/2016)
+    # 7. D/L/DDDD (e.g., 5/P/2016)
     if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{4}", tok):
         parts = tok.split('/')
         return f"D/{'L'*len(parts[1])}/DDDD"
 
-    # 8. D/L/DDDDD (например, 91/P/20201)
+    # 8. D/L/DDDDD (e.g., 91/P/20201)
     if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{5}", tok):
         parts = tok.split('/')
         return f"D/{'L'*len(parts[1])}/DDDDD"
 
-    # 9. D/L/DDD (например, 504/P/205)
+    # 9. D/L/DDD (e.g., 504/P/205)
     if re.fullmatch(r"\d+/[A-Z]{1,3}/\d{3}", tok):
         parts = tok.split('/')
         return f"D/{'L'*len(parts[1])}/DDD"
 
-    # 9.5. D/LLL/D (например, 2376/ANC/2014)
+    # 9.5. D/LLL/D (e.g., 2376/ANC/2014)
     if re.fullmatch(r"\d+/[A-Z]{3}/\d{4,5}", tok):
         parts = tok.split('/')
         return f"D/LLL/D"
 
-    # 10. D/L (например, 156/P)
+    # 10. D/L (e.g., 156/P)
     if re.fullmatch(r"\d+/[A-Z]{1,3}", tok):
         parts = tok.split('/')
         return f"D/{'L'*len(parts[1])}"
 
-    # 11. D/LDDDD (например, 505/P2016)
+    # 11. D/LDDDD (e.g., 505/P2016)
     if re.fullmatch(r"\d+/[A-Z]{1,3}\d{4,5}", tok):
         m = re.match(r"(\d+)/([A-Z]+)(\d+)", tok)
         if m:
             return f"D/{'L'*len(m.group(2))}D"
 
-    # 12. D/*L/D (например, 1629/*P/2024)
+    # 12. D/*L/D (e.g., 1629/*P/2024)
     if re.fullmatch(r"\d+/\*[A-Z]{1,3}/\d{4,5}", tok):
         parts = tok.split('/')
         return f"D/*{'L'*len(parts[1][1:])}/D"
 
-    # 13. D/D (например, 672/2018)
+    # 13. D/D (e.g., 672/2018)
     if re.fullmatch(r"\d+/\d{4,5}", tok):
         return "D/D"
 
-    # 14. D/DD.DD.DDDD (например, 2189/17.12.2020)
+    # 14. D/DD.DD.DDDD (e.g., 2189/17.12.2020)
     if re.fullmatch(r"\d+/\d{2}\.\d{2}\.\d{4}", tok):
         return "D/DD.DD.DDDD"
 
-    # 15. DDL (например, 25P - двузначное число + буква)
+    # 15. DDL (e.g., 25P - two-digit number + letter)
     if re.fullmatch(r"\d{2}[A-Z]{1,3}", tok):
         m = re.match(r"(\d{2})([A-Z]+)", tok)
         if m:
             return f"DD{'L'*len(m.group(2))}"
 
-    # 16. DL (например, 25P - однозначное число + буква)
+    # 16. DL (e.g., 25P - single-digit number + letter)
     if re.fullmatch(r"\d+[A-Z]{1,3}", tok):
         m = re.match(r"(\d+)([A-Z]+)", tok)
         if m:
@@ -446,14 +446,14 @@ def token_pattern(token: str) -> str:
     # fallback: raw token
     return tok
 
-# --- Генерация паттерна для строки ---
+# --- Generate pattern for string ---
 def row_pattern(fields: list) -> str:
     """
-    Возвращает строку паттернов для всей строки (например, D/L/DD.DD.DDDD DDD.DD.DDDD)
+    Returns pattern string for entire row (e.g., D/L/DD.DD.DDDD DDD.DD.DDDD)
     """
     return ' '.join(token_pattern(f) for f in fields if f)
 
-# --- Валидация даты ---
+# --- Date validation ---
 def vali_date(date_text):
     try:
         if date_text:
@@ -462,9 +462,9 @@ def vali_date(date_text):
     except ValueError:
         return False
 
-# --- Запись в БД для одной строки ---
+# --- Write to DB for one row ---
 def write_to_db(parsed):
-    """Записывает одну строку в БД"""
+    """Writes one row to DB"""
     if not parsed:
         return
 
@@ -518,11 +518,11 @@ def write_to_db(parsed):
                       )
             sql_logger.info('Modified5: Dosar11: ' + str(db.rowcount))
 
-    # Коммитим каждую запись
+    # Commit each record
     connection.commit()
 
 def process_pdf(pdf_path):
-    # Создаем логгер для текущего процесса как в оригинальном коде
+    # Create logger for current process as in original code
     process_id = f"P{current_process()._identity[0]}" if current_process()._identity else "Main"
     process_logger = logger.bind(process=process_id)
     process_logger.remove()
@@ -559,7 +559,7 @@ def process_pdf(pdf_path):
                     print_table_row(parsed, uid, pattern)
                     process_logger.info(f"RAW: {fields} | NORM: {parsed} | UID: {uid} | PATTERN: {pattern}")
 
-                    # Записываем в БД сразу, как в оригинальном коде
+                    # Write to DB immediately, as in original code
                     write_to_db(parsed)
                 else:
                     uid = build_uid(fields)
@@ -568,7 +568,7 @@ def process_pdf(pdf_path):
 
     return f"Processed {pdf_path}"
 
-# --- Запуск через multiprocessing ---
+# --- Launch via multiprocessing ---
 def main():
     files = []
     for d in sorted(os.listdir(PDF_DIR)):
@@ -587,16 +587,16 @@ def main():
             #print(f"Parsing file: {filepath}")
     print(f"{C_SUCCESS}Found {len(files)} PDF files{C_RESET}")
 
-    # Парсинг в multiprocessing (запись в БД происходит в каждом процессе)
+    # Parsing in multiprocessing (DB writes happen in each process)
     from multiprocessing import Pool
     with Pool(processes=4) as pool:
         results = pool.map(process_pdf, files)
 
-    # Вывод результатов
+    # Output results
     for result in results:
         print(result)
 
-    # Финальные апдейты
+    # Final updates
     db.execute('UPDATE Dosar11 SET result=1 WHERE result IS 0 AND ordin IN (SELECT ordin FROM Dosar11 GROUP BY ordin HAVING COUNT(*) > 1)')
     sql_logger.info('Modified UPDATE1: ' + str(db.rowcount))
     db.execute('UPDATE Dosar11 SET suplimentar=1 WHERE id IN (SELECT id FROM Termen11 GROUP BY id HAVING COUNT(*) > 1)')
@@ -604,7 +604,7 @@ def main():
     db.execute('UPDATE Dosar11 SET suplimentar=1 WHERE (JULIANDAY(termen)-JULIANDAY(depun))>365')
     sql_logger.info('Modified UPDATE3: ' + str(db.rowcount))
 
-    # Пересчет отказов (уникальные приказы)
+    # Recompute rejections (unique ordinances)
     recompute_refuzuri()
 
     connection.commit()

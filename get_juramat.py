@@ -15,10 +15,10 @@ import hashlib
 import sys
 sys.dont_write_bytecode = True
 
-# Фиксируем время начала выполнения
+# Record start time
 start_time = time.time()
 
-# Константы
+# Constants
 CRED    = '\033[91m'
 COK     = '\033[92m'
 CWARN   = '\033[93m'

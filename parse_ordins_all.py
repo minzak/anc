@@ -14,10 +14,10 @@ from datetime import datetime
 import sys
 sys.dont_write_bytecode = True
 
-# Фиксируем время начала выполнения
+# Record start time
 start_time = time.time()
 
-# Константы
+# Constants
 CRED    = '\033[91m'
 COK     = '\033[92m'
 CWARN   = '\033[93m'
@@ -110,20 +110,20 @@ def date_pdfminer(file_path):
         full_text = extract_text(file_path)
         #logger.info(f"FULL_TEXT: {full_text[:400]}...")  # log first X00 characters
 
-        # Поиск первых вхождений для ключевых слов
+        # Search for first occurrences of keywords
         keywords = ["ANEX", "LISTA", "1. "]
         longest_match = None
         max_length = 0
 
         for keyword in keywords:
             ordin_position = full_text.find(keyword)
-            if ordin_position != -1:  # Если ключ найден
+            if ordin_position != -1:  # If keyword found
                 substring = full_text[ordin_position:]
-                if len(substring) > max_length:  # Проверяем длину текста после ключа
+                if len(substring) > max_length:  # Check text length after keyword
                     max_length = len(substring)
                     longest_match = substring
 
-        # Используем найденное ключевое слово или весь текст, если ключи не найдены
+        # Use found keyword or entire text if keywords not found
         date_search_area = longest_match if longest_match else full_text
 #        logger.info(f"SEARCH_AREA: {date_search_area}")
 
@@ -207,7 +207,7 @@ def parse_pdf(file_path):
     global total_dosars, total_files
     printed = False
     error_happened = False
-    # Reset variables for each file (объявляем заранее, чтобы использовать в finally)
+    # Reset variables for each file (declare early to use in finally)
     anexa = None
     dosars = []
     try:
@@ -216,8 +216,8 @@ def parse_pdf(file_path):
         raw_filename = os.path.basename(file_path)
         date_file = parse_date_from_filename(raw_filename)
         filename = re.sub(r'^\d{4}-\d{2}-', '', raw_filename)
-        # Удаляем год-месяц (YYYY-MM-) в начале строки, если он есть
-        # Оставляем только цифры после этого
+        # Remove year-month (YYYY-MM-) prefix if present
+        # Extract only digits after that
         file_ordin_number = re.sub(r'^[^\d]*?(\d+).*', r'\1', filename) if re.match(r'^[^\d]*?(\d+)', filename) else None
 
         ordinance_date = extract_date(file_path)
@@ -225,14 +225,14 @@ def parse_pdf(file_path):
 
         with fitz.open(file_path) as doc:
             #logger.info(f"Parsing file: {file_path} F:{file_ordin_number} D:{ordinance_date}")
-            # Пробуем извлечь номер ордина и год прямо из шапки первой страницы
+            # Try to extract ordinance number and year directly from first page header
             first_page_text = doc[0].get_text() if len(doc) > 0 else ""
             header_match = re.search(r"ORDIN[\s\S]{0,50}?Nr\.?\s*(\d+)\s*/\s*P(?:\s*/\s*(20\d{2}))?", first_page_text, re.IGNORECASE)
             if header_match:
                 file_ordin_number = header_match.group(1)
                 if header_match.group(2):
                     ordinance_year = int(header_match.group(2))
-            # Если дата не определена ранее, попробуем взять её из первой страницы
+            # If date not determined earlier, try to get it from first page
             if not ordinance_date:
                 date_match = re.search(r"\b(0?[1-9]|[12][0-9]|3[01])\D{0,3}(0?[1-9]|1[0-2])\D{0,3}(20\d{2})\b", first_page_text)
                 if date_match:
@@ -248,14 +248,14 @@ def parse_pdf(file_path):
                         pass
             df_str = date_file.strftime('%Y-%m-%d') if date_file else 'None'
             dp_str = ordinance_date.strftime('%Y-%m-%d') if ordinance_date else 'None'
-            # Если год всё ещё не определён, используем из дат: сначала из PDF, затем из имени файла
+            # If year still not determined, use from dates: first from PDF, then from filename
             if ordinance_year == 0:
                 if ordinance_date:
                     ordinance_year = ordinance_date.year
                 elif date_file:
                     ordinance_year = date_file.year
 
-            # Предварительно посчитаем DR в текущем состоянии
+            # Pre-calculate DR in current state
             dr_preview = ordinance_date.strftime('%Y-%m-%d') if ordinance_date else 'None'
             logger.info(f"Parsing file: {file_path} | F:{file_ordin_number} DF:{df_str} DP:{dp_str} DR:{dr_preview}")
 
@@ -347,7 +347,7 @@ def parse_pdf(file_path):
                     # Log discovery; ANEXA may still be undetermined at this point (document-wide fallback runs later)
                     # logger.info(f'Found Dosar: {file_ordin_number}/P/{ordinance_year} {dosarnum}/RD/{dosaryear} Minori:{child_count} ANEXA:{anexa if anexa is not None else "pending"}')
 
-            # Подготовим финальную дату один раз (может быть None, если даты нет)
+            # Prepare final date once (may be None if no date)
             # If ordinance_date wasn't found in the PDF, prefer the date parsed from the filename
             if ordinance_date:
                 clean_ordinance_date = ordinance_date.strftime('%Y-%m-%d')
@@ -398,7 +398,7 @@ def parse_pdf(file_path):
             color = COK if count > 0 else CRED
             print(f"{'found '}{color}{str(count).zfill(4)}{CEND}{' dosars'}")
             printed = True
-            # Единый формат с Parsing file
+            # Unified format with Parsing file
             logger.info(f"Processed {len(dosars)} dosars from {file_path} | F:{file_ordin_number} DF:{df_str} DP:{dp_str} DR:{dr_str}\n")
             connection.commit()
 
@@ -410,7 +410,7 @@ def parse_pdf(file_path):
         total_dosars += len(dosars)
         total_files += 1
         if not printed:
-            # Печатаем только хвост с реальным количеством красным цветом
+            # Print only tail with actual count in red color
             print(f"{'found '}{CRED}{str(len(dosars)).zfill(4)}{CEND}{' dosars'}")
 
 
@@ -425,9 +425,9 @@ def main():
     logger.info("Processing complete.")
     logger.info(f"Processed {total_dosars} dosars in {total_files} files.")
 
-    # Фиксируем время окончания выполнения
-    end_time = time.time()
-    # Вычисляем время выполнения
+# Record end time
+end_time = time.time()
+# Calculate execution time
     execution_time = end_time - start_time
     print(f"{'Processed '}{COK}{total_dosars}{CEND}{' dosars in '}{COK}{total_files}{CEND}{' files.'}")
     print(f"{'Parsing PDF time: '}{COK}{execution_time:.2f}{CEND} seconds")

@@ -1,12 +1,19 @@
-#LEAK DATA
+#OLD LEAK DATA
 https://cetatenie.just.ro/storage/2023/11/Ordin-2405-P-28.11.2024-art-11.pdf
 https://cetatenie.just.ro/storage/2023/11/Ordinn-2405P-28.11.2024-art-11.pdf
 https://cetatenie.just.ro/storage/2025/04/Ordin-1607P-30.04.2025-art-11.pdf
 
-#TODO
-
-juramant.anc@just.ro
-
 #UNLISTED
 https://cetatenie.just.ro/storage/2021/06/Ordin-nr.-2543P-din-12.12.2024.pdf
 https://cetatenie.just.ro/storage/2021/06/Ordin-nr.-2561P-din-13.12.2024.pdf
+
+
+#ABSENT and present broken link !!!
+https://cetatenie.just.ro/images/2020-06/Ordin_829P_03_07_2020.pdf
+https://cetatenie.just.ro/wp-content/uploads/2021/06/Ordin_nr._967P_din_07.12.2017.pdf
+https://cetatenie.just.ro/wp-content/uploads/2021/06/Ordin_nr._2436P_din_09.12.2019-1.pdf
+
+```
+New files: 0; Missing/failed: 3
+Execution time: 6.17 seconds
+```

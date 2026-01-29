@@ -16,12 +16,12 @@ import urllib3
 import sys
 sys.dont_write_bytecode = True
 
-# Отключение предупреждений о небезопасных SSL соединениях
+# Disable warnings about insecure SSL connections
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 start_time = time.time()
 
-# Константы
+# Constants
 CRED    = '\033[91m'
 COK     = '\033[92m'
 CWARN   = '\033[93m'
@@ -80,7 +80,7 @@ session.headers.update({
 })
 
 try:
-    # Отключаем проверку SSL сертификатов
+    # Disable SSL certificate verification
     r_lp = session.get(OrdineUrl, timeout=30, allow_redirects=True, verify=False)
     if r_lp.status_code in (200, 403, 503) and 'Verifying your browser' in r_lp.text:
         val = _solve_res_cookie(r_lp.text)
@@ -93,7 +93,7 @@ except Exception:
     r = pycurl.Curl()
     r.setopt(pycurl.URL, OrdineUrl)
     r.setopt(pycurl.USERAGENT, Headers)
-    # Отключаем проверку SSL для pycurl
+    # Disable SSL verification for pycurl
     r.setopt(pycurl.SSL_VERIFYPEER, 0)
     r.setopt(pycurl.SSL_VERIFYHOST, 0)
     clear_buffer(buffer)
@@ -183,7 +183,7 @@ for OrdineUrl, FileName in links:
         }
         if ENV_COOKIE:
             headers['Cookie'] = ENV_COOKIE
-        # Отключаем проверку SSL сертификатов
+        # Disable SSL certificate verification
         resp = session.get(OrdineUrl, headers=headers, timeout=60, allow_redirects=True, verify=False)
         status_code = resp.status_code
         if status_code == 200:
@@ -205,7 +205,7 @@ for OrdineUrl, FileName in links:
         curl.setopt(pycurl.URL, OrdineUrl)
         curl.setopt(pycurl.USERAGENT, Headers)
         curl.setopt(pycurl.REFERER, REFERER)
-        # Отключаем проверку SSL для pycurl
+        # Disable SSL verification for pycurl
         curl.setopt(pycurl.SSL_VERIFYPEER, 0)
         curl.setopt(pycurl.SSL_VERIFYHOST, 0)
         cookie_header = _cookie_header_from_session(session)

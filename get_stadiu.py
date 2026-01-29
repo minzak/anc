@@ -16,7 +16,7 @@ from urllib.parse import urljoin, urlparse
 import sys
 sys.dont_write_bytecode = True
 
-# Константы
+# Constants
 BASE_URL = "https://cetatenie.just.ro/stadiu-dosar/"
 HEADERS = 'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0'
 REFERER = 'https://cetatenie.just.ro/stadiu-dosar/'
@@ -29,19 +29,19 @@ CERTIFICATE_PATH = './crt/cetatenie-just-ro_chain.pem'
 # Environment cookie override if needed
 ENV_COOKIE = os.environ.get('COOKIE', '').strip()
 
-# Цвета для вывода
-COK = '\033[92m'  # Зеленый
-CRED = '\033[91m'  # Красный
-CWARN = '\033[93m'  # Желтый
-CVIOLET = '\033[95m'  # Фиолетовый
-CEND = '\033[0m'  # Сброс цвета
+# Colors for output
+COK = '\033[92m'  # Green
+CRED = '\033[91m'  # Red
+CWARN = '\033[93m'  # Yellow
+CVIOLET = '\033[95m'  # Violet
+CEND = '\033[0m'  # Reset color
 
-# Фиксируем время начала выполнения
+# Record start time
 start_time = time.time()
 
-# Функции
+# Functions
 def get_file_hash(filepath):
-    """Вычислить хэш файла для проверки изменений"""
+    """Calculate file hash to check for changes"""
     hasher = hashlib.md5()
     with open(filepath, 'rb') as f:
         for chunk in iter(lambda: f.read(4096), b""):
@@ -49,7 +49,7 @@ def get_file_hash(filepath):
     return hasher.hexdigest()
 
 def extract_year_from_filename(filename):
-    """Извлечь год из имени файла"""
+    """Extract year from filename"""
     match = re.search(r'(20\d{2})', filename)
     return match.group(1) if match else None
 
@@ -111,7 +111,7 @@ except Exception:
                 html_content = r_lp.text
 
 if not html_content:
-    print(f"{CRED}Ошибка при загрузке страницы {BASE_URL}{CEND}")
+    print(f"{CRED}Error loading page {BASE_URL}{CEND}")
     exit()
 
 soup = BeautifulSoup(html_content, 'html.parser')
@@ -124,7 +124,7 @@ if not articolul_11_section:
     if sections:
         articolul_11_section = sections[0]  # Assuming first is ARTICOLUL 11
 if not articolul_11_section:
-    print(f"{CRED}Не найдена секция ARTICOLUL 11.{CEND}")
+    print(f"{CRED}ARTICOLUL 11 section not found.{CEND}")
     exit()
 
 # Extract PDF links
@@ -133,7 +133,7 @@ links = [
     if link.get('href').endswith((".pdf", ".xlsx"))
 ]
 
-# Сканирование всех существующих файлов
+# Scan all existing files
 existing_files_by_year = {}
 existing_hashes = {}
 for folder in sorted(os.listdir(BASE_DIR)):
@@ -166,12 +166,12 @@ def _cookie_header_from_session(sess: requests.Session) -> str:
 for link in links:
     filename = os.path.basename(link)
     if not filename:
-        print(f"{CWARN}Пропущен некорректный URL: {link}{CEND}")
+        print(f"{CWARN}Skipped invalid URL: {link}{CEND}")
         continue
 
     file_year = extract_year_from_filename(filename)
     if not file_year:
-        print(f"{CWARN}Пропущен файл без указания года: {filename}{CEND}")
+        print(f"{CWARN}Skipped file without year: {filename}{CEND}")
         continue
 
     temp_filepath = os.path.join(TEMP_DIR, filename)
@@ -280,13 +280,13 @@ for link in links:
     elif status_code == 404:
         print(f"{CRED}{status_code} Download Error{CEND}")
     else:
-        print(f"{CRED}Ошибка при скачивании файла: {filename}{CEND}")
+        print(f"{CRED}Error downloading file: {filename}{CEND}")
 
-# Удаляем временную папку
+# Remove temporary folder
 if os.path.exists(TEMP_DIR):
     shutil.rmtree(TEMP_DIR)
 
-# Вычисляем время выполнения
+# Calculate execution time
 end_time = time.time()
 execution_time = end_time - start_time
 print(f"{'Execution time: '}{COK}{execution_time:.2f}{CEND} seconds")

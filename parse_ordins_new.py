@@ -11,7 +11,7 @@ import logging
 import sqlite3
 import fitz  # pip install PyMuPDF
 from pdfminer.high_level import extract_text
-from io import BytesIO  # Убедимся, что модуль io корректно импортирован
+from io import BytesIO  # Ensure io module is correctly imported
 from datetime import datetime
 import unicodedata
 from bs4 import BeautifulSoup
@@ -19,10 +19,10 @@ from bs4 import BeautifulSoup
 import sys
 sys.dont_write_bytecode = True
 
-# Фиксируем время начала выполнения
+# Record start time
 start_time = time.time()
 
-# Константы
+# Constants
 CRED    = '\033[91m'
 COK     = '\033[92m'
 CWARN   = '\033[93m'
@@ -68,7 +68,7 @@ def clear_buffer(buffer):
     buffer.seek(0)
     buffer.truncate(0)
 
-# Проверка валидности PDF
+# PDF validity check
 def is_valid_pdf(filepath):
     try:
         with fitz.open(filepath) as doc:
@@ -97,7 +97,7 @@ print(f"New files detected: {len(new_files)}")
 
 from parse_ordins_all import parse_pdf
 
-# --- Пересчет отказов (инкрементально по списку ординов) ---
+# --- Recompute rejections (incrementally by ordinance list) ---
 def recompute_refuzuri():
 
     db.execute('''
@@ -128,7 +128,7 @@ def recompute_refuzuri():
 
 logger.info('Start parsing ordins at ' + datetime.now().strftime("%Y-%m-%d %M:%S"))
 
-# Парсинг только новых файлов
+# Parse only new files
 for filename in new_files:
     parse_pdf(filename)
 
@@ -137,7 +137,7 @@ recompute_refuzuri()
 connection.close()
 logger.info("Processing complete.")
 
-# Вычисляем время выполнения
+# Calculate execution time
 end_time = time.time()
 execution_time = end_time - start_time
 print(f"{'Parsing PDF time: '}{COK}{execution_time:.2f}{CEND} seconds")

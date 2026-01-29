@@ -11,24 +11,24 @@ import fitz  # install using pip install PyMuPDF
 import sys
 sys.dont_write_bytecode = True
 
-# Константы
+# Constants
 CRED    = '\033[91m'
 COK     = '\033[92m'
 CWARN   = '\033[93m'
 CVIOLET = '\033[95m'
 CEND    = '\033[0m'
 
-# Фиксируем время начала выполнения
+# Record start time
 start_time = time.time()
 
-# Обработка PDF файлов
+# PDF files processing
 pdf_dir = './juramat/'
 
-# Подключение к базе данных
+# Database connection
 #database_path = './data.db'
 database_path = '/dev/shm/data.db'
 
-# Конфигурация логгирования
+# Logging configuration
 def setup_logger(name, log_file, level=logging.INFO, mode='w'):
     log_format = logging.Formatter('%(message)s')
     handler = logging.FileHandler(log_file, mode=mode)
@@ -61,7 +61,7 @@ def process_pdf(file_path, db, logger):
             for page in doc:
                 text = page.get_text()
 
-                # Извлекаем дату из текста
+                # Extract date from text
                 if juramat_date is None:
                     match = re.search(r'(\d{2}/\d{2}/\d{4})', text)
                     if match:
@@ -70,23 +70,23 @@ def process_pdf(file_path, db, logger):
                         except ValueError:
                             juramat_date = None
 
-                # Извлекаем идентификаторы дел
+                # Extract case identifiers
                 dosar_ids = re.findall(r'\b\d+/\d{4}\b', text)
                 filtered_ids = [
                     dosar_id for dosar_id in dosar_ids
-                    if not re.match(r'\d{1,2}/\d{4}', dosar_id)  # Исключаем строки "день/год"
+                    if not re.match(r'\d{1,2}/\d{4}', dosar_id)  # Exclude "day/year" strings
                 ]
                 logger.info(f"Found dosar IDs on page: {filtered_ids}")
                 for dosar_id in filtered_ids:
-                    total_records += 1  # Считаем общее количество записей
+                    total_records += 1  # Count total number of records
                     formatted_id = f"{dosar_id.split('/')[0]}/RD/{dosar_id.split('/')[1]}"
                     if formatted_id not in duplicates:
                         duplicates[formatted_id] = {'count': 0, 'updated': False}
-                        unique_records += 1  # Уникальная запись
+                        unique_records += 1  # Unique record
                     else:
                         duplicates[formatted_id]['count'] += 1
 
-        # Обработка записей из duplicates
+        # Process records from duplicates
         for dosar_id, data in duplicates.items():
             upsert_dosar_record(db, dosar_id, juramat_date, data['count'], logger)
 
@@ -97,7 +97,7 @@ def process_pdf(file_path, db, logger):
     return unique_records, total_records
 
 def upsert_dosar_record(db, dosar_id, juramat_date, suplimentar_count, logger):
-    #Обновляет или вставляет запись в базу данных.
+    # Updates or inserts a record into the database.
     try:
         db.execute('''
             INSERT INTO Dosar11 (id, year, number, juramat, suplimentar, result)
@@ -134,7 +134,7 @@ for file in os.listdir(pdf_dir):
     total_unique_records += unique_records
     total_all_records += all_records
 
-# Сохраняем изменения и закрываем соединение
+# Save changes and close connection
 connection.commit()
 connection.close()
 
@@ -145,8 +145,8 @@ logger.info(f"Total records (including duplicates) processed: {total_all_records
 print(f"{'Parsing: ' + CWARN + str(total_files) + CEND + ' files':.<171}", end="")
 print(f"{'unique / total ' + COK + str(total_unique_records).zfill(4) + CWARN + ' / ' + COK + str(total_all_records).zfill(4) + CEND }")
 
-# Фиксируем время окончания выполнения
+# Record end time
 end_time = time.time()
-# Вычисляем время выполнения
+# Calculate execution time
 execution_time = end_time - start_time
 print(f"{'Parsing PDF time: '}{COK}{execution_time:.2f}{CEND} seconds")

@@ -3,40 +3,40 @@
 ```
 sudo apt update && sudo apt install sqlite3 tree -y
 ```
-Используйте sqlite3 совместимую с `box` параметром.
+Use sqlite3 compatible with `box` parameters.
 ```
 $ sqlite3 --version
 3.34.1 2021-01-20 14:10:07 10e20c0b43500cfb9bbc0eaa061c57514f715d87238f4d835880cd846b9ealt1
 ```
-Иначе не используйте его в праметрах запросов.
+Or not use `box` in your requests.
 
-# Структура БД:
+# Database Structure
 
-Таблица Dosar
-- id TEXT - номер дела в формате <номер>/RD/<год>
-- year INTEGER - год подачи
-- number INTEGER - номер дела
-- depun DATE - дата подачи документов
-- solutie DATE DEFAULT NULL - дата решения по делу, или NULL, если решение ещё не принято
-- ordin TEXT - номер приказа о гражданстве, по которому принято решение
-- result INTEGER DEFAULT NULL - результат рассмотрения дела. 0/False == отказ, 1/True == положительное решение, NULL - решение ещё не принято
-- termen DATE DEFAULT NULL - последняя известная дата проведения комиссии по делу
-- suplimentar INTEGER DEFAULT False - был ли дозапрос документов по данному делу
+Table Dosar11
+- id TEXT - number of dosar in format <number>/RD/<year>
+- year INTEGER - submission year
+- number INTEGER - case number
+- depun DATE - document submission date
+- solutie DATE DEFAULT NULL - decision date, or NULL if decision not yet made
+- ordin TEXT - citizenship ordinance number under which the decision was made
+- result INTEGER DEFAULT NULL - case review result. 0/False == rejection, 1/True == positive decision, NULL - decision not yet made
+- termen DATE DEFAULT NULL - last known commission review date
+- suplimentar INTEGER DEFAULT False - whether additional documents were requested for this case
 
-Таблица Termen
- - id TEXT - номер дела в формате <номер>/RD/<год>
- - termen DATE - назначенная дата рассмотрения дела.
- - stadiu DATE - дата stadiu, в котором изменился Termen
+Table Termen11
+ - id TEXT - case number in format <number>/RD/<year>
+ - termen DATE - scheduled review date
+ - stadiu DATE - stadiu date when Termen was changed
 
-Эта таблица создаётся с правилом UNIQUE(id, termen), которое принудительно сохраняет только уникальные пары id+termen.
+This table is created with UNIQUE(id, termen) constraint, which enforces only unique id+termen pairs.
 
-# Структура
+# Structure
 
-Структура каталогов и PDF файлы, список находится в `tree.txt` доступен через www на приватном сайте, доступ к которому по IP списку.
+Directory structure and PDF files, the list is in `tree.txt` and available via www on a private site, access by IP whitelist.
 
-# Приказы
+# Ordinances
 
-Если приказ есть в стадиу stadiu досар, но нет в ординах ordin , то скорее всего отказ.
+If an ordinance exists in stadiu for a dosar, but not in ordins, it's likely a rejection.
 
 # Результаты
 
@@ -90,7 +90,7 @@ SELECT COUNT(*) AS count FROM Dosar WHERE termen = "2024-04-26";
 └───────┘
 ```
 
-Обновление планируемой даты обработки:
+Updating scheduled processing date:
 ```
 SELECT * from Dosar where id="38286/RD/2021";
 ┌───────────────┬──────┬────────┬────────────┬─────────┬───────┬────────┬────────────┬─────────────┐
@@ -110,10 +110,10 @@ SELECT * from Dosar where id="38286/RD/2021";
 ```
 
 
-Статистика решений за прошедший КВАРТАЛ по месяцу подачи:
+Decision statistics for the past QUARTER by submission month:
 ```
 ┌──────────────┬──────┬────────┬─────────┬─────────────────────┬────────────────────┬──────────────────────────┬─────────────────────────┐
-│ Месяц подачи │ Дел  │ Решено │ Решений │ Приказов в решениях │ Отказов в решениях │ Приказов после дозапроса │ Отказов после дозапроса │
+│ Submission Month │ Cases │ Resolved │ Decisions │ Ordinances in Decisions │ Rejections in Decisions │ Ordinances After Additional Request │ Rejections After Additional Request │
 ├──────────────┼──────┼────────┼─────────┼─────────────────────┼────────────────────┼──────────────────────────┼─────────────────────────┤
 │ 2019-01      │ 8152 │ 84.9 % │ 16      │ 16                  │ 0                  │ 16                       │ 0                       │
 │ 2019-02      │ 8579 │ 83.0 % │ 17      │ 14                  │ 3                  │ 14                       │ 3                       │
@@ -184,9 +184,9 @@ SELECT * from Dosar where id="38286/RD/2021";
 └──────────────┴──────┴────────┴─────────┴─────────────────────┴────────────────────┴──────────────────────────┴─────────────────────────┘
 ```
 
-# Полезные наборы команд:
+# Useful Command Sets:
 
-Проверить все ли изменения были произведены после парсинга ordins файлов:
+Check if all changes were made after parsing ordins files:
 ```
 ./parse_ordins_all.py
 Parsing: ./ordins/2021-06-Ordin_nr._1426P_din_06.06.2019.pdf........................................................................................................................................found 0253 dosars
@@ -204,7 +204,7 @@ sqlite3 -echo -box data.db 'SELECT * from Dosar where id="7105/RD/2022";'
 SELECT * from Dosar where id="7105/RD/2022";
 ```
 
-Проврить Полностью ли собрались номера ordins из имен файлов
+Check if all ordins numbers were extracted from file names
 ```
 ./parse_ordins_filename.py
 Parsing: ./ordins/2023-11-Ordin-384-P-22.02.2024.pdf...................................................................384
