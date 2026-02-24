@@ -428,9 +428,9 @@ def main():
 # Record end time
 end_time = time.time()
 # Calculate execution time
-    execution_time = end_time - start_time
-    print(f"{'Processed '}{COK}{total_dosars}{CEND}{' dosars in '}{COK}{total_files}{CEND}{' files.'}")
-    print(f"{'Parsing PDF time: '}{COK}{execution_time:.2f}{CEND} seconds")
+execution_time = end_time - start_time
+print(f"{'Processed '}{COK}{total_dosars}{CEND}{' dosars in '}{COK}{total_files}{CEND}{' files.'}")
+print(f"{'Parsing PDF time: '}{COK}{execution_time:.2f}{CEND} seconds")
 
 
 if __name__ == '__main__':

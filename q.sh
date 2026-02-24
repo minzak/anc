@@ -10,11 +10,9 @@
 sqlite3 -echo -box data.db '
 SELECT * FROM Dosar11
 WHERE result = 1
-AND (    CAST(substr(id, length(id)-3, 4) AS INTEGER) > 2023
-    OR ( CAST(substr(id, length(id)-3, 4) AS INTEGER) = 2023
+AND ( CAST(substr(id, length(id)-3, 4) AS INTEGER) = 2023
            AND
-         CAST(substr(id, 1, instr(id, "/") - 1) AS INTEGER) > 40000  )
-);'
+         CAST(substr(id, 1, instr(id, "/") - 1) AS INTEGER) > 40000  );'
 
 #https://t.me/Yuliya_pm
 sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="48275/RD/2023";'
