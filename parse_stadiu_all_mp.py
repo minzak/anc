@@ -18,12 +18,12 @@ sys.dont_write_bytecode = True
 
 # Path to directory with PDF files
 PDF_DIR = './stadiu'
-#Database = './data.db'
-Database = '/dev/shm/data.db'
+from incremental import db_path, log_dir, is_boilerplate, debug_enabled, quiet_enabled, setup_logger, setup_issue_logger
+Database = db_path()
 
 # Log file names
-SQL_LOG_FILE = '/dev/shm/sql-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '.log'
-PARSE_LOG_FILE = '/dev/shm/parse-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '-{process_id}.log'
+SQL_LOG_FILE = os.path.join(log_dir(), 'sql-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '.log')
+PARSE_LOG_FILE = os.path.join(log_dir(), 'parse-stadiu-' + datetime.now().strftime('%Y-%m-%d') + '-{process_id}.log')
 
 # Colors for terminal output
 C_SUCCESS   = '\033[92m'
@@ -82,21 +82,15 @@ logger.remove()
 # Console handler – only for messages without process and SQL
 logger.add(sys.stdout, format="{message}", level="INFO")
 
-# --- SQL logger and setup_sql_logger ---
-def setup_sql_logger(name, log_file, level=logging.INFO, mode='w'):
-    log_format = logging.Formatter('%(message)s')
-    handler = logging.FileHandler(log_file, mode=mode)
-    handler.setFormatter(log_format)
-    l = logging.getLogger(name)
-    l.setLevel(level)
-    l.addHandler(handler)
-    return l
-
-# SQL logger (global as in original code)
-sql_logger = setup_sql_logger('sql_logger', SQL_LOG_FILE, mode='w')
+# SQL logger (shared factory honoring the global ANC_DEBUG switch).
+sql_logger = setup_logger('stadiu_sql_logger', SQL_LOG_FILE, mode='w')
+# Always-on issue log (empty files, unknown rows, errors). Workers collect issues
+# and return them; only the parent (main) writes here, to avoid a file race.
+IssueLogger = setup_issue_logger('stadiu_issue_logger', os.path.join(log_dir(), 'parse-stadiu-issues-' + datetime.now().strftime('%Y-%m-%d') + '.log'))
 connection = sqlite3.connect(Database)
-# Set up logger for SQL queries. Remove if detailed SQL query debugging is not needed
-connection.set_trace_callback(sql_logger.info)
+# SQL tracing logs every statement — very heavy, only when ANC_DEBUG is on.
+if debug_enabled():
+    connection.set_trace_callback(sql_logger.info)
 db = connection.cursor()
 
 def normalize_token(token: str) -> str:
@@ -113,6 +107,13 @@ def normalize_token(token: str) -> str:
     token = re.sub(r'(\d+/[A-Z]{1,3})\s+(\d{2}\.\d{2}\.\d{4})', r'\1/\2', token)
     # Normalization: 25P 18.01.2011 -> 25/P/18.01.2011
     token = re.sub(r'(\d+)([A-Z]{1,3})\s+(\d{2}\.\d{2}\.\d{4})', r'\1/\2/\3', token)
+    # Чиним битые номера приказов (потерянный/лишний слеш вокруг буквы):
+    # 1099P/2025 -> 1099/P/2025 (нет слеша перед буквой)
+    token = re.sub(r'^(\d+)([A-Z]{1,3})/(\d{4,5})$', r'\1/\2/\3', token)
+    # 1081/P2020 -> 1081/P/2020 (нет слеша между буквой и годом)
+    token = re.sub(r'^(\d+)/([A-Z]{1,3})(\d{4,5})$', r'\1/\2/\3', token)
+    # 1049/P/P2023 -> 1049/P/2023 (лишняя буква перед годом)
+    token = re.sub(r'^(\d+)/([A-Z]{1,3})/[A-Z]{1,3}(\d{4,5})$', r'\1/\2/\3', token)
     return token
 
 # --- Universal token classification function ---
@@ -246,16 +247,42 @@ def process_table_row(fields):
     if sfln == 5:
         ID, DEPUN, TERMEN, ORDIN, SOLUTIE = filtered_line
     elif sfln == 4:
-        ID, DEPUN, ORDIN, SOLUTIE = filtered_line
-        TERMEN = None
-        # Normalize ORDIN if needed
-        if ORDIN.endswith('/P') or '/' not in ORDIN:
-            year_solutie = SOLUTIE.split('.')[-1]
-            if ORDIN.endswith('/P'):
-                ORDIN = f"{ORDIN}/{year_solutie}"
-            else:
-                ORDIN = f"{ORDIN}/P/{year_solutie}"
+        mask_parts = pattern.split(' ')
+        # [ID, DEPUN, TERMEN, ORDIN]: номер · дата · дата · приказ (напр. снапшоты Art-11-2019).
+        if len(mask_parts) == 4 and mask_parts[1] == 'DD.DD.DDDD' and mask_parts[2] == 'DD.DD.DDDD':
+            ID, DEPUN, TERMEN, ORDIN = filtered_line
+            SOLUTIE = None
+        else:
+            ID, DEPUN, ORDIN, SOLUTIE = filtered_line
+            TERMEN = None
+            # Normalize ORDIN if needed
+            if ORDIN.endswith('/P') or '/' not in ORDIN:
+                year_solutie = SOLUTIE.split('.')[-1]
+                if ORDIN.endswith('/P'):
+                    ORDIN = f"{ORDIN}/{year_solutie}"
+                else:
+                    ORDIN = f"{ORDIN}/P/{year_solutie}"
     elif sfln == 3:
+        sub = filtered_line[0].split()
+        # Первое поле — склейка "номер_дела дата_подачи", далее termen + ordin:
+        # напр. ['103470/RD/2019 31.12.2019', '07.05.2020', '504/P/2023'].
+        if (len(sub) == 2
+                and token_pattern(sub[0]) in ('D/LL/D', 'D/L/D', 'D/LLL/D')
+                and token_pattern(sub[1]) == 'DD.DD.DDDD'
+                and token_pattern(filtered_line[1]) == 'DD.DD.DDDD'):
+            if token_pattern(filtered_line[2]) in TOKEN_CODES:
+                return [sub[0], sub[1], filtered_line[1], filtered_line[2], None], pattern
+            return None, pattern          # битый приказ (нет года и т.п.) — остаётся UNKNOWN
+        # Обратный порядок колонок (старые снапшоты 2016): дата · номер_дела · (приказ|termen),
+        # напр. ['04.05.2016', '39003/RD/2016', '360/P/2017'].
+        if (token_pattern(filtered_line[0]) == 'DD.DD.DDDD'
+                and token_pattern(filtered_line[1]) in ('D/LL/D', 'D/L/D', 'D/LLL/D')):
+            t2 = token_pattern(filtered_line[2])
+            if t2 == 'DD.DD.DDDD':
+                return [filtered_line[1], filtered_line[0], filtered_line[2], None, None], pattern  # ID,DEPUN,TERMEN
+            if t2 in TOKEN_CODES:
+                return [filtered_line[1], filtered_line[0], None, filtered_line[2], None], pattern  # ID,DEPUN,ORDIN
+            return None, pattern          # битый третий токен — остаётся UNKNOWN
         mask_parts = pattern.split(' ')
         # If first token is ORDIN, second and third are dates (logically related)
         if (
@@ -311,13 +338,31 @@ def process_table_row(fields):
                 if date_match:
                     SOLUTIE = date_match.group(0)
     elif sfln == 2:
-        mask_parts = pattern.split(' ')
-        if mask_parts[1] == 'DD.DD.DDDD':
-            ID = filtered_line[0]
-            DEPUN = filtered_line[1]
-            TERMEN = ORDIN = SOLUTIE = None
+        sub = filtered_line[0].split()
+        # Первое поле PDF — склейка "номер_дела дата_подачи" (напр. '100/RD/2017 03.01.2017'):
+        # номер дела и дата подачи стоят близко по X и слились в одно поле. Разбираем как sfln==3.
+        if (len(sub) == 2
+                and token_pattern(sub[0]) in ('D/LL/D', 'D/L/D', 'D/LLL/D')
+                and token_pattern(sub[1]) == 'DD.DD.DDDD'):
+            ID = sub[0]                       # 100/RD/2017
+            DEPUN = sub[1]                    # 03.01.2017
+            t1 = token_pattern(filtered_line[1])
+            if t1 == 'DD.DD.DDDD':
+                TERMEN = filtered_line[1]
+                ORDIN = SOLUTIE = None        # ... || termen-дата
+            elif t1 in TOKEN_CODES:
+                ORDIN = filtered_line[1]
+                TERMEN = SOLUTIE = None       # ... || ordin
+            else:
+                return None, pattern          # битый 3-й токен — остаётся UNKNOWN (пофиксим позже)
         else:
-            return None, pattern
+            mask_parts = pattern.split(' ')
+            if mask_parts[1] == 'DD.DD.DDDD':
+                ID = filtered_line[0]
+                DEPUN = filtered_line[1]
+                TERMEN = ORDIN = SOLUTIE = None
+            else:
+                return None, pattern
     elif sfln == 1:
         parts = filtered_line[0].split()
         if len(parts) >= 3:
@@ -341,7 +386,7 @@ def process_table_row(fields):
         elif len(parts) == 2:
             pat0 = token_pattern(parts[0])
             pat1 = token_pattern(parts[1])
-            if pat0 == 'D' and pat1 == 'DD.DD.DDDD':
+            if pat0 in ('D', 'D/LL/D', 'D/L/D', 'D/LLL/D') and pat1 == 'DD.DD.DDDD':
                 ID = parts[0]
                 DEPUN = parts[1]
                 TERMEN = ORDIN = SOLUTIE = None
@@ -469,6 +514,8 @@ def write_to_db(parsed):
         return
 
     ID, DEPUN, TERMEN, ORDIN, SOLUTIE = parsed
+    if ORDIN:
+        ORDIN = normalize_token(ORDIN)   # канонизируем приказ (1099P/2025 -> 1099/P/2025) для корректной группировки refuz
     if DEPUN is None or not vali_date(DEPUN) or (TERMEN is not None and not vali_date(TERMEN)) or (SOLUTIE is not None and not vali_date(SOLUTIE)):
         return
 
@@ -477,6 +524,8 @@ def write_to_db(parsed):
         NUMBER = int(ID.split('/')[0]) if '/' in ID else None
     except Exception:
         return
+    if YEAR is None or NUMBER is None:
+        return  # not a valid dossier id (no /year/) — skip instead of crashing on NOT NULL
 
     DEPUN_DATE = datetime.strptime(DEPUN, '%d.%m.%Y').date()
     TERMEN_DATE = None
@@ -522,51 +571,81 @@ def write_to_db(parsed):
     connection.commit()
 
 def process_pdf(pdf_path):
-    # Create logger for current process as in original code
+    # DBG   -> .log files on disk (ANC_DEBUG). QUIET -> hide console (ANC_SILENT).
+    # The two are independent: console progress shows by default even with DBG off.
+    DBG = debug_enabled()
+    QUIET = quiet_enabled()
     process_id = f"P{current_process()._identity[0]}" if current_process()._identity else "Main"
     process_logger = logger.bind(process=process_id)
     process_logger.remove()
-    log_filename = PARSE_LOG_FILE.format(process_id=process_id)
-    process_logger.add(log_filename,
-                         format="{message}",
-                         level="INFO",
-                         mode='a',
-                         filter=lambda record: "process" in record["extra"] and record["extra"].get("log_type", "") != "SQL")
+    if DBG:
+        log_filename = PARSE_LOG_FILE.format(process_id=process_id)
+        process_logger.add(log_filename,
+                             format="{message}",
+                             level="INFO",
+                             mode='a',
+                             filter=lambda record: "process" in record["extra"] and record["extra"].get("log_type", "") != "SQL")
 
-    print(f"FILE: {pdf_path}")
-    process_logger.info(f"{C_INFO}FILE: {pdf_path}{C_RESET}")
+    if not QUIET:
+        print(f"FILE: {pdf_path}")
+    if DBG:
+        process_logger.info(f"FILE: {pdf_path}")
 
-    with pdfplumber.open(pdf_path) as pdf:
-        for pnum, page in enumerate(pdf.pages, start=1):
-            process_logger.info(f"{pdf_path}:{pnum}")
-            words = page.extract_words(x_tolerance=2, y_tolerance=2)
+    n_parsed = n_header = n_boiler = n_unknown = 0
+    issues = []          # anomaly lines; the PARENT writes them to the issue log
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
+            for pnum, page in enumerate(pdf.pages, start=1):
+                words = page.extract_words(x_tolerance=2, y_tolerance=2)
+                clusters_raw, clusters_merged = group_words_by_line(words)
+                if DBG:
+                    process_logger.info(f"{pdf_path}:{pnum}")
+                    for cy, group in clusters_raw:
+                        parts = " ".join(f"'{w['text']}' x0={w['x0']:.2f}" for w in sorted(group, key=lambda w: w['x0']))
+                        process_logger.info(f"y={cy:.1f} {parts}")
 
-            clusters_raw, clusters_merged = group_words_by_line(words)
-            for cy, group in clusters_raw:
-                parts = " ".join(f"'{w['text']}' x0={w['x0']:.2f}" for w in sorted(group, key=lambda w: w['x0']))
-                process_logger.info(f"y={cy:.1f} {parts}")
+                for cy, fields in clusters_merged:
+                    if not fields:
+                        continue
+                    line_text = ' '.join(fields)
+                    # Cut шапка: column-header rows (table header keywords)...
+                    if any(kw in line_text.upper() for kw in HEADER_KEYWORDS):
+                        n_header += 1
+                        if DBG:
+                            process_logger.info(f"Header skipped: {line_text}")
+                        continue
+                    # ...and тапки: data-protection/address/law boilerplate lines.
+                    if is_boilerplate(line_text):
+                        n_boiler += 1
+                        if DBG:
+                            process_logger.info(f"[SKIP] Boilerplate: {line_text}")
+                        continue
+                    parsed, pattern = process_table_row(fields)
+                    if parsed:
+                        # Write to DB immediately, as in original code
+                        write_to_db(parsed)
+                        n_parsed += 1
+                        if (not QUIET) or DBG:
+                            uid = build_uid(parsed)
+                            if not QUIET:                       # live console progress
+                                print_table_row(parsed, uid, pattern)
+                            if DBG:                             # disk log
+                                process_logger.info(f"RAW: {fields} | NORM: {parsed} | UID: {uid} | PATTERN: {pattern}")
+                    else:
+                        n_unknown += 1
+                        issues.append(f"[UNKNOWN] {pdf_path}:{pnum} | {fields} | PATTERN: {row_pattern(fields)}")
+                        if DBG:
+                            uid = build_uid(fields)
+                            pattern = row_pattern(fields)
+                            process_logger.info(f"[SKIP] Unknown structure: {fields} | UID: {uid} | PATTERN: {pattern}")
 
-            for cy, fields in clusters_merged:
-                if not fields:
-                    continue
-                line_text = ' '.join(fields)
-                if any(kw in line_text.upper() for kw in HEADER_KEYWORDS):
-                    process_logger.info(f"Header skipped: {line_text}")
-                    continue
-                parsed, pattern = process_table_row(fields)
-                if parsed:
-                    uid = build_uid(parsed)
-                    print_table_row(parsed, uid, pattern)
-                    process_logger.info(f"RAW: {fields} | NORM: {parsed} | UID: {uid} | PATTERN: {pattern}")
+        if n_parsed == 0:
+            issues.append(f"[EMPTY] {pdf_path} | no rows parsed")
+    except Exception as e:
+        issues.append(f"[ERROR] {pdf_path} | {e}")
 
-                    # Write to DB immediately, as in original code
-                    write_to_db(parsed)
-                else:
-                    uid = build_uid(fields)
-                    pattern = row_pattern(fields)
-                    process_logger.info(f"[SKIP] Unknown structure: {fields} | UID: {uid} | PATTERN: {pattern}")
-
-    return f"Processed {pdf_path}"
+    return {'file': pdf_path, 'parsed': n_parsed, 'header': n_header,
+            'boiler': n_boiler, 'unknown': n_unknown, 'issues': issues}
 
 # --- Launch via multiprocessing ---
 def main():
@@ -592,9 +671,22 @@ def main():
     with Pool(processes=4) as pool:
         results = pool.map(process_pdf, files)
 
-    # Output results
-    for result in results:
-        print(result)
+    # Output results + aggregate per-file counts (returned from each worker).
+    agg = {'files': 0, 'parsed': 0, 'header': 0, 'boiler': 0, 'unknown': 0}
+    for r in results:
+        if not isinstance(r, dict):
+            continue
+        for line in r.get('issues', []):   # parent-only write (no file race)
+            IssueLogger.info(line)
+        agg['files'] += 1
+        for k in ('parsed', 'header', 'boiler', 'unknown'):
+            agg[k] += r.get(k, 0)
+        print(f"Processed {r['file']}: parsed={r['parsed']} header={r['header']} "
+              f"boiler={r['boiler']} unknown={r['unknown']}")
+    print(f"{'-'*60}")
+    print(f"{C_SUCCESS}Files: {agg['files']}  Parsed rows: {agg['parsed']}{C_RESET}  "
+          f"Header-skipped: {agg['header']}  Boilerplate: {agg['boiler']}  "
+          f"Unknown-skipped: {agg['unknown']}")
 
     # Final updates
     db.execute('UPDATE Dosar11 SET result=1 WHERE result IS 0 AND ordin IN (SELECT ordin FROM Dosar11 GROUP BY ordin HAVING COUNT(*) > 1)')

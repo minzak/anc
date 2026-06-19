@@ -9,8 +9,8 @@ from datetime import datetime
 import sys
 sys.dont_write_bytecode = True
 
-#DB_PATH = 'data.db'
-DB_PATH = '/dev/shm/data.db'
+from incremental import db_path, setup_logger
+DB_PATH = db_path()
 
 # Constants
 CRED    = '\033[91m'
@@ -22,16 +22,7 @@ CEND    = '\033[0m'
 # Record start time
 start_time = time.time()
 
-# Logging setup
-def setup_logger(name, log_file, level=logging.INFO, mode='w'):
-    LogFormat = logging.Formatter('%(message)s')
-    handler = logging.FileHandler(log_file, mode=mode)
-    handler.setFormatter(LogFormat)
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
-    logger.addHandler(handler)
-    return logger
-
+# Logging setup (shared factory honoring the global ANC_DEBUG switch).
 SQLlogger = setup_logger('SQLlogger', 'sql-refus-'+datetime.now().strftime("%Y-%m-%d")+'.log', mode='w')
 
 connection = sqlite3.connect(DB_PATH)

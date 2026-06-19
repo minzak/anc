@@ -1,13 +1,19 @@
 #!/bin/bash
 
 source venv/bin/activate
+source ./lib_db.sh
 
-cp -f data.db /dev/shm/
-python3 ./get_ordins_no_ssl.py
-python3 ./parse_ordins_all.py
-mv -f /dev/shm/data.db $(pwd)/data.db
-rm -f *.log
-tree -L 5 -I 'venv|old|*.log' > tree.txt
+anc_shm_begin
+# Full reparse, resumable: wipe progress so all ordins are reprocessed.
+# parse_ordins_new downloads new files, then parses every unmarked file (= all,
+# since state was wiped), marking each -> a re-run after a crash continues on.
+rm -f state/ordins.json
+python3 ./parse_ordins_new.py
+anc_shm_end
+anc_shm_teardown
+
+#rm -f *.log
+tree -L 5 -I 'venv|old|__pycache__|*.log' > tree.txt
 ./q.sh > q.txt
 ./qx.sh > qx.txt
 ./raw.sh

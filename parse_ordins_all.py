@@ -24,26 +24,12 @@ CWARN   = '\033[93m'
 CVIOLET = '\033[95m'
 CEND    = '\033[0m'
 
-# Logging setup
-def setup_logger(name, log_file, level=logging.INFO, mode='w'):
-    LogFormat = logging.Formatter('%(message)s')
-    # Create or get existing logger
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
-
-    # Ensure we don't add duplicate handlers for the same log file
-    existing_files = set()
-    for h in logger.handlers:
-        if isinstance(h, logging.FileHandler) and hasattr(h, 'baseFilename'):
-            existing_files.add(os.path.abspath(h.baseFilename))
-
-    log_file_abspath = os.path.abspath(log_file)
-    if log_file_abspath not in existing_files:
-        handler = logging.FileHandler(log_file, mode=mode)
-        handler.setFormatter(LogFormat)
-        logger.addHandler(handler)
-
-    return logger
+# Logging setup (shared factory honoring the global ANC_DEBUG switch).
+from incremental import db_path, document_body, setup_logger, setup_issue_logger, cprint
+from datetime import datetime as _dt
+# Always-on issue log (files yielding 0 dosars, parse errors) — independent of
+# ANC_DEBUG; the file appears only if an anomaly is actually written.
+IssueLogger = setup_issue_logger('ordins_issue_logger', 'parse-ordins-issues-' + _dt.now().strftime("%Y-%m-%d") + '.log')
 
 # Top-level loggers are only created when running as script to avoid
 # duplicate handlers when this module is imported from other scripts.
@@ -51,13 +37,18 @@ if __name__ == '__main__':
     logger = setup_logger('main_logger', 'parse-ordins-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
     SQLlogger = setup_logger('SQLlogger', 'sql-ordins-'+datetime.now().strftime("%Y-%m-%d")+'.log', mode='w')
 else:
-    # When imported, get existing loggers (may be configured by caller)
+    # When imported (e.g. by minori/juramat for extract_date), get the loggers and
+    # attach a NullHandler so internal warnings ("PyMuPDF failed, falling back...",
+    # "Date not found...") don't leak to the console via logging's lastResort.
     logger = logging.getLogger('main_logger')
     SQLlogger = logging.getLogger('SQLlogger')
+    for _lg in (logger, SQLlogger):
+        _lg.propagate = False
+        if not _lg.handlers:
+            _lg.addHandler(logging.NullHandler())
 
 # Database setup
-#Database = './data.db'
-Database = '/dev/shm/data.db'
+Database = db_path()
 connection = sqlite3.connect(Database)
 #connection.set_trace_callback(SQLlogger.info)
 db = connection.cursor()
@@ -261,8 +252,14 @@ def parse_pdf(file_path):
 
             # Iterate through pages to find ANEXA and dosars
             pages = [page.get_text() for page in doc]
-            print(f"{'Parsing: ' + CWARN + file_path + CEND:.<205}", end="")
+            # Header/footer boilerplate (шапка/тапки, incl. "Legii nr. 677/2001")
+            # is cut here; dosars are scanned only in the body (the meat), while
+            # ANEXA detection below still uses the full page text.
+            body_map = {pn: "\n".join(lines)
+                        for pn, lines in document_body(pages, start_markers=('anex', 'lista'))}
+            cprint(f"{'Parsing: ' + CWARN + file_path + CEND:.<205}", end="")
             for page_num, page_text in enumerate(pages):
+                scan_text = body_map.get(page_num + 1, "")  # body of this page
                 # Detect ANEXA by multiple formats or keywords
                 # Create an ASCII-normalized version to handle diacritics vs plain text variants
                 ascii_page = unicodedata.normalize('NFKD', page_text).encode('ascii', 'ignore').decode('ascii').lower()
@@ -285,9 +282,9 @@ def parse_pdf(file_path):
                 # The pattern allows an optional alpha segment (e.g. RD) between slashes.
                 page_dosars = []
                 # primary pattern: digits / optional alpha segment / year (works with or without parentheses)
-                page_dosars += re.findall(r"\b(\d{2,7})\s*/\s*(?:[A-Za-z]{1,6}\s*/\s*)?(20\d{2})\b", page_text)
+                page_dosars += re.findall(r"\b(\d{2,7})\s*/\s*(?:[A-Za-z]{1,6}\s*/\s*)?(20\d{2})\b", scan_text)
                 # fallback: catch cases where the number is inside parentheses with prefixes like 'dosar nr.' without whitespace
-                page_dosars += re.findall(r"\((?:[^0-9]*?)(\d{2,7})\s*/\s*(?:[A-Za-z/]*?)(20\d{2})\)", page_text)
+                page_dosars += re.findall(r"\((?:[^0-9]*?)(\d{2,7})\s*/\s*(?:[A-Za-z/]*?)(20\d{2})\)", scan_text)
 
                 # Deduplicate while preserving order (per page)
                 seen = set()
@@ -315,24 +312,24 @@ def parse_pdf(file_path):
                     try:
                         # match the dosar with optional alpha segment (e.g. 8965/RD/2020 or 8965/2020)
                         dosar_pattern = re.compile(rf'{re.escape(dosarnum)}\s*/\s*(?:[A-Za-z]{{1,6}}\s*/\s*)?{dosaryear}', re.IGNORECASE)
-                        m = dosar_pattern.search(page_text)
+                        m = dosar_pattern.search(scan_text)
                         child_count = 0
                         if m:
                             # search forward from the end of the dosar match for the "Copii minori" phrase
-                            look_ahead = page_text[m.end():m.end()+200]
+                            look_ahead = scan_text[m.end():m.end()+200]
                             m2 = re.search(r'Copii\s+minori[:\s]*?(\d+)', look_ahead, re.IGNORECASE)
                             if m2:
                                 child_count = int(m2.group(1))
                             else:
                                 # if not found forward, search a bit backwards from the match start
                                 look_back_start = max(0, m.start()-200)
-                                look_back = page_text[look_back_start:m.start()]
+                                look_back = scan_text[look_back_start:m.start()]
                                 m3 = re.search(r'Copii\s+minori[:\s]*?(\d+)', look_back, re.IGNORECASE)
                                 if m3:
                                     child_count = int(m3.group(1))
                         else:
                             # if dosar string wasn't found exactly (rare), fallback to a page-wide search
-                            m4 = re.search(r'Copii\s+minori[:\s]*?(\d+)', page_text, re.IGNORECASE)
+                            m4 = re.search(r'Copii\s+minori[:\s]*?(\d+)', scan_text, re.IGNORECASE)
                             if m4:
                                 child_count = int(m4.group(1))
                     except Exception:
@@ -396,7 +393,9 @@ def parse_pdf(file_path):
             dr_str = clean_ordinance_date if clean_ordinance_date else 'None'
             count = len(dosars)
             color = COK if count > 0 else CRED
-            print(f"{'found '}{color}{str(count).zfill(4)}{CEND}{' dosars'}")
+            cprint(f"{'found '}{color}{str(count).zfill(4)}{CEND}{' dosars'}")
+            if count == 0:  # anomaly: a parsed ordinance yielded no dossiers
+                IssueLogger.info(f"[ZERO] {file_path} | F:{file_ordin_number}/P/{ordinance_year} | 0 dosars found")
             printed = True
             # Unified format with Parsing file
             logger.info(f"Processed {len(dosars)} dosars from {file_path} | F:{file_ordin_number} DF:{df_str} DP:{dp_str} DR:{dr_str}\n")
@@ -404,6 +403,7 @@ def parse_pdf(file_path):
 
     except Exception as e:
         logger.error(f"Error parsing file {file_path}: {e}")
+        IssueLogger.info(f"[ERROR] {file_path} | {e}")
         error_happened = True
     finally:
         # Accumulate totals per processed file
@@ -411,7 +411,7 @@ def parse_pdf(file_path):
         total_files += 1
         if not printed:
             # Print only tail with actual count in red color
-            print(f"{'found '}{CRED}{str(len(dosars)).zfill(4)}{CEND}{' dosars'}")
+            cprint(f"{'found '}{CRED}{str(len(dosars)).zfill(4)}{CEND}{' dosars'}")
 
 
 def main():

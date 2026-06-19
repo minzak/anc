@@ -135,8 +135,16 @@ unique_hrefs = [u for u in link_hrefs if u not in seen and not seen.add(u)]
 
 links = []
 for href in unique_hrefs:
-    rel = urlparse(href).path.replace('/storage/', '').lstrip('/')
-    dest = Ordins + rel.replace('/', '-')
+    parsed = urlparse(href)
+    path_parts = parsed.path.split('/')
+    # Build "YYYY-MM-filename.pdf" from the .../YYYY/MM/filename.pdf path,
+    # ignoring the storage/wp-content-uploads prefix (matches minori/ordins).
+    if len(path_parts) >= 4 and path_parts[-3].isdigit() and path_parts[-2].isdigit():
+        year, month = path_parts[-3], path_parts[-2]
+        new_file_name = f"{year}-{month}-{path_parts[-1]}"
+    else:
+        new_file_name = os.path.basename(parsed.path)
+    dest = os.path.join(Ordins, new_file_name)
     links.append((href, dest))
 
 print(f"Discovered {COK}{len(links)}{CEND} PDF links on juramant page.")

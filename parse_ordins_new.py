@@ -29,29 +29,12 @@ CWARN   = '\033[93m'
 CVIOLET = '\033[95m'
 CEND    = '\033[0m'
 
-Database = './data.db'
+from incremental import db_path
+Database = db_path()
 Ordins = './ordins/'
 
-# Logging setup
-def setup_logger(name, log_file, level=logging.INFO, mode='w'):
-    LogFormat = logging.Formatter('%(message)s')
-    # Create or get existing logger
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
-
-    # Prevent adding duplicate file handlers for the same file
-    existing_files = set()
-    for h in logger.handlers:
-        if isinstance(h, logging.FileHandler) and hasattr(h, 'baseFilename'):
-            existing_files.add(os.path.abspath(h.baseFilename))
-
-    log_file_abspath = os.path.abspath(log_file)
-    if log_file_abspath not in existing_files:
-        handler = logging.FileHandler(log_file, mode=mode)
-        handler.setFormatter(LogFormat)
-        logger.addHandler(handler)
-
-    return logger
+# Logging setup (shared factory honoring the global ANC_DEBUG switch).
+from incremental import setup_logger
 
 if __name__ == '__main__':
     logger = setup_logger('main_logger', 'parse-ordins-new-' + datetime.now().strftime("%Y-%m-%d") + '.log', mode='w')
@@ -60,9 +43,11 @@ else:
     logger = logging.getLogger('main_logger')
     SQLlogger = logging.getLogger('SQLlogger')
 
-# Database setup
-connection = sqlite3.connect(Database)
-db = connection.cursor()
+# Reuse parse_ordins_all's connection/cursor so that parsing (parse_pdf) and the
+# refuzuri recompute below write through the SAME connection to the SAME DB.
+# (Previously this script opened its own connection -> split-brain risk.)
+from parse_ordins_all import parse_pdf, connection, db
+from incremental import FileState
 
 def clear_buffer(buffer):
     buffer.seek(0)
@@ -79,7 +64,6 @@ def is_valid_pdf(filepath):
 # Use the robust downloader script (handles WAF and skips SSL verification)
 # Detect files present before running the downloader, run it, then compute newly added files.
 os.makedirs(Ordins, exist_ok=True)
-before = set(glob.glob(os.path.join(Ordins, '*.pdf')))
 downloader = os.path.join(os.path.dirname(__file__), 'get_ordins_no_ssl.py')
 if os.path.isfile(downloader):
     print(f"Running downloader: {downloader}")
@@ -90,12 +74,13 @@ if os.path.isfile(downloader):
 else:
     print(f"Downloader script not found: {downloader}")
 
-after = set(glob.glob(os.path.join(Ordins, '*.pdf')))
-new_files = sorted(list(after - before))
-missing_files = []
-print(f"New files detected: {len(new_files)}")
-
-from parse_ordins_all import parse_pdf
+# Determine which ordin PDFs still need parsing via the shared sidecar state.
+# Robust to files fetched by a separate downloader run, and recoverable after a
+# crash (only files marked below are skipped next time).
+state = FileState('ordins')
+candidates = sorted(glob.glob(os.path.join(Ordins, '*.pdf')))
+new_files = state.new_files(candidates)
+print(f"New files detected: {len(new_files)} (of {len(candidates)} total)")
 
 # --- Recompute rejections (incrementally by ordinance list) ---
 def recompute_refuzuri():
@@ -128,9 +113,10 @@ def recompute_refuzuri():
 
 logger.info('Start parsing ordins at ' + datetime.now().strftime("%Y-%m-%d %M:%S"))
 
-# Parse only new files
+# Parse only new files; mark each in the sidecar state right after (crash-safe).
 for filename in new_files:
     parse_pdf(filename)
+    state.mark(filename)
 
 recompute_refuzuri()
 

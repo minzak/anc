@@ -7,3 +7,5 @@ data.db
 raw.txt
 *.pdf
 *.log
+.claude/
+CLAUDE.md

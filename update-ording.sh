@@ -1,12 +1,15 @@
 #!/bin/bash
 
 source venv/bin/activate
+source ./lib_db.sh
 
-cp -f data.db /dev/shm/
+anc_shm_begin
 python3 ./parse_ordins_new.py
-mv -f /dev/shm/data.db $(pwd)/data.db
-rm -f *.log
-tree -L 5 -I 'venv|old|*.log' > tree.txt
+anc_shm_end
+anc_shm_teardown
+
+#rm -f *.log
+tree -L 5 -I 'venv|old|__pycache__|*.log' > tree.txt
 ./q.sh > q.txt
 ./qx.sh > qx.txt
 ./raw.sh

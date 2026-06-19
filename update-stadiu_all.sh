@@ -1,13 +1,19 @@
 #!/bin/bash
 
 source venv/bin/activate
+source ./lib_db.sh
 
-rm -f *.log
-cp -f data.db /dev/shm/
+anc_shm_begin
+# Full reparse, resumable: wipe progress so all snapshots are reprocessed, but
+# parse_stadiu_new_mp marks each file as parsed -> re-run continues after a crash.
+rm -f state/stadiu.json
 python3 ./get_stadiu_no_ssl.py
-python3 ./parse_stadiu_all_mp.py
-mv -f /dev/shm/data.db $(pwd)/data.db
-tree -L 5 -I 'venv|old|*.log' > tree.txt
+python3 ./parse_stadiu_new_mp.py
+anc_shm_end
+anc_shm_teardown
+
+#rm -f *.log
+tree -L 5 -I 'venv|old|__pycache__|*.log' > tree.txt
 ./q.sh > q.txt
 ./qx.sh > qx.txt
 ./raw.sh
