@@ -9,6 +9,7 @@
 │   ├── get_cert.sh
 │   └── system_cacert.sh
 ├── data.db
+├── data.db.bz2
 ├── get-all.sh
 ├── get_juramat_no_ssl.py
 ├── get_juramat.py
@@ -169,7 +170,9 @@
 │   ├── 2026-05-tabel-afisare-site-02.06.2026-ora-09-00.pdf
 │   ├── 2026-05-tabel-afisare-site-13.05.2026-ora-09.pdf
 │   ├── 2026-05-tabel-afisare-site-20.05.2026-ora-09.pdf
-│   └── 2026-06-Invitatie-Juramant-23-IUNIE-ORA-900.pdf
+│   ├── 2026-06-Invitatie-Juramant-23-IUNIE-ORA-900.pdf
+│   ├── 2026-06-tabel-afisare-site-25.06.2026-ora-14.00.pdf
+│   └── 2026-06-tabel-afisare-site-30.06.2026-ora-9.00.pdf
 ├── lib_db.sh
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
@@ -2254,6 +2257,8 @@
 │   ├── 2023-11-Ordin-2023-P-22.11.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2033P-28.05.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2066-P-din-29.11.2023-art-11.pdf
+│   ├── 2023-11-ordin-2067P-19.06.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2068-P-din-22.06.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2083-P-04.12.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2090-P-din-22.10.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2091P-22.10.2024-art-11.pdf
@@ -2596,6 +2601,7 @@
 │   ├── 2023-11-Ordin-nr.1870P-din-19.05.2025-Art.-11.pdf
 │   ├── 2023-11-Ordin-nr.1953P-din-08.10.2024-art.11.pdf
 │   ├── 2023-11-Ordin-nr-2010P-din-14-10-2024-art-11.pdf
+│   ├── 2023-11-Ordin-nr.-2063-P-18.06.2026-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2178P-din-05.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2206P-din-11.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2231P-din-13.11.2024-Art.-11.pdf
@@ -2936,4 +2942,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-32 directories, 2905 files
+32 directories, 2911 files
