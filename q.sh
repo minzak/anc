@@ -29,6 +29,9 @@ sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="14833/RD/2024";'
 #https://t.me/vorkos
 sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="38286/RD/2021";'
 
+#Done
+#sqlite3 -echo -box data.db 'SELECT * from Dosar11 where id="27030/RD/2021";'
+
 
 #sqlite3 -echo -box data.db '.read stat.sql'
 

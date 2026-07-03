@@ -171,6 +171,10 @@
 │   ├── 2026-05-tabel-afisare-site-13.05.2026-ora-09.pdf
 │   ├── 2026-05-tabel-afisare-site-20.05.2026-ora-09.pdf
 │   ├── 2026-06-Invitatie-Juramant-23-IUNIE-ORA-900.pdf
+│   ├── 2026-06-tabel-afisare-site-01.07.2026-ora.09.pdf
+│   ├── 2026-06-tabel-afisare-site-02.07.2026-ora-14.00.pdf
+│   ├── 2026-06-tabel-afisare-site-07.07.2026.pdf
+│   ├── 2026-06-tabel-afisare-site-09.07.2026.pdf
 │   ├── 2026-06-tabel-afisare-site-25.06.2026-ora-14.00.pdf
 │   └── 2026-06-tabel-afisare-site-30.06.2026-ora-9.00.pdf
 ├── lib_db.sh
@@ -2265,13 +2269,20 @@
 │   ├── 2023-11-Ordin-2095-P-din-08.12.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2098P-11.12.2023-NPE-art-11-.pdf
 │   ├── 2023-11-Ordin.-2101-din-28.10.2024-art-11.pdf
+│   ├── 2023-11-ordin-2112-24.06.2026-art-11.pdf
+│   ├── 2023-11-ordin-2113P-24.06.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2118P-02.06.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2120P-24.06.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2134-P-DIN-25.06.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2135-P-30.10.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2136-30.10.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2142-P-13.12.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2142-P-2024-din-31.10.2024-Art.-11.pdf
 │   ├── 2023-11-Ordin-2144P-04.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2145-P-din-01.11.2024-art-11.pdf
+│   ├── 2023-11-ordin-2150-P-din-25.06.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2152-P-DIN-26.06.2026-art.-11.pdf
+│   ├── 2023-11-Ordin-2153P-29.06.2026-art.11.pdf
 │   ├── 2023-11-ORDIN-2165-P-din-15.12.2023-art-11.pdf
 │   ├── 2023-11-Ordin-2169-2023-art-11.pdf
 │   ├── 2023-11-ORDIN-2177-art-11-05.11.2024.pdf
@@ -2284,6 +2295,7 @@
 │   ├── 2023-11-Ordin-2188P-06.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2188-P-din-22.12.2023-Art.-11.pdf
 │   ├── 2023-11-Ordin-2189P-06.06.2025-art-11-.pdf
+│   ├── 2023-11-Ordin-2204P-01.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2205-P-2024-din-11.11.2024-Art.-11.pdf
 │   ├── 2023-11-Ordin-2206P-11.06.2025-art.11ii.pdf
 │   ├── 2023-11-Ordin-2206P-11.06.2025-art.11.pdf
@@ -2304,6 +2316,7 @@
 │   ├── 2023-11-Ordin-2235.P-din-14.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2237-P-din-15.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2238-din-15.11.2024.pdf
+│   ├── 2023-11-Ordin-2241P-din-02.07.2026-art.11.pdf
 │   ├── 2023-11-ORDIN-2261-15.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2265P-din-18.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2265-P-din-18.11.2024-art-11.pdf
@@ -2602,6 +2615,7 @@
 │   ├── 2023-11-Ordin-nr.1953P-din-08.10.2024-art.11.pdf
 │   ├── 2023-11-Ordin-nr-2010P-din-14-10-2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-2063-P-18.06.2026-art-11.pdf
+│   ├── 2023-11-Ordin-nr.-2119P-din-24.06.2026-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2178P-din-05.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2206P-din-11.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2231P-din-13.11.2024-Art.-11.pdf
@@ -2664,6 +2678,7 @@
 │   ├── 2025-11-Ordin-4448P-18.11.2025-art.-11.pdf
 │   ├── 2026-06-O1956P-08.06.2026_Anonimizat.pdf
 │   ├── 2026-06-O2018-P-11.06.2026-art.11_Anonimizat.pdf
+│   ├── 2026-06-O-2065_Anonimizat.pdf
 │   ├── 2026-06-O-2066-P-din-18.06.2026_Anonimizat.pdf
 │   ├── 2026-06-op-2054-17.06.2026-art11_Anonimizat.pdf
 │   ├── 2026-06-Ordin-2038-P-din-16.06.2026-art11_Anonimizat.pdf
@@ -2942,4 +2957,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-32 directories, 2911 files
+32 directories, 2926 files
