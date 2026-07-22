@@ -9,7 +9,6 @@
 │   ├── get_cert.sh
 │   └── system_cacert.sh
 ├── data.db
-├── data.db.bz2
 ├── get-all.sh
 ├── get_juramat_no_ssl.py
 ├── get_juramat.py
@@ -176,7 +175,8 @@
 │   ├── 2026-06-tabel-afisare-site-07.07.2026.pdf
 │   ├── 2026-06-tabel-afisare-site-09.07.2026.pdf
 │   ├── 2026-06-tabel-afisare-site-25.06.2026-ora-14.00.pdf
-│   └── 2026-06-tabel-afisare-site-30.06.2026-ora-9.00.pdf
+│   ├── 2026-06-tabel-afisare-site-30.06.2026-ora-9.00.pdf
+│   └── 2026-07-14-IULIE-2026-ora-09-00.pdf
 ├── lib_db.sh
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
@@ -2295,6 +2295,7 @@
 │   ├── 2023-11-Ordin-2188P-06.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2188-P-din-22.12.2023-Art.-11.pdf
 │   ├── 2023-11-Ordin-2189P-06.06.2025-art-11-.pdf
+│   ├── 2023-11-Ordin-2203-01.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2204P-01.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2205-P-2024-din-11.11.2024-Art.-11.pdf
 │   ├── 2023-11-Ordin-2206P-11.06.2025-art.11ii.pdf
@@ -2316,7 +2317,9 @@
 │   ├── 2023-11-Ordin-2235.P-din-14.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2237-P-din-15.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2238-din-15.11.2024.pdf
+│   ├── 2023-11-Ordin-2240-02.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2241P-din-02.07.2026-art.11.pdf
+│   ├── 2023-11-Ordin-2242P-02.07.2026-art.11.pdf
 │   ├── 2023-11-ORDIN-2261-15.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2265P-din-18.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2265-P-din-18.11.2024-art-11.pdf
@@ -2325,21 +2328,29 @@
 │   ├── 2023-11-Ordin-2267P-18.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2268-din-18.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2268P-18.06.2025-art.-11.pdf
+│   ├── 2023-11-Ordin-2280P-din-06.07.2026-art-11_Anonimizat.pdf
+│   ├── 2023-11-Ordin-2281-P-07.07.2026-art-11.pdf
+│   ├── 2023-11-ordin-2283P-07.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2293-din-20.06.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2294-P-20.06.2025-Art.-11.pdf
 │   ├── 2023-11-Ordin-2295-P-20.06.2025-Art.-11.pdf
+│   ├── 2023-11-ordin-2298P-08.07.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2299P-din-08.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2303P-24.06.2025-ART-11.pdf
 │   ├── 2023-11-Ordin-2309P-24.06.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-2310-din-20.11.24-art.-11.pdf
 │   ├── 2023-11-Ordin-2310P-24.06.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-2312-din-20.11.24-art.-11.pdf
 │   ├── 2023-11-Ordin-2313P-2024-20.11.2024-Art.-11.pdf
+│   ├── 2023-11-Ordin-2332P-13.07.2026-art-11.pdf
+│   ├── 2023-11-ordin-2333P-13.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-233P-21.01.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2342-P-din-22.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2343P-din-22.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2345-din-22.11.2024-art-11-NPE.pdf
 │   ├── 2023-11-Ordin-2345P-08.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2347-P-2024-din-22.11.2024-Art.-11.pdf
+│   ├── 2023-11-Ordin-2351-P-14.07.2026ii-art-11.pdf
 │   ├── 2023-11-Ordin-2367P-2024-din-26.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2368P-din-26.11.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2369P-din-26.11.2024-art-11-.pdf
@@ -2348,6 +2359,7 @@
 │   ├── 2023-11-Ordin-2373.P-din-26.11.2024.art_.11.pdf
 │   ├── 2023-11-Ordin-2374.P-din-26.11.2024.art_.11.pdf
 │   ├── 2023-11-ORDIN-2375P-din-26.11.2024-art-11-.pdf
+│   ├── 2023-11-ordin-2384P-14.07.2026-art-11.pdf
 │   ├── 2023-11-ORDIN-2389P-10.07-art-11.pdf
 │   ├── 2023-11-Ordin-2391P-11.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2405P-28.11.2024-art-11.pdf
@@ -2626,6 +2638,7 @@
 │   ├── 2023-11-Ordin-nr.-2267-din-18.11.2024.pdf
 │   ├── 2023-11-Ordin-nr.-2269-din-18.11.2024.pdf
 │   ├── 2023-11-Ordin-nr.2315P-din-20.11.2024-art-11.pdf
+│   ├── 2023-11-Ordin-nr.2331P-din-09.07.2026-art.11.pdf
 │   ├── 2023-11-Ordin-nr.2344Pdin-22.11.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2368P-08.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2369P-din-08.07.2025-art-11.pdf
@@ -2703,9 +2716,9 @@
 ├── q.txt
 ├── qx.sh
 ├── qx.txt
-├── raw_dosar11.txt
+├── raw_dosar11.txt_
 ├── raw.sh
-├── raw_termen11.txt
+├── raw_termen11.txt_
 ├── readme.md
 ├── recompute_refuzuri.py
 ├── requirements.txt
@@ -2922,19 +2935,32 @@
 │   │   ├── Art-11-2024-Update-11.05.2026.pdf
 │   │   ├── Art-11-2025-Update-11.05.2026.pdf
 │   │   └── Art-11-2026-Update-11.05.2026.pdf
-│   └── 2026-06-11
-│       ├── Art-11-2015-Update-10.06.2026.pdf
-│       ├── Art-11-2016-Update-10.06.2026.pdf
-│       ├── Art-11-2017-Update-10.06.2026.pdf
-│       ├── Art-11-2018-Update-10.06.2026.pdf
-│       ├── Art-11-2019-Update-10.06.2026.pdf
-│       ├── Art-11-2020-Update-10.06.2026.pdf
-│       ├── Art-11-2021-Update-10.06.2026.pdf
-│       ├── Art-11-2022-Update-10.06.2026.pdf
-│       ├── Art-11-2023-Update-10.06.2026.pdf
-│       ├── Art-11-2024-Update-10.06.2026.pdf
-│       ├── Art-11-2025-Update-10.06.2026.pdf
-│       └── Art-11-2026-Update-10.06.2026.pdf
+│   ├── 2026-06-11
+│   │   ├── Art-11-2015-Update-10.06.2026.pdf
+│   │   ├── Art-11-2016-Update-10.06.2026.pdf
+│   │   ├── Art-11-2017-Update-10.06.2026.pdf
+│   │   ├── Art-11-2018-Update-10.06.2026.pdf
+│   │   ├── Art-11-2019-Update-10.06.2026.pdf
+│   │   ├── Art-11-2020-Update-10.06.2026.pdf
+│   │   ├── Art-11-2021-Update-10.06.2026.pdf
+│   │   ├── Art-11-2022-Update-10.06.2026.pdf
+│   │   ├── Art-11-2023-Update-10.06.2026.pdf
+│   │   ├── Art-11-2024-Update-10.06.2026.pdf
+│   │   ├── Art-11-2025-Update-10.06.2026.pdf
+│   │   └── Art-11-2026-Update-10.06.2026.pdf
+│   └── 2026-07-10
+│       ├── Art-11-2015-update-10.07.2026.pdf
+│       ├── Art-11-2016-update-10.07.2026.pdf
+│       ├── Art-11-2017-update-10.07.2026.pdf
+│       ├── Art-11-2018-update-10.07.2026.pdf
+│       ├── Art-11-2019-update-10.07.2026.pdf
+│       ├── Art-11-2020-update-10.07.2026.pdf
+│       ├── Art-11-2021-update-10.07.2026.pdf
+│       ├── Art-11-2022-update-10.07.2026.pdf
+│       ├── Art-11-2023-update-10.07.2026.pdf
+│       ├── Art-11-2024-update-10.07.2026.pdf
+│       ├── Art-11-2025-update-10.07.2026.pdf
+│       └── Art-11-2026-update-10.07.2026.pdf
 ├── state
 │   ├── juramat.json
 │   ├── minori.json
@@ -2957,4 +2983,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-32 directories, 2926 files
+33 directories, 2951 files

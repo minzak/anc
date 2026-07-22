@@ -357,13 +357,24 @@ def process_table_row(fields):
             else:
                 return None, pattern          # битый 3-й токен — остаётся UNKNOWN (пофиксим позже)
         else:
-            mask_parts = pattern.split(' ')
-            if mask_parts[1] == 'DD.DD.DDDD':
-                ID = filtered_line[0]
-                DEPUN = filtered_line[1]
+            sub1 = filtered_line[1].split()
+            # Обратный вариант: первое поле — «голый» год (обрывок соседней колонки/строки),
+            # второе — склейка "номер_дела дата_подачи" (напр. ['2025', '29803/RD/2025 09.10.2025']).
+            if (token_pattern(filtered_line[0]) == 'D'
+                    and len(sub1) == 2
+                    and token_pattern(sub1[0]) in ('D/LL/D', 'D/L/D', 'D/LLL/D')
+                    and token_pattern(sub1[1]) == 'DD.DD.DDDD'):
+                ID = sub1[0]
+                DEPUN = sub1[1]
                 TERMEN = ORDIN = SOLUTIE = None
             else:
-                return None, pattern
+                mask_parts = pattern.split(' ')
+                if mask_parts[1] == 'DD.DD.DDDD':
+                    ID = filtered_line[0]
+                    DEPUN = filtered_line[1]
+                    TERMEN = ORDIN = SOLUTIE = None
+                else:
+                    return None, pattern
     elif sfln == 1:
         parts = filtered_line[0].split()
         if len(parts) >= 3:
