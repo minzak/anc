@@ -9,6 +9,7 @@
 │   ├── get_cert.sh
 │   └── system_cacert.sh
 ├── data.db
+├── data.db.bz2
 ├── get-all.sh
 ├── get_juramat_no_ssl.py
 ├── get_juramat.py
@@ -2264,6 +2265,7 @@
 │   ├── 2023-11-ordin-2067P-19.06.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2068-P-din-22.06.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2083-P-04.12.2023-art-11.pdf
+│   ├── 2023-11-Ordin-2087P-23.06.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2090-P-din-22.10.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2091P-22.10.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2095-P-din-08.12.2023-art-11.pdf
@@ -2379,6 +2381,7 @@
 │   ├── 2023-11-ORDIN-2453P-16.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2455-din-04.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2456-P-04.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2458P-21.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2464-P-2024-din-04.12.2024-Art.-11.pdf
 │   ├── 2023-11-Ordin-2470.P-din-05.12.2024-art.11-docx.pdf
 │   ├── 2023-11-ORDIN-2472-DIN-06.12.24-art.-11.pdf
@@ -2388,10 +2391,15 @@
 │   ├── 2023-11-Ordin-2496P-21.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2497P-21.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2498P-21.07.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2498P-23.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2499P-22.07.2025-art-11.pdf
+│   ├── 2023-11-ordin-2500P-24.07.2026-art-11i.pdf
 │   ├── 2023-11-Ordin-2520-din-10.12.2024-art.-11.pdf
 │   ├── 2023-11-Ordin-2521-din10.12-.2024-art-11.pdf
 │   ├── 2023-11-ordin-2522-P-10.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-2526P-27.07.2026-art-11.pdf
+│   ├── 2023-11-ordin-2527P-27.07.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2529P-28.07.2026-art-11.pdf
 │   ├── 2023-11-ORDIN-2538-din-12.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2541P-12.12.2024-art.-11.pdf
 │   ├── 2023-11-Ordin-2567P-28.07.2025-art-11ii.pdf
@@ -2458,6 +2466,7 @@
 │   ├── 2023-11-ordin-3671P-13.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3696P-14.10.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-36P-din-13.01.2025-art-11.pdf
+│   ├── 2023-11-ordin-3731P-15.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3732P-15.10.2025-art-11.pdf
 │   ├── 2023-11-ordin-3733P-15.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3734P15.10.2025-art-11.pdf
@@ -2644,6 +2653,7 @@
 │   ├── 2023-11-Ordin-nr.2369P-din-08.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr.-2412P-15.07.2025-Art.-11.pdf
 │   ├── 2023-11-ORDIN-nr.-2473-din-06.12.2024-art-11.pdf
+│   ├── 2023-11-Ordin-nr.2528P-din-27.07.2026-Art.-11.pdf
 │   ├── 2023-11-Ordin-nr.2567P-din-28.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2604P-din-18.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-nr.2624P-din-19.12.2024-art-11.pdf
@@ -2716,9 +2726,9 @@
 ├── q.txt
 ├── qx.sh
 ├── qx.txt
-├── raw_dosar11.txt_
+├── raw_dosar11.txt
 ├── raw.sh
-├── raw_termen11.txt_
+├── raw_termen11.txt
 ├── readme.md
 ├── recompute_refuzuri.py
 ├── requirements.txt
@@ -2983,4 +2993,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-33 directories, 2951 files
+33 directories, 2961 files

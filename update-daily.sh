@@ -1,6 +1,8 @@
 #!/bin/bash
 
 source venv/bin/activate
+
+export ANC_DEBUG=0
 source ./lib_db.sh
 
 anc_shm_begin
