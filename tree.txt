@@ -177,7 +177,11 @@
 │   ├── 2026-06-tabel-afisare-site-09.07.2026.pdf
 │   ├── 2026-06-tabel-afisare-site-25.06.2026-ora-14.00.pdf
 │   ├── 2026-06-tabel-afisare-site-30.06.2026-ora-9.00.pdf
-│   └── 2026-07-14-IULIE-2026-ora-09-00.pdf
+│   ├── 2026-07-14-IULIE-2026-ora-09-00.pdf
+│   ├── 2026-08-11-AUGUST-ORA-1400i.pdf
+│   ├── 2026-08-tabel-afisare-site-06.08.2026-ora-13.pdf
+│   ├── 2026-08-tabel-afisare-site-06.08.2026-ora-9.pdf
+│   └── 2026-08-tabel-afisare-site-12.08.2026-ora-9.00.pdf
 ├── lib_db.sh
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
@@ -2390,6 +2394,7 @@
 │   ├── 2023-11-ORDIN-2482-din-06.12.2024.pdf
 │   ├── 2023-11-Ordin-2496P-21.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2497P-21.07.2025-art-11.pdf
+│   ├── 2023-11-ordin-2497P-23.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2498P-21.07.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2498P-23.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2499P-22.07.2025-art-11.pdf
@@ -2400,11 +2405,22 @@
 │   ├── 2023-11-Ordin-2526P-27.07.2026-art-11.pdf
 │   ├── 2023-11-ordin-2527P-27.07.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2529P-28.07.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2533P-29.07.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2534P-29.07.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2535P-29.07.2026-art-11.pdf
 │   ├── 2023-11-ORDIN-2538-din-12.12.2024-art-11.pdf
+│   ├── 2023-11-ordin-2538P-30.07.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2539P-31.07.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2541P-03.08.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2541P-12.12.2024-art.-11.pdf
+│   ├── 2023-11-Ordin-2543-P-03.08.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2544P-03.08.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2550-P-DIN-03.08.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2567P-28.07.2025-art-11ii.pdf
+│   ├── 2023-11-Ordin-2571P-04.08.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2586P-16.12.2024-art-11.pdf
 │   ├── 2023-11-ORDIN-2587-din-data-de-16.12.2024-art-11.pdf
+│   ├── 2023-11-ordin-2590P-06.08.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2603-P-2024-din-18.12.2024-Art.-11.pdf
 │   ├── 2023-11-Ordin-2605-P-18.12.2024-art-11.pdf
 │   ├── 2023-11-Ordin-2623P-19.12.2024-art-11.pdf
@@ -2958,19 +2974,32 @@
 │   │   ├── Art-11-2024-Update-10.06.2026.pdf
 │   │   ├── Art-11-2025-Update-10.06.2026.pdf
 │   │   └── Art-11-2026-Update-10.06.2026.pdf
-│   └── 2026-07-10
-│       ├── Art-11-2015-update-10.07.2026.pdf
-│       ├── Art-11-2016-update-10.07.2026.pdf
-│       ├── Art-11-2017-update-10.07.2026.pdf
-│       ├── Art-11-2018-update-10.07.2026.pdf
-│       ├── Art-11-2019-update-10.07.2026.pdf
-│       ├── Art-11-2020-update-10.07.2026.pdf
-│       ├── Art-11-2021-update-10.07.2026.pdf
-│       ├── Art-11-2022-update-10.07.2026.pdf
-│       ├── Art-11-2023-update-10.07.2026.pdf
-│       ├── Art-11-2024-update-10.07.2026.pdf
-│       ├── Art-11-2025-update-10.07.2026.pdf
-│       └── Art-11-2026-update-10.07.2026.pdf
+│   ├── 2026-07-10
+│   │   ├── Art-11-2015-update-10.07.2026.pdf
+│   │   ├── Art-11-2016-update-10.07.2026.pdf
+│   │   ├── Art-11-2017-update-10.07.2026.pdf
+│   │   ├── Art-11-2018-update-10.07.2026.pdf
+│   │   ├── Art-11-2019-update-10.07.2026.pdf
+│   │   ├── Art-11-2020-update-10.07.2026.pdf
+│   │   ├── Art-11-2021-update-10.07.2026.pdf
+│   │   ├── Art-11-2022-update-10.07.2026.pdf
+│   │   ├── Art-11-2023-update-10.07.2026.pdf
+│   │   ├── Art-11-2024-update-10.07.2026.pdf
+│   │   ├── Art-11-2025-update-10.07.2026.pdf
+│   │   └── Art-11-2026-update-10.07.2026.pdf
+│   └── 2026-08-06
+│       ├── Art-11-2015-update-07.08.2026.pdf
+│       ├── Art-11-2016-update-07.08.2026.pdf
+│       ├── Art-11-2017-update-07.08.2026.pdf
+│       ├── Art-11-2018-update-07.08.2026.pdf
+│       ├── Art-11-2019-update-07.08.2026.pdf
+│       ├── Art-11-2020-update-07.08.2026.pdf
+│       ├── Art-11-2021-update-07.08.2026.pdf
+│       ├── Art-11-2022-update-07.08.2026.pdf
+│       ├── Art-11-2023-update-07.08.2026.pdf
+│       ├── Art-11-2024-update-07.08.2026.pdf
+│       ├── Art-11-2025-update-07.08.2026.pdf
+│       └── Art-11-2026-update-07.08.2026.pdf
 ├── state
 │   ├── juramat.json
 │   ├── minori.json
@@ -2993,4 +3022,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-33 directories, 2961 files
+34 directories, 2989 files
