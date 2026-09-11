@@ -564,10 +564,25 @@
 "sha1": "fde13e6ccf81db9a8ff1620f125f5186594e674b",
 "size": 230844
 },
+"minori/2021-06-Ordin-2849P-02.09.2026-Minori.pdf": {
+"mtime": 1788882628,
+"sha1": "73ded5d03cb88d7edd8509ac9ed15303e2e98eb4",
+"size": 352883
+},
 "minori/2021-06-Ordin-284P-26.01.2026-minori.pdf": {
 "mtime": 1769449083,
 "sha1": "f1ce72bb3c453219705bd201d5a32de40d8041f0",
 "size": 223364
+},
+"minori/2021-06-Ordin-2850P-02.09.2026-minori.pdf": {
+"mtime": 1788637587,
+"sha1": "13b0e5828894419690f1259cab849c217617b0a8",
+"size": 435147
+},
+"minori/2021-06-Ordin-2853P-03.09.2026-Minori.pdf": {
+"mtime": 1788882628,
+"sha1": "f5080875f0f0255fef454ee7405084223be0826f",
+"size": 427724
 },
 "minori/2021-06-Ordin-285P-26.01.2026-Art.-11.pdf": {
 "mtime": 1769449084,
@@ -578,6 +593,11 @@
 "mtime": 1769449084,
 "sha1": "930a3767187cfb32b0c74911a5f824fbbdb705d1",
 "size": 231431
+},
+"minori/2021-06-Ordin-2882-P-11.09.2026-minor.pdf": {
+"mtime": 1789125925,
+"sha1": "e4435c5c6b0a77e80127931083d298f1c9b4a347",
+"size": 266177
 },
 "minori/2021-06-Ordin-2922P-01.09.2025-minori.pdf": {
 "mtime": 1756987096,
@@ -1213,6 +1233,11 @@
 "mtime": 1744011783,
 "sha1": "b4829997a7a8d772a67ad76ca7bcb5555ae0c597",
 "size": 274131
+},
+"minori/2021-06-ordin-2852-P-din-03.09.2026-minori-.pdf": {
+"mtime": 1789125926,
+"sha1": "80d3773cfcade4e4648a003642571656b7c74c16",
+"size": 270449
 },
 "minori/2021-06-ordin-382P.pdf": {
 "mtime": 1744011820,

@@ -779,6 +779,36 @@
 "sha1": "b2e43d213190c0c9fbf04d60dc22e55cdf91f3ad",
 "size": 170359
 },
+"juramat/2026-08-19-AUGUST-ORA-900.pdf": {
+"mtime": 1787050481,
+"sha1": "5ae973a7f9cfc4eb6e56e08f681fbe9a91a9cc85",
+"size": 356766
+},
+"juramat/2026-08-20-AUGUST-2026-ora-09-00.pdf": {
+"mtime": 1787050481,
+"sha1": "ee738af55804f46f3ebe6ac08d81abe021421786",
+"size": 358755
+},
+"juramat/2026-08-25-AUGUST-ORA-1400.pdf": {
+"mtime": 1787654957,
+"sha1": "8c882995d9c47f32a5020ee1f391db23485a40cf",
+"size": 348250
+},
+"juramat/2026-08-26-AUGUST-ORA-900.pdf": {
+"mtime": 1787654957,
+"sha1": "4ea8a534409004333c4c89afbd2ffc7b5f18563c",
+"size": 338165
+},
+"juramat/2026-08-27-AUGUST-ORA-900.pdf": {
+"mtime": 1787654957,
+"sha1": "d76f5a46a449185340c4d3a3c2c3db15afd7dc84",
+"size": 367292
+},
+"juramat/2026-08-tabel-afisare-site-02.09.2026.pdf": {
+"mtime": 1787671251,
+"sha1": "ce6b40d84ee4169ed745b71367e4f50b17a32980",
+"size": 467995
+},
 "juramat/2026-08-tabel-afisare-site-06.08.2026-ora-13.pdf": {
 "mtime": 1786040854,
 "sha1": "d68499d674155a22ce952031d83639edf8a8efa7",
@@ -793,5 +823,10 @@
 "mtime": 1786040854,
 "sha1": "8abe296c32e26de94b20c47753a0f41d73b1e361",
 "size": 140896
+},
+"juramat/2026-09-10-SEPTEMBRIE-2026-ora-09-00.pdf": {
+"mtime": 1789046187,
+"sha1": "06da13d537f26f71085b4d404b24d775a8556da7",
+"size": 393009
 }
 }

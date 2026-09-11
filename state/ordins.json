@@ -8524,6 +8524,11 @@
 "sha1": "2fb29dfae7b6f4e37562b0d5b8a46e42c4f42cb0",
 "size": 215215
 },
+"ordins/2023-11-Ordin-.2662P-18.08.2026-art.11.pdf": {
+"mtime": 1787654960,
+"sha1": "510b1c84ce1e00edb6c4b18ad9892cd33dda2e7a",
+"size": 127238
+},
 "ordins/2023-11-Ordin-1004-P-din-23.03.2026-art.-11.pdf": {
 "mtime": 1774277460,
 "sha1": "39236ac734c90d063898100b8a2b6f02e6eb312b",
@@ -9654,6 +9659,11 @@
 "sha1": "c8424d084008f9aa7bb105bd831b0ef3e1debccc",
 "size": 217630
 },
+"ordins/2023-11-Ordin-2537-30.07.2026-art-11i.pdf": {
+"mtime": 1786647330,
+"sha1": "80b367e5f2f94b91030ba56d968d4645030962cc",
+"size": 133927
+},
 "ordins/2023-11-Ordin-2539P-31.07.2026-art-11.pdf": {
 "mtime": 1785507706,
 "sha1": "94f3ba3109d01675237ffadeff203e282d7b788e",
@@ -9668,6 +9678,11 @@
 "mtime": 1734429180,
 "sha1": "1245333394fd9b8825cc8181e02b6f4645a9d27b",
 "size": 230880
+},
+"ordins/2023-11-Ordin-2542P-03.08.2026-Art.-11.pdf": {
+"mtime": 1786451228,
+"sha1": "542a2d50f628b6e55f59eb7a232c06733681b691",
+"size": 154214
 },
 "ordins/2023-11-Ordin-2543-P-03.08.2026-art-11.pdf": {
 "mtime": 1785846944,
@@ -9709,15 +9724,40 @@
 "sha1": "728b1cba57322149b07a8a122057716e84ea8009",
 "size": 319971
 },
+"ordins/2023-11-Ordin-2613-P-10.08.2026-art-11.pdf": {
+"mtime": 1787654960,
+"sha1": "8599279d485fa5be374bc42c005e52e6ed481fce",
+"size": 473564
+},
 "ordins/2023-11-Ordin-2623P-19.12.2024-art-11.pdf": {
 "mtime": 1734633960,
 "sha1": "174f21f3f429c46f43efc4c3e951b092e1bdce90",
 "size": 213228
 },
+"ordins/2023-11-Ordin-2631P-11.08.2026-art-11.pdf": {
+"mtime": 1786451228,
+"sha1": "b13f2701052d5c4daaf3702d903d7e0124aaec1e",
+"size": 209724
+},
 "ordins/2023-11-Ordin-2635P-din-19.12.2024-art-11.pdf": {
 "mtime": 1734633960,
 "sha1": "702c680511e8778394ffe04a12d2fd4999b294fb",
 "size": 205885
+},
+"ordins/2023-11-Ordin-2637P-12.08.2026-art-11.pdf": {
+"mtime": 1786526943,
+"sha1": "0db1cf2abc7d6fbdabf2de81d47ab99f71ce835b",
+"size": 200958
+},
+"ordins/2023-11-Ordin-2638P-12.08.2026-art-11.pdf": {
+"mtime": 1786526943,
+"sha1": "377dc30d7cefa6d88125048044a26f2aa7ecf2ff",
+"size": 177757
+},
+"ordins/2023-11-Ordin-2639P-18.08.2026-art-11.pdf": {
+"mtime": 1787050482,
+"sha1": "eb84fae3ae205a93e2478e55ae9b4e0a9f9d3f75",
+"size": 207474
 },
 "ordins/2023-11-Ordin-2642-P-19.12.2024-art-11.pdf": {
 "mtime": 1734633960,
@@ -9744,6 +9784,21 @@
 "sha1": "d9d10977d2c3ba3537ce86e9589ad63823c49a80",
 "size": 266670
 },
+"ordins/2023-11-Ordin-2708P-20.08.2026-art-11.pdf": {
+"mtime": 1787654959,
+"sha1": "3cfbbae5a460d961b48ecf2ff2fef51506bbabd4",
+"size": 499995
+},
+"ordins/2023-11-Ordin-2709P-20.08.2026-art-11.pdf": {
+"mtime": 1787654960,
+"sha1": "e32703e499e1e31a34e938dda61c23705caa0bd2",
+"size": 588090
+},
+"ordins/2023-11-Ordin-2710P-20.08.2026-art-11.pdf": {
+"mtime": 1787654960,
+"sha1": "6a7db11c663135c322b234241ea90a7122d6c4fc",
+"size": 526952
+},
 "ordins/2023-11-Ordin-2714P-05.08.2025-art-11.pdf": {
 "mtime": 1754484180,
 "sha1": "609ca1f3dd22313fa7937e825a21cc27e14484d0",
@@ -9763,6 +9818,21 @@
 "mtime": 1735050480,
 "sha1": "d64b7102087991663b11bc8958da48f3d1f76534",
 "size": 220379
+},
+"ordins/2023-11-Ordin-2736P-21.08.2026-art-11.pdf": {
+"mtime": 1787654959,
+"sha1": "593aea02ed30924dfa26068ac4b34bfd4be3d8a8",
+"size": 532704
+},
+"ordins/2023-11-Ordin-2751P-24.08.2026-art-11.pdf": {
+"mtime": 1787654959,
+"sha1": "38a6e9ec15d0d1f96a8de3a350aa83f4cdf710e7",
+"size": 604549
+},
+"ordins/2023-11-Ordin-2753P-25.08.2026-art-11.pdf": {
+"mtime": 1787671252,
+"sha1": "fca7265ac8fa062fff4b76b2d7a270b4b15a5f96",
+"size": 439180
 },
 "ordins/2023-11-Ordin-2764P-11.08.2025-art-11.pdf": {
 "mtime": 1754929440,
@@ -9829,6 +9899,11 @@
 "sha1": "84553927599f96e1948635f2f5ed55fa62fc2a58",
 "size": 312984
 },
+"ordins/2023-11-Ordin-2826P-01.09.2026-art-11.pdf": {
+"mtime": 1788870862,
+"sha1": "35fe5c1522373034e67f9905f44600d54f858813",
+"size": 474283
+},
 "ordins/2023-11-Ordin-282P-26.01.2026-art-11.pdf": {
 "mtime": 1770031800,
 "sha1": "d2c748bba017b11e63503e4458c51f350fe69e1a",
@@ -9863,6 +9938,11 @@
 "mtime": 1756208040,
 "sha1": "5892d335f163f558158cce449ffd691a1e2d60d5",
 "size": 200216
+},
+"ordins/2023-11-Ordin-2881-P-11.09.2026-art-11.pdf": {
+"mtime": 1789125928,
+"sha1": "55da48d42523fe49e388425deb7fa929a7dbe3a2",
+"size": 493945
 },
 "ordins/2023-11-Ordin-2887-P-27.08.2025-art-11.pdf": {
 "mtime": 1756305720,
@@ -10939,6 +11019,11 @@
 "sha1": "40a0e5c98b1a28af9b369bef639b0e9b4125bba2",
 "size": 237165
 },
+"ordins/2023-11-ordin-1302P-15.04.2026-art-11.pdf": {
+"mtime": 1787654960,
+"sha1": "021b2603e3bbaa0914a872674e595a3b9fa19ef9",
+"size": 267962
+},
 "ordins/2023-11-ordin-1450-din-16.04.2025-art11.pdf": {
 "mtime": 1744838040,
 "sha1": "966ed5e7792fd8fabb9549d1ed0e4d471f5b1b97",
@@ -11098,6 +11183,31 @@
 "mtime": 1786096339,
 "sha1": "b8de9e4d2076017b597c9124cc29ff0d1e29148d",
 "size": 121667
+},
+"ordins/2023-11-ordin-2661P-18.08.2026-art-11.pdf": {
+"mtime": 1787654960,
+"sha1": "a80be08349963f91dd88389ab46b56989b82dd6c",
+"size": 491528
+},
+"ordins/2023-11-ordin-2675P-19.08.2026-art-11.pdf": {
+"mtime": 1787654960,
+"sha1": "18d3fa661e33125380a1e1dece961b9dc29c8449",
+"size": 136968
+},
+"ordins/2023-11-ordin-2676P-19.08.2026-art-11.pdf": {
+"mtime": 1787654960,
+"sha1": "a3dbf202dd7cec64945c50fa492572da89f7b272",
+"size": 120377
+},
+"ordins/2023-11-ordin-2711P-20.08.2026-art-11.pdf": {
+"mtime": 1787654960,
+"sha1": "d66b7cf53eaa2a38d9d0d93f89d27402cfdabe36",
+"size": 505252
+},
+"ordins/2023-11-ordin-2781P-26.08.2026-art-11.pdf": {
+"mtime": 1788179574,
+"sha1": "a53bf5f1fbb8d3e74ecc1e79f4ab8a44e2d27ebb",
+"size": 492430
 },
 "ordins/2023-11-ordin-3671P-13.10.2025-art-11.pdf": {
 "mtime": 1760362980,
