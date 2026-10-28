@@ -599,6 +599,11 @@
 "sha1": "e4435c5c6b0a77e80127931083d298f1c9b4a347",
 "size": 266177
 },
+"minori/2021-06-Ordin-2915P-15.09.2026-Minori.pdf": {
+"mtime": 1789567357,
+"sha1": "29d86236ae0f09ca8567c6dafb73b05345801390",
+"size": 427249
+},
 "minori/2021-06-Ordin-2922P-01.09.2025-minori.pdf": {
 "mtime": 1756987096,
 "sha1": "84c4b63897cb0106afbea178b7b282a57d327665",
@@ -608,6 +613,11 @@
 "mtime": 1756987096,
 "sha1": "edf1102c77e344b825f0b24983ef9b1b3ff03b3b",
 "size": 206300
+},
+"minori/2021-06-Ordin-2967-P-17.09.2026-minori.pdf": {
+"mtime": 1789736529,
+"sha1": "87b42680992717da842d72ad1f9231e00b1e288c",
+"size": 508720
 },
 "minori/2021-06-Ordin-3043P-11.09.2025-Minori.pdf": {
 "mtime": 1757958602,
@@ -624,10 +634,35 @@
 "sha1": "b9fbdd56daae6574b0de847d6e57ab3fe3c8713b",
 "size": 209279
 },
+"minori/2021-06-Ordin-3059-P-25.09.2026-Minori.pdf": {
+"mtime": 1790696378,
+"sha1": "48257044958ce97c31d3fcac5595fc764ac27621",
+"size": 346476
+},
+"minori/2021-06-Ordin-3060-P-25.09.2026-Minori.pdf": {
+"mtime": 1790696378,
+"sha1": "e552c7825208ff58a80c53c30ca855073002c8e4",
+"size": 428093
+},
+"minori/2021-06-Ordin-3082P-30.09.2026-Minori.pdf": {
+"mtime": 1791388207,
+"sha1": "6298892613d1c51ce5d93b2dec973af63e824f83",
+"size": 340711
+},
 "minori/2021-06-Ordin-309-Minori-152-pers-.pdf": {
 "mtime": 1744011807,
 "sha1": "35a540d2cb6186470a0d536b9fd4922f790a9f3a",
 "size": 249679
+},
+"minori/2021-06-Ordin-3225-P-07.10.2026-Minori.pdf": {
+"mtime": 1791546168,
+"sha1": "4e573e8579287f164b49660a9efe0a1cbb9c2afa",
+"size": 427040
+},
+"minori/2021-06-Ordin-3226P-07.10.2026-minori.pdf": {
+"mtime": 1791546169,
+"sha1": "2bac1697b7ce35dcee23b6e0218f15e3456d4065",
+"size": 497561
 },
 "minori/2021-06-Ordin-3441P-din-30.09-minori.pdf": {
 "mtime": 1759335046,
@@ -1238,6 +1273,11 @@
 "mtime": 1789125926,
 "sha1": "80d3773cfcade4e4648a003642571656b7c74c16",
 "size": 270449
+},
+"minori/2021-06-ordin-2968P-17.09.2026-minori.pdf": {
+"mtime": 1789736530,
+"sha1": "32c8fa69c55488a7035ca3d47be174e69f8992f1",
+"size": 446674
 },
 "minori/2021-06-ordin-382P.pdf": {
 "mtime": 1744011820,

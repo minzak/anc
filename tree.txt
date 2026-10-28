@@ -188,7 +188,16 @@
 │   ├── 2026-08-tabel-afisare-site-06.08.2026-ora-13.pdf
 │   ├── 2026-08-tabel-afisare-site-06.08.2026-ora-9.pdf
 │   ├── 2026-08-tabel-afisare-site-12.08.2026-ora-9.00.pdf
-│   └── 2026-09-10-SEPTEMBRIE-2026-ora-09-00.pdf
+│   ├── 2026-09-10-SEPTEMBRIE-2026-ora-09-00.pdf
+│   ├── 2026-09-17-SEPTEMBRIE-ORA-0900.pdf
+│   ├── 2026-09-tabel-afisare-site-15.09.2026-ora-14.00.pdf
+│   ├── 2026-09-tabel-afisare-site-16.09.2026-ora-9.00.pdf
+│   ├── 2026-09-tabel-afisare-site-29.09.2026-ora-14.00.pdf
+│   ├── 2026-09-tabel-afisare-site-30.09.2026-ora-9.00.pdf
+│   ├── 2026-10-tabel-afisare-site-08.10.026-ora-13-00.pdf
+│   ├── 2026-10-tabel-afisare-site-08.10.2026-ora-09.00.pdf
+│   ├── 2026-10-tabel-afisare-site-28.10.2026-ora-09.00.pdf
+│   └── 2026-10-tabel-afisare-site-28.10.2026-ora-14.00.pdf
 ├── lib_db.sh
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
@@ -311,12 +320,20 @@
 │   ├── 2021-06-Ordin-285P-26.01.2026-Art.-11.pdf
 │   ├── 2021-06-Ordin-286P-26.01.2026-art-11.pdf
 │   ├── 2021-06-Ordin-2882-P-11.09.2026-minor.pdf
+│   ├── 2021-06-Ordin-2915P-15.09.2026-Minori.pdf
 │   ├── 2021-06-Ordin-2922P-01.09.2025-minori.pdf
 │   ├── 2021-06-Ordin-2930P-02-09-2025-minori.pdf
+│   ├── 2021-06-Ordin-2967-P-17.09.2026-minori.pdf
+│   ├── 2021-06-ordin-2968P-17.09.2026-minori.pdf
 │   ├── 2021-06-Ordin-3043P-11.09.2025-Minori.pdf
 │   ├── 2021-06-Ordin-3051-P-din-12.09.2025-Minori.pdf
 │   ├── 2021-06-Ordin-3053P-12.09.2025-Minori.pdf
+│   ├── 2021-06-Ordin-3059-P-25.09.2026-Minori.pdf
+│   ├── 2021-06-Ordin-3060-P-25.09.2026-Minori.pdf
+│   ├── 2021-06-Ordin-3082P-30.09.2026-Minori.pdf
 │   ├── 2021-06-Ordin-309-Minori-152-pers-.pdf
+│   ├── 2021-06-Ordin-3225-P-07.10.2026-Minori.pdf
+│   ├── 2021-06-Ordin-3226P-07.10.2026-minori.pdf
 │   ├── 2021-06-ORDIN-323P-MINORI-7-P.pdf
 │   ├── 2021-06-Ordin-3441P-din-30.09-minori.pdf
 │   ├── 2021-06-Ordin-3505P-01.10.2025-minori.pdf
@@ -715,6 +732,8 @@
 │   ├── 2021-06-Ordin-1758P-din-10.12.2021-Moldova.pdf
 │   ├── 2021-06-Ordin-1763-P-13-12-2021.pdf
 │   ├── 2021-06-Ordin-1767-P-13-12-2021.pdf
+│   ├── 2021-06-Ordin-2967-P-17.09.2026-minori.pdf
+│   ├── 2021-06-ordin-2968P-17.09.2026-minori.pdf
 │   ├── 2021-06-ordin-472P-ART-11.pdf
 │   ├── 2021-06-ORDIN-473P-85-persoane-ART-11.pdf
 │   ├── 2021-06-ordin-474P-NPE-2-PERS-art-11-Gutu-.pdf
@@ -2455,6 +2474,7 @@
 │   ├── 2023-11-ordin-2676P-19.08.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2701P-04-08-2025-art-11.pdf
 │   ├── 2023-11-Ordin-2702P-04.08.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2708P-20.08.2026-art-11i.pdf
 │   ├── 2023-11-Ordin-2708P-20.08.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2709P-20.08.2026-art-11.pdf
 │   ├── 2023-11-Ordin-2710P-20.08.2026-art-11.pdf
@@ -2491,10 +2511,25 @@
 │   ├── 2023-11-Ordin-2876P-25.08.2025-art-11.pdf
 │   ├── 2023-11-ORDIN-287-din-04.02.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2881-P-11.09.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2885-P-14.09.2026-art-11i.pdf
 │   ├── 2023-11-Ordin-2887-P-27.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2888P-27.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-2896P-28.08.2025-art-11.pdf
 │   ├── 2023-11-Ordin-289P-04.02.2025-art-11.pdf
+│   ├── 2023-11-Ordin-2916P-15.09.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2917P-15.09.2026-art-11.pdf
+│   ├── 2023-11-ordin-2918P-din-15.09.2026-art-11.pdf
+│   ├── 2023-11-ordin-2919P-din-15.09.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2920P-15.09.2026-art-11.pdf
+│   ├── 2023-11-ordin-2977P-din-18.09.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2992P-21.09.2026-art-11.pdf
+│   ├── 2023-11-Ordin-2993-P-22.09.2026-art-11.pdf
+│   ├── 2023-11-ordin-2994P-22.09.2026-art.11.pdf
+│   ├── 2023-11-Ordin-2996P-23.09.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3058-P-25.09.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3080-P-29.09.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3083-P-30.09.2026-art-11.pdf
+│   ├── 2023-11-ordin-3095P-din-01.10.2026-art.11.pdf
 │   ├── 2023-11-Ordin-3111P-22.09.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3112P-22.09.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3113P-22.09.2025-art.-11.pdf
@@ -2505,11 +2540,17 @@
 │   ├── 2023-11-Ordin-316P-26.01.2026-art-11.pdf
 │   ├── 2023-11-Ordin-317-P-27.01.2026-art-11.pdf
 │   ├── 2023-11-Ordin-318P-27.01.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3190-P-07.10.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3191-P-07.10.2026-art-11.pdf
 │   ├── 2023-11-Ordin-319P-28.01.2026-art-11.pdf
 │   ├── 2023-11-ORDIN-320-P-DIN-28.01.2026-art-11.pdf
 │   ├── 2023-11-Ordin-321P-28.01.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3229-P-08.10.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3234P-din-08.10.2026-art-11.pdf
 │   ├── 2023-11-Ordin-326-P-13.02.2024-art-11.pdf
 │   ├── 2023-11-Ordin-328-P-din-15.02.2024-art-11-i.pdf
+│   ├── 2023-11-Ordin-3341P-28.10.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3351P-28.10.2026-art-11.pdf
 │   ├── 2023-11-Ordin-3354P-29.09.2025-Art.11.pdf
 │   ├── 2023-11-Ordin-3442P-30.09.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3670P-13.10.2025-art-11.pdf
@@ -3034,19 +3075,32 @@
 │   │   ├── Art-11-2024-update-07.08.2026.pdf
 │   │   ├── Art-11-2025-update-07.08.2026.pdf
 │   │   └── Art-11-2026-update-07.08.2026.pdf
-│   └── 2026-09-10
-│       ├── Art-11-2015-update-09.09.2026.pdf
-│       ├── Art-11-2016-update-09.09.2026.pdf
-│       ├── Art-11-2017-update-09.09.2026.pdf
-│       ├── Art-11-2018-update-09.09.2026.pdf
-│       ├── Art-11-2019-update-09.09.2026.pdf
-│       ├── Art-11-2020-update-09.09.2026.pdf
-│       ├── Art-11-2021-update-09.09.2026.pdf
-│       ├── Art-11-2022-update-09.09.2026.pdf
-│       ├── Art-11-2023-update-09.09.2026.pdf
-│       ├── Art-11-2024-update-09.09.2026.pdf
-│       ├── Art-11-2025-update-09.09.2026.pdf
-│       └── Art-11-2026-update-09.09.2026.pdf
+│   ├── 2026-09-09
+│   │   ├── Art-11-2015-update-09.09.2026.pdf
+│   │   ├── Art-11-2016-update-09.09.2026.pdf
+│   │   ├── Art-11-2017-update-09.09.2026.pdf
+│   │   ├── Art-11-2018-update-09.09.2026.pdf
+│   │   ├── Art-11-2019-update-09.09.2026.pdf
+│   │   ├── Art-11-2020-update-09.09.2026.pdf
+│   │   ├── Art-11-2021-update-09.09.2026.pdf
+│   │   ├── Art-11-2022-update-09.09.2026.pdf
+│   │   ├── Art-11-2023-update-09.09.2026.pdf
+│   │   ├── Art-11-2024-update-09.09.2026.pdf
+│   │   ├── Art-11-2025-update-09.09.2026.pdf
+│   │   └── Art-11-2026-update-09.09.2026.pdf
+│   └── 2026-10-08
+│       ├── Art-11-2015-update-08.10.2026.pdf
+│       ├── Art-11-2016-update-08.10.2026.pdf
+│       ├── Art-11-2017-update-08.10.2026.pdf
+│       ├── Art-11-2018-update-08.10.2026.pdf
+│       ├── Art-11-2019-update-08.10.2026.pdf
+│       ├── Art-11-2020-update-08.10.2026.pdf
+│       ├── Art-11-2021-update-08.10.2026.pdf
+│       ├── Art-11-2022-update-08.10.2026.pdf
+│       ├── Art-11-2023-update-08.10.2026.pdf
+│       ├── Art-11-2024-update-08.10.2026.pdf
+│       ├── Art-11-2025-update-08.10.2026.pdf
+│       └── Art-11-2026-update-08.10.2026.pdf
 ├── state
 │   ├── juramat.json
 │   ├── minori.json
@@ -3069,4 +3123,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-35 directories, 3035 files
+36 directories, 3088 files
