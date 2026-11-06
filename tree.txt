@@ -197,7 +197,9 @@
 │   ├── 2026-10-tabel-afisare-site-08.10.026-ora-13-00.pdf
 │   ├── 2026-10-tabel-afisare-site-08.10.2026-ora-09.00.pdf
 │   ├── 2026-10-tabel-afisare-site-28.10.2026-ora-09.00.pdf
-│   └── 2026-10-tabel-afisare-site-28.10.2026-ora-14.00.pdf
+│   ├── 2026-10-tabel-afisare-site-28.10.2026-ora-14.00.pdf
+│   ├── 2026-11-tabel-afisare-site-04.11.2026-ora-9.00.pdf
+│   └── 2026-11-tabel-afisare-site-05.11.2026-ora-10.00.pdf
 ├── lib_db.sh
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
@@ -2552,7 +2554,15 @@
 │   ├── 2023-11-Ordin-3341P-28.10.2026-art-11.pdf
 │   ├── 2023-11-Ordin-3351P-28.10.2026-art-11.pdf
 │   ├── 2023-11-Ordin-3354P-29.09.2025-Art.11.pdf
+│   ├── 2023-11-Ordin-3394P-29.10.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3396P-29.10.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3425P-30.10.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3435P-02.11.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3437P-02.11.2026-art.11.pdf
 │   ├── 2023-11-Ordin-3442P-30.09.2025-art-11.pdf
+│   ├── 2023-11-Ordin-3468P-03.11.2026-art.11.pdf
+│   ├── 2023-11-Ordin-3470P-04.11.2026-art-11.pdf
+│   ├── 2023-11-Ordin-3472P-05.11.2026-art-11.pdf
 │   ├── 2023-11-Ordin-3670P-13.10.2025-art-11.pdf
 │   ├── 2023-11-ordin-3671P-13.10.2025-art-11.pdf
 │   ├── 2023-11-Ordin-3696P-14.10.2025-art-11.pdf
@@ -3123,4 +3133,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-36 directories, 3088 files
+36 directories, 3098 files
