@@ -874,6 +874,11 @@
 "sha1": "7c28ee701e21292826af69fd33601c30945df486",
 "size": 587858
 },
+"juramat/2026-11-10-NOIEMBRIE-ORA-1400.pdf": {
+"mtime": 1794307083,
+"sha1": "a3d932b483f29d68af4f7cfdfa16d526c04ccee4",
+"size": 372749
+},
 "juramat/2026-11-tabel-afisare-site-04.11.2026-ora-9.00.pdf": {
 "mtime": 1793796689,
 "sha1": "c08cc012a4e5390d8ed9bc76fb1c5a7ded306186",
@@ -883,5 +888,15 @@
 "mtime": 1793796689,
 "sha1": "ddb38c760e5cf2fd4038dd0a4f6bba973a7aee62",
 "size": 355565
+},
+"juramat/2026-11-tabel-afisare-site-11.11.2026-ora-10.00.pdf": {
+"mtime": 1794307083,
+"sha1": "e54161f75599ffcd4363d2f127460f4033ac86b2",
+"size": 508379
+},
+"juramat/2026-11-tabel-afisare-site-12.11.2026-ora-10.00.pdf": {
+"mtime": 1794307083,
+"sha1": "7a8e0104b496bb30769c79675c987f6417e36f53",
+"size": 493185
 }
 }

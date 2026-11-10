@@ -198,8 +198,11 @@
 │   ├── 2026-10-tabel-afisare-site-08.10.2026-ora-09.00.pdf
 │   ├── 2026-10-tabel-afisare-site-28.10.2026-ora-09.00.pdf
 │   ├── 2026-10-tabel-afisare-site-28.10.2026-ora-14.00.pdf
+│   ├── 2026-11-10-NOIEMBRIE-ORA-1400.pdf
 │   ├── 2026-11-tabel-afisare-site-04.11.2026-ora-9.00.pdf
-│   └── 2026-11-tabel-afisare-site-05.11.2026-ora-10.00.pdf
+│   ├── 2026-11-tabel-afisare-site-05.11.2026-ora-10.00.pdf
+│   ├── 2026-11-tabel-afisare-site-11.11.2026-ora-10.00.pdf
+│   └── 2026-11-tabel-afisare-site-12.11.2026-ora-10.00.pdf
 ├── lib_db.sh
 ├── minori
 │   ├── 2020-11-Ordin-minori-nr-1822P-din-03-11-2020.pdf
@@ -3098,19 +3101,32 @@
 │   │   ├── Art-11-2024-update-09.09.2026.pdf
 │   │   ├── Art-11-2025-update-09.09.2026.pdf
 │   │   └── Art-11-2026-update-09.09.2026.pdf
-│   └── 2026-10-08
-│       ├── Art-11-2015-update-08.10.2026.pdf
-│       ├── Art-11-2016-update-08.10.2026.pdf
-│       ├── Art-11-2017-update-08.10.2026.pdf
-│       ├── Art-11-2018-update-08.10.2026.pdf
-│       ├── Art-11-2019-update-08.10.2026.pdf
-│       ├── Art-11-2020-update-08.10.2026.pdf
-│       ├── Art-11-2021-update-08.10.2026.pdf
-│       ├── Art-11-2022-update-08.10.2026.pdf
-│       ├── Art-11-2023-update-08.10.2026.pdf
-│       ├── Art-11-2024-update-08.10.2026.pdf
-│       ├── Art-11-2025-update-08.10.2026.pdf
-│       └── Art-11-2026-update-08.10.2026.pdf
+│   ├── 2026-10-08
+│   │   ├── Art-11-2015-update-08.10.2026.pdf
+│   │   ├── Art-11-2016-update-08.10.2026.pdf
+│   │   ├── Art-11-2017-update-08.10.2026.pdf
+│   │   ├── Art-11-2018-update-08.10.2026.pdf
+│   │   ├── Art-11-2019-update-08.10.2026.pdf
+│   │   ├── Art-11-2020-update-08.10.2026.pdf
+│   │   ├── Art-11-2021-update-08.10.2026.pdf
+│   │   ├── Art-11-2022-update-08.10.2026.pdf
+│   │   ├── Art-11-2023-update-08.10.2026.pdf
+│   │   ├── Art-11-2024-update-08.10.2026.pdf
+│   │   ├── Art-11-2025-update-08.10.2026.pdf
+│   │   └── Art-11-2026-update-08.10.2026.pdf
+│   └── 2026-11-10
+│       ├── Art-11-2015-update-10.11.2026.pdf
+│       ├── Art-11-2016-update-10.11.2026.pdf
+│       ├── Art-11-2017-update-10.11.2026.pdf
+│       ├── Art-11-2018-update-10.11.2026.pdf
+│       ├── Art-11-2019-update-10.11.2026.pdf
+│       ├── Art-11-2020-update-10.11.2026.pdf
+│       ├── Art-11-2021-update-10.11.2026.pdf
+│       ├── Art-11-2022-update-10.11.2026.pdf
+│       ├── Art-11-2023-update-10.11.2026.pdf
+│       ├── Art-11-2024-update-10.11.2026.pdf
+│       ├── Art-11-2025-update-10.11.2026.pdf
+│       └── Art-11-2026-update-10.11.2026.pdf
 ├── state
 │   ├── juramat.json
 │   ├── minori.json
@@ -3133,4 +3149,4 @@
 ├── update-stadiu_all.sh
 └── update-stadiu.sh
 
-36 directories, 3098 files
+37 directories, 3113 files
